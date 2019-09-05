@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package botproto;
+
+import "tgbotapi.proto";
+
+// return Message
+// Use this method to send a game. On success, the sent Message is returned.
+message sendGame {
+	int32                chat_id              = 1; // Yes Unique identifier for the target chat
+	string               game_short_name      = 2; // Yes Short name of the game, serves as the unique identifier for the game. Set up your games via Botfather.
+	bool                 disable_notification = 3; // Optional Sends the message silently. Users will receive a notification with no sound.
+	int32                reply_to_message_id  = 4; // Optional If the message is a reply, ID of the original message
+	InlineKeyboardMarkup reply_markup         = 5; // Optional A JSON-serialized object for an inline keyboard. If empty, one ‘Play game_title’ button will be shown. If not empty, the first button must launch the game.
+}
+
+// return 
+// Use this method to set the score of the specified user in a game. On success, if the message was sent by the bot, returns the edited Message, otherwise returns True. Returns an error, if the new score is not greater than the user's current score in the chat and force is False.
+message setGameScore {
+	int32  user_id              = 1; // Yes User identifier
+	int32  score                = 2; // Yes New score, must be non-negative
+	bool   force                = 3; // Optional Pass True, if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
+	bool   disable_edit_message = 4; // Optional Pass True, if the game message should not be automatically edited to include the current scoreboard
+	int32  chat_id              = 5; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat
+	int32  message_id           = 6; // Optional Required if inline_message_id is not specified. Identifier of the sent message
+	string inline_message_id    = 7; // Optional Required if chat_id and message_id are not specified. Identifier of the inline message
+}
+
+// return Array of GameHighScore
+// Use this method to get data for high score tables. Will return the score of the specified user and several of his neighbors in a game. On success, returns an Array of GameHighScore objects.
+// This method will currently return scores for the target user, plus two of his closest neighbors on each side. Will also return the top three users if the user and his neighbors are not among them. Please note that this behavior is subject to change.
+// 
+message getGameHighScores {
+	int32  user_id           = 1; // Yes Target user id
+	int32  chat_id           = 2; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat
+	int32  message_id        = 3; // Optional Required if inline_message_id is not specified. Identifier of the sent message
+	string inline_message_id = 4; // Optional Required if chat_id and message_id are not specified. Identifier of the inline message
+}
+

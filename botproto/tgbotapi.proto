@@ -1,0 +1,679 @@
+syntax = "proto3";
+
+package botproto;
+
+// This object represents a Telegram user or bot.
+message User {
+	int32  id            = 1; //  Unique identifier for this user or bot
+	bool   is_bot        = 2; //  True, if this user is a bot
+	string first_name    = 3; //  User‘s or bot’s first name
+	string last_name     = 4; //  Optional. User‘s or bot’s last name
+	string username      = 5; //  Optional. User‘s or bot’s username
+	string language_code = 6; //  Optional. IETF language tag of the user's language
+}
+
+// This object represents a chat.
+message Chat {
+	int32           id                  = 1; //  Unique identifier for this chat. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+	string          type                = 2; //  Type of chat, can be either “private”, “group”, “supergroup” or “channel”
+	string          title               = 3; //  Optional. Title, for supergroups, channels and group chats
+	string          username            = 4; //  Optional. Username, for private chats, supergroups and channels if available
+	string          first_name          = 5; //  Optional. First name of the other party in a private chat
+	string          last_name           = 6; //  Optional. Last name of the other party in a private chat
+	ChatPhoto       photo               = 7; //  Optional. Chat photo. Returned only in getChat.
+	string          description         = 8; //  Optional. Description, for groups, supergroups and channel chats. Returned only in getChat.
+	string          invite_link         = 9; //  Optional. Chat invite link, for groups, supergroups and channel chats. Each administrator in a chat generates their own invite links, so the bot must first generate the link using exportChatInviteLink. Returned only in getChat.
+	Message         pinned_message      = 10; //  Optional. Pinned message, for groups, supergroups and channels. Returned only in getChat.
+	ChatPermissions permissions         = 11; //  Optional. Default chat member permissions, for groups and supergroups. Returned only in getChat.
+	string          sticker_set_name    = 12; //  Optional. For supergroups, name of group sticker set. Returned only in getChat.
+	bool            can_set_sticker_set = 13; //  Optional. True, if the bot can change the group sticker set. Returned only in getChat.
+}
+
+// This object represents a message.
+message Message {
+	int32                  message_id              = 1; //  Unique message identifier inside this chat
+	User                   from                    = 2; //  Optional. Sender, empty for messages sent to channels
+	int32                  date                    = 3; //  Date the message was sent in Unix time
+	Chat                   chat                    = 4; //  Conversation the message belongs to
+	User                   forward_from            = 5; //  Optional. For forwarded messages, sender of the original message
+	Chat                   forward_from_chat       = 6; //  Optional. For messages forwarded from channels, information about the original channel
+	int32                  forward_from_message_id = 7; //  Optional. For messages forwarded from channels, identifier of the original message in the channel
+	string                 forward_signature       = 8; //  Optional. For messages forwarded from channels, signature of the post author if present
+	string                 forward_sender_name     = 9; //  Optional. Sender's name for messages forwarded from users who disallow adding a link to their account in forwarded messages
+	int32                  forward_date            = 10; //  Optional. For forwarded messages, date the original message was sent in Unix time
+	Message                reply_to_message        = 11; //  Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+	int32                  edit_date               = 12; //  Optional. Date the message was last edited in Unix time
+	string                 media_group_id          = 13; //  Optional. The unique identifier of a media message group this message belongs to
+	string                 author_signature        = 14; //  Optional. Signature of the post author for messages in channels
+	string                 text                    = 15; //  Optional. For text messages, the actual UTF-8 text of the message, 0-4096 characters.
+	repeated MessageEntity entities                = 16; //  Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
+	repeated MessageEntity caption_entities        = 17; //  Optional. For messages with a caption, special entities like usernames, URLs, bot commands, etc. that appear in the caption
+	Audio                  audio                   = 18; //  Optional. Message is an audio file, information about the file
+	Document               document                = 19; //  Optional. Message is a general file, information about the file
+	Animation              animation               = 20; //  Optional. Message is an animation, information about the animation. For backward compatibility, when this field is set, the document field will also be set
+	Game                   game                    = 21; //  Optional. Message is a game, information about the game. More about games »
+	repeated PhotoSize     photo                   = 22; //  Optional. Message is a photo, available sizes of the photo
+	Sticker                sticker                 = 23; //  Optional. Message is a sticker, information about the sticker
+	Video                  video                   = 24; //  Optional. Message is a video, information about the video
+	Voice                  voice                   = 25; //  Optional. Message is a voice message, information about the file
+	VideoNote              video_note              = 26; //  Optional. Message is a video note, information about the video message
+	string                 caption                 = 27; //  Optional. Caption for the animation, audio, document, photo, video or voice, 0-1024 characters
+	Contact                contact                 = 28; //  Optional. Message is a shared contact, information about the contact
+	Location               location                = 29; //  Optional. Message is a shared location, information about the location
+	Venue                  venue                   = 30; //  Optional. Message is a venue, information about the venue
+	Poll                   poll                    = 31; //  Optional. Message is a native poll, information about the poll
+	repeated User          new_chat_members        = 32; //  Optional. New members that were added to the group or supergroup and information about them (the bot itself may be one of these members)
+	User                   left_chat_member        = 33; //  Optional. A member was removed from the group, information about them (this member may be the bot itself)
+	string                 new_chat_title          = 34; //  Optional. A chat title was changed to this value
+	repeated PhotoSize     new_chat_photo          = 35; //  Optional. A chat photo was change to this value
+	bool                   delete_chat_photo       = 36; //  Optional. Service message: the chat photo was deleted
+	bool                   group_chat_created      = 37; //  Optional. Service message: the group has been created
+	bool                   supergroup_chat_created = 38; //  Optional. Service message: the supergroup has been created. This field can‘t be received in a message coming through updates, because bot can’t be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+	bool                   channel_chat_created    = 39; //  Optional. Service message: the channel has been created. This field can‘t be received in a message coming through updates, because bot can’t be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+	int32                  migrate_to_chat_id      = 40; //  Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+	int32                  migrate_from_chat_id    = 41; //  Optional. The supergroup has been migrated from a group with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+	Message                pinned_message          = 42; //  Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
+	Invoice                invoice                 = 43; //  Optional. Message is an invoice for a payment, information about the invoice. More about payments »
+	SuccessfulPayment      successful_payment      = 44; //  Optional. Message is a service message about a successful payment, information about the payment. More about payments »
+	string                 connected_website       = 45; //  Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
+	PassportData           passport_data           = 46; //  Optional. Telegram Passport data
+	InlineKeyboardMarkup   reply_markup            = 47; //  Optional. Inline keyboard attached to the message.  buttons are represented as ordinary  buttons.
+}
+
+// This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc.
+message MessageEntity {
+	string type   = 1; //  Type of the entity. Can be mention (), hashtag, cashtag, bot_command, url, email, phone_number, bold (bold text), italic (italic text), code (monowidth string), pre (monowidth block), text_link (for clickable text URLs), text_mention (for users without usernames)
+	int32  offset = 2; //  Offset in UTF-16 code units to the start of the entity
+	int32  length = 3; //  Length of the entity in UTF-16 code units
+	string url    = 4; //  Optional. For “text_link” only, url that will be opened after user taps on the text
+	User   user   = 5; //  Optional. For “text_mention” only, the mentioned user
+}
+
+// This object represents one size of a photo or a file / sticker thumbnail.
+message PhotoSize {
+	string file_id   = 1; //  Identifier for this file
+	int32  width     = 2; //  Photo width
+	int32  height    = 3; //  Photo height
+	int32  file_size = 4; //  Optional. File size
+}
+
+// This object represents an audio file to be treated as music by the Telegram clients.
+message Audio {
+	string    file_id   = 1; //  Identifier for this file
+	int32     duration  = 2; //  Duration of the audio in seconds as defined by sender
+	string    performer = 3; //  Optional. Performer of the audio as defined by sender or by audio tags
+	string    title     = 4; //  Optional. Title of the audio as defined by sender or by audio tags
+	string    mime_type = 5; //  Optional. MIME type of the file as defined by sender
+	int32     file_size = 6; //  Optional. File size
+	PhotoSize thumb     = 7; //  Optional. Thumbnail of the album cover to which the music file belongs
+}
+
+// This object represents a general file (as opposed to photos, voice messages and audio files).
+message Document {
+	string    file_id   = 1; //  Identifier for this file
+	PhotoSize thumb     = 2; //  Optional. Document thumbnail as defined by sender
+	string    file_name = 3; //  Optional. Original filename as defined by sender
+	string    mime_type = 4; //  Optional. MIME type of the file as defined by sender
+	int32     file_size = 5; //  Optional. File size
+}
+
+// This object represents a video file.
+message Video {
+	string    file_id   = 1; //  Identifier for this file
+	int32     width     = 2; //  Video width as defined by sender
+	int32     height    = 3; //  Video height as defined by sender
+	int32     duration  = 4; //  Duration of the video in seconds as defined by sender
+	PhotoSize thumb     = 5; //  Optional. Video thumbnail
+	string    mime_type = 6; //  Optional. Mime type of a file as defined by sender
+	int32     file_size = 7; //  Optional. File size
+}
+
+// This object represents an animation file (GIF or H.264/MPEG-4 AVC video without sound).
+message Animation {
+	string    file_id   = 1; //  Identifier for this file
+	int32     width     = 2; //  Video width as defined by sender
+	int32     height    = 3; //  Video height as defined by sender
+	int32     duration  = 4; //  Duration of the video in seconds as defined by sender
+	PhotoSize thumb     = 5; //  Optional. Animation thumbnail as defined by sender
+	string    file_name = 6; //  Optional. Original animation filename as defined by sender
+	string    mime_type = 7; //  Optional. MIME type of the file as defined by sender
+	int32     file_size = 8; //  Optional. File size
+}
+
+// This object represents a voice note.
+message Voice {
+	string file_id   = 1; //  Identifier for this file
+	int32  duration  = 2; //  Duration of the audio in seconds as defined by sender
+	string mime_type = 3; //  Optional. MIME type of the file as defined by sender
+	int32  file_size = 4; //  Optional. File size
+}
+
+// This object represents a video message (available in Telegram apps as of v.4.0).
+message VideoNote {
+	string    file_id   = 1; //  Identifier for this file
+	int32     length    = 2; //  Video width and height (diameter of the video message) as defined by sender
+	int32     duration  = 3; //  Duration of the video in seconds as defined by sender
+	PhotoSize thumb     = 4; //  Optional. Video thumbnail
+	int32     file_size = 5; //  Optional. File size
+}
+
+// This object represents a phone contact.
+message Contact {
+	string phone_number = 1; //  Contact's phone number
+	string first_name   = 2; //  Contact's first name
+	string last_name    = 3; //  Optional. Contact's last name
+	int32  user_id      = 4; //  Optional. Contact's user identifier in Telegram
+	string vcard        = 5; //  Optional. Additional data about the contact in the form of a vCard
+}
+
+// This object represents a point on the map.
+message Location {
+	int64 longitude = 1; //  Longitude as defined by sender
+	int64 latitude  = 2; //  Latitude as defined by sender
+}
+
+// This object represents a venue.
+message Venue {
+	Location location        = 1; //  Venue location
+	string   title           = 2; //  Name of the venue
+	string   address         = 3; //  Address of the venue
+	string   foursquare_id   = 4; //  Optional. Foursquare identifier of the venue
+	string   foursquare_type = 5; //  Optional. Foursquare type of the venue. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+}
+
+// This object contains information about one answer option in a poll.
+message PollOption {
+	string text        = 1; //  Option text, 1-100 characters
+	int32  voter_count = 2; //  Number of users that voted for this option
+}
+
+// This object contains information about a poll.
+message Poll {
+	string              id        = 1; //  Unique poll identifier
+	string              question  = 2; //  Poll question, 1-255 characters
+	repeated PollOption options   = 3; //  List of poll options
+	bool                is_closed = 4; //  True, if the poll is closed
+}
+
+// This object represent a user's profile pictures.
+message UserProfilePhotos {
+	int32              total_count = 1; //  Total number of profile pictures the target user has
+	repeated PhotoSize photos      = 2; //  Requested profile pictures (in up to 4 sizes each)
+}
+
+// This object represents a file ready to be downloaded. The file can be downloaded via the link https://api.telegram.org/file/bot<token>/<file_path>. It is guaranteed that the link will be valid for at least 1 hour. When the link expires, a new one can be requested by calling getFile.
+// Maximum file size to download is 20 MB
+// 
+message File {
+	string file_id   = 1; //  Identifier for this file
+	int32  file_size = 2; //  Optional. File size, if known
+	string file_path = 3; //  Optional. File path. Use  to get the file.
+}
+
+// This object represents a custom keyboard with reply options (see Introduction to bots for details and examples).
+message ReplyKeyboardMarkup {
+	repeated KeyboardButton keyboard          = 1; //  Array of button rows, each represented by an Array of KeyboardButton objects
+	bool                    resize_keyboard   = 2; //  Optional. Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). Defaults to false, in which case the custom keyboard is always of the same height as the app's standard keyboard.
+	bool                    one_time_keyboard = 3; //  Optional. Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again. Defaults to false.
+	bool                    selective         = 4; //  Optional. Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.Example: A user requests to change the bot‘s language, bot replies to the request with a keyboard to select the new language. Other users in the group don’t see the keyboard.
+}
+
+// This object represents one button of the reply keyboard. For simple text buttons String can be used instead of this object to specify text of the button. Optional fields are mutually exclusive.
+// Note: request_contact and request_location options will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message KeyboardButton {
+	string text             = 1; //  Text of the button. If none of the optional fields are used, it will be sent as a message when the button is pressed
+	bool   request_contact  = 2; //  Optional. If True, the user's phone number will be sent as a contact when the button is pressed. Available in private chats only
+	bool   request_location = 3; //  Optional. If True, the user's current location will be sent when the button is pressed. Available in private chats only
+}
+
+// Upon receiving a message with this object, Telegram clients will remove the current custom keyboard and display the default letter-keyboard. By default, custom keyboards are displayed until a new keyboard is sent by a bot. An exception is made for one-time keyboards that are hidden immediately after the user presses a button (see ReplyKeyboardMarkup).
+message ReplyKeyboardRemove {
+	bool remove_keyboard = 1; //  Requests clients to remove the custom keyboard (user will not be able to summon this keyboard; if you want to hide the keyboard from sight but keep it accessible, use one_time_keyboard in ReplyKeyboardMarkup)
+	bool selective       = 2; //  Optional. Use this parameter if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet.
+}
+
+// This object represents an inline keyboard that appears right next to the message it belongs to.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will display unsupported message.
+message InlineKeyboardMarkup {
+	repeated InlineKeyboardButton inline_keyboard = 1; //  Array of button rows, each represented by an Array of InlineKeyboardButton objects
+}
+
+// This object represents one button of an inline keyboard. You must use exactly one of the optional fields.
+message InlineKeyboardButton {
+	string       text                             = 1; //  Label text on the button
+	string       url                              = 2; //  Optional. HTTP or tg:// url to be opened when button is pressed
+	LoginUrl     login_url                        = 3; //  Optional. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget.
+	string       callback_data                    = 4; //  Optional. Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes
+	string       switch_inline_query              = 5; //  Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot‘s username and the specified inline query in the input field. Can be empty, in which case just the bot’s username will be inserted. This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with em actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
+	string       switch_inline_query_current_chat = 6; //  Optional. If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat's input field. Can be empty, in which case only the bot’s username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options.
+	CallbackGame callback_game                    = 7; //  Optional. Description of the game that will be launched when the user presses the button. This type of button  always be the first button in the first row.
+	bool         pay                              = 8; //  Optional. Specify True, to send a Pay button. This type of button  always be the first button in the first row.
+}
+
+// This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the Telegram Login Widget when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in:
+// Telegram apps support these buttons as of version 5.7.
+// Sample bot: @discussbot
+// 
+message LoginUrl {
+	string url                  = 1; //  An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data. You  always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization.
+	string forward_text         = 2; //  Optional. New text of the button in forwarded messages.
+	string bot_username         = 3; //  Optional. Username of a bot, which will be used for user authorization. See Setting up a bot for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot for more details.
+	bool   request_write_access = 4; //  Optional. Pass True to request the permission for your bot to send messages to the user.
+}
+
+// This object represents an incoming callback query from a callback button in an inline keyboard. If the button that originated the query was attached to a message sent by the bot, the field message will be present. If the button was attached to a message sent via the bot (in inline mode), the field inline_message_id will be present. Exactly one of the fields data or game_short_name will be present.
+// NOTE: After the user presses a callback button, Telegram clients will display a progress bar until you call answerCallbackQuery. It is, therefore, necessary to react by calling answerCallbackQuery even if no notification to the user is needed (e.g., without specifying any of the optional parameters).
+// 
+message CallbackQuery {
+	string  id                = 1; //  Unique identifier for this query
+	User    from              = 2; //  Sender
+	Message message           = 3; //  Optional. Message with the callback button that originated the query. Note that message content and message date will not be available if the message is too old
+	string  inline_message_id = 4; //  Optional. Identifier of the message sent via the bot in inline mode, that originated the query.
+	string  chat_instance     = 5; //  Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
+	string  data              = 6; //  Optional. Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field.
+	string  game_short_name   = 7; //  Optional. Short name of a Game to be returned, serves as the unique identifier for the game
+}
+
+// Upon receiving a message with this object, Telegram clients will display a reply interface to the user (act as if the user has selected the bot‘s message and tapped ’Reply'). This can be extremely useful if you want to create user-friendly step-by-step interfaces without having to sacrifice privacy mode.
+// Example: A poll bot for groups runs in privacy mode (only receives commands, replies to its messages and mentions). There could be two ways to create a new poll:
+// 
+// Explain the user how to send a command with parameters (e.g. /newpoll question answer1 answer2). May be appealing for hardcore users but lacks modern day polish.
+// Guide the user through a step-by-step process. ‘Please send me your question’, ‘Cool, now let’s add the first answer option‘, ’Great. Keep adding answer options, then send /done when you‘re ready’.
+// 
+// The last option is definitely more attractive. And if you use ForceReply in your bot‘s questions, it will receive the user’s answers even if it only receives replies, commands and mentions — without any extra work for the user.
+// 
+message ForceReply {
+	bool force_reply = 1; //  Shows reply interface to the user, as if they manually selected the bot‘s message and tapped ’Reply'
+	bool selective   = 2; //  Optional. Use this parameter if you want to force reply from specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.
+}
+
+// This object represents a chat photo.
+message ChatPhoto {
+	string small_file_id = 1; //  File identifier of small (160x160) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed.
+	string big_file_id   = 2; //  File identifier of big (640x640) chat photo. This file_id can be used only for photo download and only for as long as the photo is not changed.
+}
+
+// This object contains information about one member of a chat.
+message ChatMember {
+	User   user                      = 1; //  Information about the user
+	string status                    = 2; //  The member's status in the chat. Can be “creator”, “administrator”, “member”, “restricted”, “left” or “kicked”
+	int32  until_date                = 3; //  Optional. Restricted and kicked only. Date when restrictions will be lifted for this user; unix time
+	bool   can_be_edited             = 4; //  Optional. Administrators only. True, if the bot is allowed to edit administrator privileges of that user
+	bool   can_post_messages         = 5; //  Optional. Administrators only. True, if the administrator can post in the channel; channels only
+	bool   can_edit_messages         = 6; //  Optional. Administrators only. True, if the administrator can edit messages of other users and can pin messages; channels only
+	bool   can_delete_messages       = 7; //  Optional. Administrators only. True, if the administrator can delete messages of other users
+	bool   can_restrict_members      = 8; //  Optional. Administrators only. True, if the administrator can restrict, ban or unban chat members
+	bool   can_promote_members       = 9; //  Optional. Administrators only. True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by the user)
+	bool   can_change_info           = 10; //  Optional. Administrators and restricted only. True, if the user is allowed to change the chat title, photo and other settings
+	bool   can_invite_users          = 11; //  Optional. Administrators and restricted only. True, if the user is allowed to invite new users to the chat
+	bool   can_pin_messages          = 12; //  Optional. Administrators and restricted only. True, if the user is allowed to pin messages; groups and supergroups only
+	bool   is_member                 = 13; //  Optional. Restricted only. True, if the user is a member of the chat at the moment of the request
+	bool   can_send_messages         = 14; //  Optional. Restricted only. True, if the user is allowed to send text messages, contacts, locations and venues
+	bool   can_send_media_messages   = 15; //  Optional. Restricted only. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes
+	bool   can_send_polls            = 16; //  Optional. Restricted only. True, if the user is allowed to send polls
+	bool   can_send_other_messages   = 17; //  Optional. Restricted only. True, if the user is allowed to send animations, games, stickers and use inline bots
+	bool   can_add_web_page_previews = 18; //  Optional. Restricted only. True, if the user is allowed to add web page previews to their messages
+}
+
+// Describes actions that a non-administrator user is allowed to take in a chat.
+message ChatPermissions {
+	bool can_send_messages         = 1; //  Optional. True, if the user is allowed to send text messages, contacts, locations and venues
+	bool can_send_media_messages   = 2; //  Optional. True, if the user is allowed to send audios, documents, photos, videos, video notes and voice notes, implies can_send_messages
+	bool can_send_polls            = 3; //  Optional. True, if the user is allowed to send polls, implies can_send_messages
+	bool can_send_other_messages   = 4; //  Optional. True, if the user is allowed to send animations, games, stickers and use inline bots, implies can_send_media_messages
+	bool can_add_web_page_previews = 5; //  Optional. True, if the user is allowed to add web page previews to their messages, implies can_send_media_messages
+	bool can_change_info           = 6; //  Optional. True, if the user is allowed to change the chat title, photo and other settings. Ignored in public supergroups
+	bool can_invite_users          = 7; //  Optional. True, if the user is allowed to invite new users to the chat
+	bool can_pin_messages          = 8; //  Optional. True, if the user is allowed to pin messages. Ignored in public supergroups
+}
+
+// Contains information about why a request was unsuccessful.
+message ResponseParameters {
+	int32 migrate_to_chat_id = 1; //  Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
+	int32 retry_after        = 2; //  Optional. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
+}
+
+// This object represents the content of a media message to be sent. It should be one of
+message InputMedia {
+}
+
+// Represents a photo to be sent.
+message InputMediaPhoto {
+	string type       = 1; //  Type of the result, must be photo
+	string media      = 2; //  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More info on Sending Files »
+	string caption    = 3; //  Optional. Caption of the photo to be sent, 0-1024 characters
+	string parse_mode = 4; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+}
+
+// Represents a video to be sent.
+message InputMediaVideo {
+	string type               = 1; //  Type of the result, must be video
+	string media              = 2; //  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More info on Sending Files »
+	string thumb              = 3; //  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
+	string caption            = 4; //  Optional. Caption of the video to be sent, 0-1024 characters
+	string parse_mode         = 5; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	int32  width              = 6; //  Optional. Video width
+	int32  height             = 7; //  Optional. Video height
+	int32  duration           = 8; //  Optional. Video duration
+	bool   supports_streaming = 9; //  Optional. Pass True, if the uploaded video is suitable for streaming
+}
+
+// Represents an animation file (GIF or H.264/MPEG-4 AVC video without sound) to be sent.
+message InputMediaAnimation {
+	string type       = 1; //  Type of the result, must be animation
+	string media      = 2; //  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More info on Sending Files »
+	string thumb      = 3; //  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
+	string caption    = 4; //  Optional. Caption of the animation to be sent, 0-1024 characters
+	string parse_mode = 5; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	int32  width      = 6; //  Optional. Animation width
+	int32  height     = 7; //  Optional. Animation height
+	int32  duration   = 8; //  Optional. Animation duration
+}
+
+// Represents an audio file to be treated as music to be sent.
+message InputMediaAudio {
+	string type       = 1; //  Type of the result, must be audio
+	string media      = 2; //  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More info on Sending Files »
+	string thumb      = 3; //  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
+	string caption    = 4; //  Optional. Caption of the audio to be sent, 0-1024 characters
+	string parse_mode = 5; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	int32  duration   = 6; //  Optional. Duration of the audio in seconds
+	string performer  = 7; //  Optional. Performer of the audio
+	string title      = 8; //  Optional. Title of the audio
+}
+
+// Represents a general file to be sent.
+message InputMediaDocument {
+	string type       = 1; //  Type of the result, must be document
+	string media      = 2; //  File to send. Pass a file_id to send a file that exists on the Telegram servers (recommended), pass an HTTP URL for Telegram to get a file from the Internet, or pass “attach://<file_attach_name>” to upload a new one using multipart/form-data under <file_attach_name> name. More info on Sending Files »
+	string thumb      = 3; //  Optional. Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
+	string caption    = 4; //  Optional. Caption of the document to be sent, 0-1024 characters
+	string parse_mode = 5; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+}
+
+// This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
+//  There are three ways to send files (photos, stickers, audio, media, etc.):
+// Sending by file_id
+// Sending by URL
+// Objects and methods used in the inline mode are described in the Inline mode section.
+message InputFile {
+}
+
+// Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
+// Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @Botfather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
+// 
+// Methods and objects used in the inline mode are described in the Inline mode section.
+message answerCallbackQuery {
+	string callback_query_id = 1; //  Unique identifier for the query to be answered
+	string text              = 2; //  Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters
+	bool   show_alert        = 3; //  If true, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false.
+	string url               = 4; //  URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game – note that this will only work if the query comes from a em button.Otherwise, you may use links like  that open your bot with a parameter.
+	int32  cache_time        = 5; //  The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
+}
+
+// This object represents a sticker.
+message Sticker {
+	string       file_id       = 1; //  Identifier for this file
+	int32        width         = 2; //  Sticker width
+	int32        height        = 3; //  Sticker height
+	bool         is_animated   = 4; //  True, if the sticker is animated
+	PhotoSize    thumb         = 5; //  Optional. Sticker thumbnail in the .webp or .jpg format
+	string       emoji         = 6; //  Optional. Emoji associated with the sticker
+	string       set_name      = 7; //  Optional. Name of the sticker set to which the sticker belongs
+	MaskPosition mask_position = 8; //  Optional. For mask stickers, the position where the mask should be placed
+	int32        file_size     = 9; //  Optional. File size
+}
+
+// This object represents a sticker set.
+message StickerSet {
+	string           name           = 1; //  Sticker set name
+	string           title          = 2; //  Sticker set title
+	bool             is_animated    = 3; //  True, if the sticker set contains animated stickers
+	bool             contains_masks = 4; //  True, if the sticker set contains masks
+	repeated Sticker stickers       = 5; //  List of all set stickers
+}
+
+// This object describes the position on faces where a mask should be placed by default.
+message MaskPosition {
+	string point   = 1; //  The part of the face relative to which the mask should be placed. One of “forehead”, “eyes”, “mouth”, or “chin”.
+	int64  x_shift = 2; //  Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. For example, choosing -1.0 will place mask just to the left of the default mask position.
+	int64  y_shift = 3; //  Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. For example, 1.0 will place the mask just below the default mask position.
+	int64  scale   = 4; //  Mask scaling coefficient. For example, 2.0 means double size.
+}
+
+// Use this method to add a new sticker to a set created by the bot. Returns True on success.
+message addStickerToSet {
+	int32        user_id       = 1; //  User identifier of sticker set owner
+	string       name          = 2; //  Sticker set name
+	string       png_sticker   = 3; //   image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
+	string       emojis        = 4; //  One or more emoji corresponding to the sticker
+	MaskPosition mask_position = 5; //  A JSON-serialized object for position where the mask should be placed on faces
+}
+
+// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
+message answerShippingQuery {
+	string                  shipping_query_id = 1; //  Unique identifier for the query to be answered
+	bool                    ok                = 2; //  Specify True if delivery to the specified address is possible and False if there are any problems (for example, if delivery to the specified address is not possible)
+	repeated ShippingOption shipping_options  = 3; //  Required if ok is True. A JSON-serialized array of available shipping options.
+	string                  error_message     = 4; //  Required if ok is False. Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
+}
+
+// Once the user has confirmed their payment and shipping details, the Bot API sends the final confirmation in the form of an Update with the field pre_checkout_query. Use this method to respond to such pre-checkout queries. On success, True is returned. Note: The Bot API must receive an answer within 10 seconds after the pre-checkout query was sent.
+message answerPreCheckoutQuery {
+	string pre_checkout_query_id = 1; //  Unique identifier for the query to be answered
+	bool   ok                    = 2; //  Specify True if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order. Use False if there are any problems.
+	string error_message         = 3; //  Required if ok is False. Error message in human readable form that explains the reason for failure to proceed with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to the user.
+}
+
+// This object represents a portion of the price for goods or services.
+message LabeledPrice {
+	string label  = 1; //  Portion label
+	int32  amount = 2; //  Price of the product in the smallest units of the currency (integer,  float/double). For example, for a price of  pass . See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+}
+
+// This object contains basic information about an invoice.
+message Invoice {
+	string title           = 1; //  Product name
+	string description     = 2; //  Product description
+	string start_parameter = 3; //  Unique bot deep-linking parameter that can be used to generate this invoice
+	string currency        = 4; //  Three-letter ISO 4217 currency code
+	int32  total_amount    = 5; //  Total price in the smallest units of the currency (integer,  float/double). For example, for a price of  pass . See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+}
+
+// This object represents a shipping address.
+message ShippingAddress {
+	string country_code = 1; //  ISO 3166-1 alpha-2 country code
+	string state        = 2; //  State, if applicable
+	string city         = 3; //  City
+	string street_line1 = 4; //  First line for the address
+	string street_line2 = 5; //  Second line for the address
+	string post_code    = 6; //  Address post code
+}
+
+// This object represents information about an order.
+message OrderInfo {
+	string          name             = 1; //  Optional. User name
+	string          phone_number     = 2; //  Optional. User's phone number
+	string          email            = 3; //  Optional. User email
+	ShippingAddress shipping_address = 4; //  Optional. User shipping address
+}
+
+// This object represents one shipping option.
+message ShippingOption {
+	string                id     = 1; //  Shipping option identifier
+	string                title  = 2; //  Option title
+	repeated LabeledPrice prices = 3; //  List of price portions
+}
+
+// This object contains basic information about a successful payment.
+message SuccessfulPayment {
+	string    currency                   = 1; //  Three-letter ISO 4217 currency code
+	int32     total_amount               = 2; //  Total price in the smallest units of the currency (integer,  float/double). For example, for a price of  pass . See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	string    invoice_payload            = 3; //  Bot specified invoice payload
+	string    shipping_option_id         = 4; //  Optional. Identifier of the shipping option chosen by the user
+	OrderInfo order_info                 = 5; //  Optional. Order info provided by the user
+	string    telegram_payment_charge_id = 6; //  Telegram payment identifier
+	string    provider_payment_charge_id = 7; //  Provider payment identifier
+}
+
+// This object contains information about an incoming shipping query.
+message ShippingQuery {
+	string          id               = 1; //  Unique query identifier
+	User            from             = 2; //  User who sent the query
+	string          invoice_payload  = 3; //  Bot specified invoice payload
+	ShippingAddress shipping_address = 4; //  User specified shipping address
+}
+
+// This object contains information about an incoming pre-checkout query.
+message PreCheckoutQuery {
+	string    id                 = 1; //  Unique query identifier
+	User      from               = 2; //  User who sent the query
+	string    currency           = 3; //  Three-letter ISO 4217 currency code
+	int32     total_amount       = 4; //  Total price in the smallest units of the currency (integer,  float/double). For example, for a price of  pass . See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	string    invoice_payload    = 5; //  Bot specified invoice payload
+	string    shipping_option_id = 6; //  Optional. Identifier of the shipping option chosen by the user
+	OrderInfo order_info         = 7; //  Optional. Order info provided by the user
+}
+
+// Contains information about Telegram Passport data shared with the bot by the user.
+message PassportData {
+	repeated EncryptedPassportElement data        = 1; //  Array with information about documents and other Telegram Passport elements that was shared with the bot
+	EncryptedCredentials              credentials = 2; //  Encrypted credentials required to decrypt the data
+}
+
+// This object represents a file uploaded to Telegram Passport. Currently all Telegram Passport files are in JPEG format when decrypted and don't exceed 10MB.
+message PassportFile {
+	string file_id   = 1; //  Identifier for this file
+	int32  file_size = 2; //  File size
+	int32  file_date = 3; //  Unix time when the file was uploaded
+}
+
+// Contains information about documents or other Telegram Passport elements shared with the bot by the user.
+message EncryptedPassportElement {
+	string                type         = 1; //  Element type. One of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”, “phone_number”, “email”.
+	string                data         = 2; //  Optional. Base64-encoded encrypted Telegram Passport element data provided by the user, available for “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport” and “address” types. Can be decrypted and verified using the accompanying EncryptedCredentials.
+	string                phone_number = 3; //  Optional. User's verified phone number, available only for “phone_number” type
+	string                email        = 4; //  Optional. User's verified email address, available only for “email” type
+	repeated PassportFile files        = 5; //  Optional. Array of encrypted files with documents provided by the user, available for “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials.
+	PassportFile          front_side   = 6; //  Optional. Encrypted file with the front side of the document, provided by the user. Available for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying EncryptedCredentials.
+	PassportFile          reverse_side = 7; //  Optional. Encrypted file with the reverse side of the document, provided by the user. Available for “driver_license” and “identity_card”. The file can be decrypted and verified using the accompanying EncryptedCredentials.
+	PassportFile          selfie       = 8; //  Optional. Encrypted file with the selfie of the user holding a document, provided by the user; available for “passport”, “driver_license”, “identity_card” and “internal_passport”. The file can be decrypted and verified using the accompanying EncryptedCredentials.
+	repeated PassportFile translation  = 9; //  Optional. Array of encrypted files with translated versions of documents provided by the user. Available if requested for “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration” and “temporary_registration” types. Files can be decrypted and verified using the accompanying EncryptedCredentials.
+	string                hash         = 10; //  Base64-encoded element hash for using in PassportElementErrorUnspecified
+}
+
+// Contains data required for decrypting and authenticating EncryptedPassportElement. See the Telegram Passport Documentation for a complete description of the data decryption and authentication processes.
+message EncryptedCredentials {
+	string data   = 1; //  Base64-encoded encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication
+	string hash   = 2; //  Base64-encoded data hash for data authentication
+	string secret = 3; //  Base64-encoded secret, encrypted with the bot's public RSA key, required for data decryption
+}
+
+// This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
+message PassportElementError {
+}
+
+// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
+message PassportElementErrorDataField {
+	string source     = 1; //  Error source, must be data
+	string type       = 2; //  The section of the user's Telegram Passport which has the error, one of “personal_details”, “passport”, “driver_license”, “identity_card”, “internal_passport”, “address”
+	string field_name = 3; //  Name of the data field which has the error
+	string data_hash  = 4; //  Base64-encoded data hash
+	string message    = 5; //  Error message
+}
+
+// Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.
+message PassportElementErrorFrontSide {
+	string source    = 1; //  Error source, must be front_side
+	string type      = 2; //  The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
+	string file_hash = 3; //  Base64-encoded hash of the file with the front side of the document
+	string message   = 4; //  Error message
+}
+
+// Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.
+message PassportElementErrorReverseSide {
+	string source    = 1; //  Error source, must be reverse_side
+	string type      = 2; //  The section of the user's Telegram Passport which has the issue, one of “driver_license”, “identity_card”
+	string file_hash = 3; //  Base64-encoded hash of the file with the reverse side of the document
+	string message   = 4; //  Error message
+}
+
+// Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes.
+message PassportElementErrorSelfie {
+	string source    = 1; //  Error source, must be selfie
+	string type      = 2; //  The section of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”
+	string file_hash = 3; //  Base64-encoded hash of the file with the selfie
+	string message   = 4; //  Error message
+}
+
+// Represents an issue with a document scan. The error is considered resolved when the file with the document scan changes.
+message PassportElementErrorFile {
+	string source    = 1; //  Error source, must be file
+	string type      = 2; //  The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+	string file_hash = 3; //  Base64-encoded file hash
+	string message   = 4; //  Error message
+}
+
+// Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.
+message PassportElementErrorFiles {
+	string          source      = 1; //  Error source, must be files
+	string          type        = 2; //  The section of the user's Telegram Passport which has the issue, one of “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+	repeated string file_hashes = 3; //  List of base64-encoded file hashes
+	string          message     = 4; //  Error message
+}
+
+// Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.
+message PassportElementErrorTranslationFile {
+	string source    = 1; //  Error source, must be translation_file
+	string type      = 2; //  Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+	string file_hash = 3; //  Base64-encoded file hash
+	string message   = 4; //  Error message
+}
+
+// Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation change.
+message PassportElementErrorTranslationFiles {
+	string          source      = 1; //  Error source, must be translation_files
+	string          type        = 2; //  Type of element of the user's Telegram Passport which has the issue, one of “passport”, “driver_license”, “identity_card”, “internal_passport”, “utility_bill”, “bank_statement”, “rental_agreement”, “passport_registration”, “temporary_registration”
+	repeated string file_hashes = 3; //  List of base64-encoded file hashes
+	string          message     = 4; //  Error message
+}
+
+// Represents an issue in an unspecified place. The error is considered resolved when new data is added.
+message PassportElementErrorUnspecified {
+	string source       = 1; //  Error source, must be unspecified
+	string type         = 2; //  Type of element of the user's Telegram Passport which has the issue
+	string element_hash = 3; //  Base64-encoded element hash
+	string message      = 4; //  Error message
+}
+
+// This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers.
+message Game {
+	string                 title         = 1; //  Title of the game
+	string                 description   = 2; //  Description of the game
+	repeated PhotoSize     photo         = 3; //  Photo that will be displayed in the game message in chats.
+	string                 text          = 4; //  Optional. Brief description of the game or high scores included in the game message. Can be automatically edited to include current high scores for the game when the bot calls setGameScore, or manually edited using editMessageText. 0-4096 characters.
+	repeated MessageEntity text_entities = 5; //  Optional. Special entities that appear in text, such as usernames, URLs, bot commands, etc.
+	Animation              animation     = 6; //  Optional. Animation that will be displayed in the game message in chats. Upload via BotFather
+}
+
+// A placeholder, currently holds no information. Use BotFather to set up your game.
+message CallbackGame {
+}
+
+// This object represents one row of the high scores table for a game.
+// And that‘s about all we’ve got for now.If you've got any questions, please check out our Bot FAQ »
+message GameHighScore {
+	int32 position = 1; //  Position in high score table for the game
+	User  user     = 2; //  User
+	int32 score    = 3; //  Score
+}
+
+
+message ReplyMarkup {
+	oneof ReplyMarkup {
+		InlineKeyboardMarkup InlineKeyboardMarkup = 1;
+		ReplyKeyboardMarkup  ReplyKeyboardMarkup  = 2;
+		ReplyKeyboardRemove  ReplyKeyboardRemove  = 3;
+		ForceReply			 ForceReply			  = 4;
+	}
+}
