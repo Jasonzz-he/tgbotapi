@@ -12,6 +12,8 @@ func TestBot_SetPassportDataErrors(t *testing.T) {
 		UserId: 0,   // int32
 		Errors: nil, // repeated PassportElementError
 	})
-	assertions.ShouldBeNil(err)
-	log.Printf("%#v", rst)
+	log.Println(assertions.ShouldBeNil(err))
+	if nil == err {
+		log.Printf("%#v", rst)
+	}
 }

@@ -14,6 +14,170 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+// There are two mutually exclusive ways of receiving updates for your bot — the getUpdates method on one hand and Webhooks on the other. Incoming updates are stored on the server until the bot receives them either way, but they will not be kept longer than 24 hours.
+// Regardless of which option you choose, you will receive JSON-serialized Update objects as a result.
+// This object represents an incoming update.At most one of the optional parameters can be present in any given update.
+type Update struct {
+	UpdateId           int32               `protobuf:"varint,1,opt,name=update_id,json=updateId,proto3" json:"update_id,omitempty"`
+	Message            *Message            `protobuf:"bytes,2,opt,name=message" json:"message,omitempty"`
+	EditedMessage      *Message            `protobuf:"bytes,3,opt,name=edited_message,json=editedMessage" json:"edited_message,omitempty"`
+	ChannelPost        *Message            `protobuf:"bytes,4,opt,name=channel_post,json=channelPost" json:"channel_post,omitempty"`
+	EditedChannelPost  *Message            `protobuf:"bytes,5,opt,name=edited_channel_post,json=editedChannelPost" json:"edited_channel_post,omitempty"`
+	InlineQuery        *InlineQuery        `protobuf:"bytes,6,opt,name=inline_query,json=inlineQuery" json:"inline_query,omitempty"`
+	ChosenInlineResult *ChosenInlineResult `protobuf:"bytes,7,opt,name=chosen_inline_result,json=chosenInlineResult" json:"chosen_inline_result,omitempty"`
+	CallbackQuery      *CallbackQuery      `protobuf:"bytes,8,opt,name=callback_query,json=callbackQuery" json:"callback_query,omitempty"`
+	ShippingQuery      *ShippingQuery      `protobuf:"bytes,9,opt,name=shipping_query,json=shippingQuery" json:"shipping_query,omitempty"`
+	PreCheckoutQuery   *PreCheckoutQuery   `protobuf:"bytes,10,opt,name=pre_checkout_query,json=preCheckoutQuery" json:"pre_checkout_query,omitempty"`
+	Poll               *Poll               `protobuf:"bytes,11,opt,name=poll" json:"poll,omitempty"`
+}
+
+func (m *Update) Reset()                    { *m = Update{} }
+func (m *Update) String() string            { return proto.CompactTextString(m) }
+func (*Update) ProtoMessage()               {}
+func (*Update) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{0} }
+
+func (m *Update) GetUpdateId() int32 {
+	if m != nil {
+		return m.UpdateId
+	}
+	return 0
+}
+
+func (m *Update) GetMessage() *Message {
+	if m != nil {
+		return m.Message
+	}
+	return nil
+}
+
+func (m *Update) GetEditedMessage() *Message {
+	if m != nil {
+		return m.EditedMessage
+	}
+	return nil
+}
+
+func (m *Update) GetChannelPost() *Message {
+	if m != nil {
+		return m.ChannelPost
+	}
+	return nil
+}
+
+func (m *Update) GetEditedChannelPost() *Message {
+	if m != nil {
+		return m.EditedChannelPost
+	}
+	return nil
+}
+
+func (m *Update) GetInlineQuery() *InlineQuery {
+	if m != nil {
+		return m.InlineQuery
+	}
+	return nil
+}
+
+func (m *Update) GetChosenInlineResult() *ChosenInlineResult {
+	if m != nil {
+		return m.ChosenInlineResult
+	}
+	return nil
+}
+
+func (m *Update) GetCallbackQuery() *CallbackQuery {
+	if m != nil {
+		return m.CallbackQuery
+	}
+	return nil
+}
+
+func (m *Update) GetShippingQuery() *ShippingQuery {
+	if m != nil {
+		return m.ShippingQuery
+	}
+	return nil
+}
+
+func (m *Update) GetPreCheckoutQuery() *PreCheckoutQuery {
+	if m != nil {
+		return m.PreCheckoutQuery
+	}
+	return nil
+}
+
+func (m *Update) GetPoll() *Poll {
+	if m != nil {
+		return m.Poll
+	}
+	return nil
+}
+
+// Contains information about the current status of a webhook.
+type WebhookInfo struct {
+	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	HasCustomCertificate bool     `protobuf:"varint,2,opt,name=has_custom_certificate,json=hasCustomCertificate,proto3" json:"has_custom_certificate,omitempty"`
+	PendingUpdateCount   int32    `protobuf:"varint,3,opt,name=pending_update_count,json=pendingUpdateCount,proto3" json:"pending_update_count,omitempty"`
+	LastErrorDate        int32    `protobuf:"varint,4,opt,name=last_error_date,json=lastErrorDate,proto3" json:"last_error_date,omitempty"`
+	LastErrorMessage     string   `protobuf:"bytes,5,opt,name=last_error_message,json=lastErrorMessage,proto3" json:"last_error_message,omitempty"`
+	MaxConnections       int32    `protobuf:"varint,6,opt,name=max_connections,json=maxConnections,proto3" json:"max_connections,omitempty"`
+	AllowedUpdates       []string `protobuf:"bytes,7,rep,name=allowed_updates,json=allowedUpdates" json:"allowed_updates,omitempty"`
+}
+
+func (m *WebhookInfo) Reset()                    { *m = WebhookInfo{} }
+func (m *WebhookInfo) String() string            { return proto.CompactTextString(m) }
+func (*WebhookInfo) ProtoMessage()               {}
+func (*WebhookInfo) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{1} }
+
+func (m *WebhookInfo) GetUrl() string {
+	if m != nil {
+		return m.Url
+	}
+	return ""
+}
+
+func (m *WebhookInfo) GetHasCustomCertificate() bool {
+	if m != nil {
+		return m.HasCustomCertificate
+	}
+	return false
+}
+
+func (m *WebhookInfo) GetPendingUpdateCount() int32 {
+	if m != nil {
+		return m.PendingUpdateCount
+	}
+	return 0
+}
+
+func (m *WebhookInfo) GetLastErrorDate() int32 {
+	if m != nil {
+		return m.LastErrorDate
+	}
+	return 0
+}
+
+func (m *WebhookInfo) GetLastErrorMessage() string {
+	if m != nil {
+		return m.LastErrorMessage
+	}
+	return ""
+}
+
+func (m *WebhookInfo) GetMaxConnections() int32 {
+	if m != nil {
+		return m.MaxConnections
+	}
+	return 0
+}
+
+func (m *WebhookInfo) GetAllowedUpdates() []string {
+	if m != nil {
+		return m.AllowedUpdates
+	}
+	return nil
+}
+
 // This object represents a Telegram user or bot.
 type User struct {
 	Id           int32  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -27,7 +191,7 @@ type User struct {
 func (m *User) Reset()                    { *m = User{} }
 func (m *User) String() string            { return proto.CompactTextString(m) }
 func (*User) ProtoMessage()               {}
-func (*User) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{0} }
+func (*User) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{2} }
 
 func (m *User) GetId() int32 {
 	if m != nil {
@@ -91,7 +255,7 @@ type Chat struct {
 func (m *Chat) Reset()                    { *m = Chat{} }
 func (m *Chat) String() string            { return proto.CompactTextString(m) }
 func (*Chat) ProtoMessage()               {}
-func (*Chat) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{1} }
+func (*Chat) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{3} }
 
 func (m *Chat) GetId() int32 {
 	if m != nil {
@@ -238,7 +402,7 @@ type Message struct {
 func (m *Message) Reset()                    { *m = Message{} }
 func (m *Message) String() string            { return proto.CompactTextString(m) }
 func (*Message) ProtoMessage()               {}
-func (*Message) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{2} }
+func (*Message) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{4} }
 
 func (m *Message) GetMessageId() int32 {
 	if m != nil {
@@ -581,7 +745,7 @@ type MessageEntity struct {
 func (m *MessageEntity) Reset()                    { *m = MessageEntity{} }
 func (m *MessageEntity) String() string            { return proto.CompactTextString(m) }
 func (*MessageEntity) ProtoMessage()               {}
-func (*MessageEntity) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{3} }
+func (*MessageEntity) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{5} }
 
 func (m *MessageEntity) GetType() string {
 	if m != nil {
@@ -629,7 +793,7 @@ type PhotoSize struct {
 func (m *PhotoSize) Reset()                    { *m = PhotoSize{} }
 func (m *PhotoSize) String() string            { return proto.CompactTextString(m) }
 func (*PhotoSize) ProtoMessage()               {}
-func (*PhotoSize) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{4} }
+func (*PhotoSize) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{6} }
 
 func (m *PhotoSize) GetFileId() string {
 	if m != nil {
@@ -673,7 +837,7 @@ type Audio struct {
 func (m *Audio) Reset()                    { *m = Audio{} }
 func (m *Audio) String() string            { return proto.CompactTextString(m) }
 func (*Audio) ProtoMessage()               {}
-func (*Audio) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{5} }
+func (*Audio) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{7} }
 
 func (m *Audio) GetFileId() string {
 	if m != nil {
@@ -736,7 +900,7 @@ type Document struct {
 func (m *Document) Reset()                    { *m = Document{} }
 func (m *Document) String() string            { return proto.CompactTextString(m) }
 func (*Document) ProtoMessage()               {}
-func (*Document) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{6} }
+func (*Document) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{8} }
 
 func (m *Document) GetFileId() string {
 	if m != nil {
@@ -787,7 +951,7 @@ type Video struct {
 func (m *Video) Reset()                    { *m = Video{} }
 func (m *Video) String() string            { return proto.CompactTextString(m) }
 func (*Video) ProtoMessage()               {}
-func (*Video) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{7} }
+func (*Video) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{9} }
 
 func (m *Video) GetFileId() string {
 	if m != nil {
@@ -853,7 +1017,7 @@ type Animation struct {
 func (m *Animation) Reset()                    { *m = Animation{} }
 func (m *Animation) String() string            { return proto.CompactTextString(m) }
 func (*Animation) ProtoMessage()               {}
-func (*Animation) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{8} }
+func (*Animation) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{10} }
 
 func (m *Animation) GetFileId() string {
 	if m != nil {
@@ -922,7 +1086,7 @@ type Voice struct {
 func (m *Voice) Reset()                    { *m = Voice{} }
 func (m *Voice) String() string            { return proto.CompactTextString(m) }
 func (*Voice) ProtoMessage()               {}
-func (*Voice) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{9} }
+func (*Voice) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{11} }
 
 func (m *Voice) GetFileId() string {
 	if m != nil {
@@ -964,7 +1128,7 @@ type VideoNote struct {
 func (m *VideoNote) Reset()                    { *m = VideoNote{} }
 func (m *VideoNote) String() string            { return proto.CompactTextString(m) }
 func (*VideoNote) ProtoMessage()               {}
-func (*VideoNote) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{10} }
+func (*VideoNote) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{12} }
 
 func (m *VideoNote) GetFileId() string {
 	if m != nil {
@@ -1013,7 +1177,7 @@ type Contact struct {
 func (m *Contact) Reset()                    { *m = Contact{} }
 func (m *Contact) String() string            { return proto.CompactTextString(m) }
 func (*Contact) ProtoMessage()               {}
-func (*Contact) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{11} }
+func (*Contact) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{13} }
 
 func (m *Contact) GetPhoneNumber() string {
 	if m != nil {
@@ -1059,7 +1223,7 @@ type Location struct {
 func (m *Location) Reset()                    { *m = Location{} }
 func (m *Location) String() string            { return proto.CompactTextString(m) }
 func (*Location) ProtoMessage()               {}
-func (*Location) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{12} }
+func (*Location) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{14} }
 
 func (m *Location) GetLongitude() int64 {
 	if m != nil {
@@ -1087,7 +1251,7 @@ type Venue struct {
 func (m *Venue) Reset()                    { *m = Venue{} }
 func (m *Venue) String() string            { return proto.CompactTextString(m) }
 func (*Venue) ProtoMessage()               {}
-func (*Venue) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{13} }
+func (*Venue) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{15} }
 
 func (m *Venue) GetLocation() *Location {
 	if m != nil {
@@ -1133,7 +1297,7 @@ type PollOption struct {
 func (m *PollOption) Reset()                    { *m = PollOption{} }
 func (m *PollOption) String() string            { return proto.CompactTextString(m) }
 func (*PollOption) ProtoMessage()               {}
-func (*PollOption) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{14} }
+func (*PollOption) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{16} }
 
 func (m *PollOption) GetText() string {
 	if m != nil {
@@ -1160,7 +1324,7 @@ type Poll struct {
 func (m *Poll) Reset()                    { *m = Poll{} }
 func (m *Poll) String() string            { return proto.CompactTextString(m) }
 func (*Poll) ProtoMessage()               {}
-func (*Poll) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{15} }
+func (*Poll) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{17} }
 
 func (m *Poll) GetId() string {
 	if m != nil {
@@ -1199,7 +1363,7 @@ type UserProfilePhotos struct {
 func (m *UserProfilePhotos) Reset()                    { *m = UserProfilePhotos{} }
 func (m *UserProfilePhotos) String() string            { return proto.CompactTextString(m) }
 func (*UserProfilePhotos) ProtoMessage()               {}
-func (*UserProfilePhotos) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{16} }
+func (*UserProfilePhotos) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{18} }
 
 func (m *UserProfilePhotos) GetTotalCount() int32 {
 	if m != nil {
@@ -1227,7 +1391,7 @@ type File struct {
 func (m *File) Reset()                    { *m = File{} }
 func (m *File) String() string            { return proto.CompactTextString(m) }
 func (*File) ProtoMessage()               {}
-func (*File) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{17} }
+func (*File) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{19} }
 
 func (m *File) GetFileId() string {
 	if m != nil {
@@ -1261,7 +1425,7 @@ type ReplyKeyboardMarkup struct {
 func (m *ReplyKeyboardMarkup) Reset()                    { *m = ReplyKeyboardMarkup{} }
 func (m *ReplyKeyboardMarkup) String() string            { return proto.CompactTextString(m) }
 func (*ReplyKeyboardMarkup) ProtoMessage()               {}
-func (*ReplyKeyboardMarkup) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{18} }
+func (*ReplyKeyboardMarkup) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{20} }
 
 func (m *ReplyKeyboardMarkup) GetKeyboard() []*KeyboardButton {
 	if m != nil {
@@ -1302,7 +1466,7 @@ type KeyboardButton struct {
 func (m *KeyboardButton) Reset()                    { *m = KeyboardButton{} }
 func (m *KeyboardButton) String() string            { return proto.CompactTextString(m) }
 func (*KeyboardButton) ProtoMessage()               {}
-func (*KeyboardButton) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{19} }
+func (*KeyboardButton) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{21} }
 
 func (m *KeyboardButton) GetText() string {
 	if m != nil {
@@ -1334,7 +1498,7 @@ type ReplyKeyboardRemove struct {
 func (m *ReplyKeyboardRemove) Reset()                    { *m = ReplyKeyboardRemove{} }
 func (m *ReplyKeyboardRemove) String() string            { return proto.CompactTextString(m) }
 func (*ReplyKeyboardRemove) ProtoMessage()               {}
-func (*ReplyKeyboardRemove) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{20} }
+func (*ReplyKeyboardRemove) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{22} }
 
 func (m *ReplyKeyboardRemove) GetRemoveKeyboard() bool {
 	if m != nil {
@@ -1359,7 +1523,7 @@ type InlineKeyboardMarkup struct {
 func (m *InlineKeyboardMarkup) Reset()                    { *m = InlineKeyboardMarkup{} }
 func (m *InlineKeyboardMarkup) String() string            { return proto.CompactTextString(m) }
 func (*InlineKeyboardMarkup) ProtoMessage()               {}
-func (*InlineKeyboardMarkup) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{21} }
+func (*InlineKeyboardMarkup) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{23} }
 
 func (m *InlineKeyboardMarkup) GetInlineKeyboard() []*InlineKeyboardButton {
 	if m != nil {
@@ -1383,7 +1547,7 @@ type InlineKeyboardButton struct {
 func (m *InlineKeyboardButton) Reset()                    { *m = InlineKeyboardButton{} }
 func (m *InlineKeyboardButton) String() string            { return proto.CompactTextString(m) }
 func (*InlineKeyboardButton) ProtoMessage()               {}
-func (*InlineKeyboardButton) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{22} }
+func (*InlineKeyboardButton) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{24} }
 
 func (m *InlineKeyboardButton) GetText() string {
 	if m != nil {
@@ -1455,7 +1619,7 @@ type LoginUrl struct {
 func (m *LoginUrl) Reset()                    { *m = LoginUrl{} }
 func (m *LoginUrl) String() string            { return proto.CompactTextString(m) }
 func (*LoginUrl) ProtoMessage()               {}
-func (*LoginUrl) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{23} }
+func (*LoginUrl) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{25} }
 
 func (m *LoginUrl) GetUrl() string {
 	if m != nil {
@@ -1501,7 +1665,7 @@ type CallbackQuery struct {
 func (m *CallbackQuery) Reset()                    { *m = CallbackQuery{} }
 func (m *CallbackQuery) String() string            { return proto.CompactTextString(m) }
 func (*CallbackQuery) ProtoMessage()               {}
-func (*CallbackQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{24} }
+func (*CallbackQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{26} }
 
 func (m *CallbackQuery) GetId() string {
 	if m != nil {
@@ -1568,7 +1732,7 @@ type ForceReply struct {
 func (m *ForceReply) Reset()                    { *m = ForceReply{} }
 func (m *ForceReply) String() string            { return proto.CompactTextString(m) }
 func (*ForceReply) ProtoMessage()               {}
-func (*ForceReply) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{25} }
+func (*ForceReply) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{27} }
 
 func (m *ForceReply) GetForceReply() bool {
 	if m != nil {
@@ -1593,7 +1757,7 @@ type ChatPhoto struct {
 func (m *ChatPhoto) Reset()                    { *m = ChatPhoto{} }
 func (m *ChatPhoto) String() string            { return proto.CompactTextString(m) }
 func (*ChatPhoto) ProtoMessage()               {}
-func (*ChatPhoto) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{26} }
+func (*ChatPhoto) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{28} }
 
 func (m *ChatPhoto) GetSmallFileId() string {
 	if m != nil {
@@ -1634,7 +1798,7 @@ type ChatMember struct {
 func (m *ChatMember) Reset()                    { *m = ChatMember{} }
 func (m *ChatMember) String() string            { return proto.CompactTextString(m) }
 func (*ChatMember) ProtoMessage()               {}
-func (*ChatMember) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{27} }
+func (*ChatMember) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{29} }
 
 func (m *ChatMember) GetUser() *User {
 	if m != nil {
@@ -1777,7 +1941,7 @@ type ChatPermissions struct {
 func (m *ChatPermissions) Reset()                    { *m = ChatPermissions{} }
 func (m *ChatPermissions) String() string            { return proto.CompactTextString(m) }
 func (*ChatPermissions) ProtoMessage()               {}
-func (*ChatPermissions) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{28} }
+func (*ChatPermissions) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{30} }
 
 func (m *ChatPermissions) GetCanSendMessages() bool {
 	if m != nil {
@@ -1836,6 +2000,12 @@ func (m *ChatPermissions) GetCanPinMessages() bool {
 }
 
 // Contains information about why a request was unsuccessful.
+// This object represents the content of a media message to be sent. It should be one of
+// InputMediaAnimation
+// InputMediaDocument
+// InputMediaAudio
+// InputMediaPhoto
+// InputMediaVideo
 type ResponseParameters struct {
 	MigrateToChatId int32 `protobuf:"varint,1,opt,name=migrate_to_chat_id,json=migrateToChatId,proto3" json:"migrate_to_chat_id,omitempty"`
 	RetryAfter      int32 `protobuf:"varint,2,opt,name=retry_after,json=retryAfter,proto3" json:"retry_after,omitempty"`
@@ -1844,7 +2014,7 @@ type ResponseParameters struct {
 func (m *ResponseParameters) Reset()                    { *m = ResponseParameters{} }
 func (m *ResponseParameters) String() string            { return proto.CompactTextString(m) }
 func (*ResponseParameters) ProtoMessage()               {}
-func (*ResponseParameters) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{29} }
+func (*ResponseParameters) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{31} }
 
 func (m *ResponseParameters) GetMigrateToChatId() int32 {
 	if m != nil {
@@ -1860,15 +2030,6 @@ func (m *ResponseParameters) GetRetryAfter() int32 {
 	return 0
 }
 
-// This object represents the content of a media message to be sent. It should be one of
-type InputMedia struct {
-}
-
-func (m *InputMedia) Reset()                    { *m = InputMedia{} }
-func (m *InputMedia) String() string            { return proto.CompactTextString(m) }
-func (*InputMedia) ProtoMessage()               {}
-func (*InputMedia) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{30} }
-
 // Represents a photo to be sent.
 type InputMediaPhoto struct {
 	Type      string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
@@ -1880,7 +2041,7 @@ type InputMediaPhoto struct {
 func (m *InputMediaPhoto) Reset()                    { *m = InputMediaPhoto{} }
 func (m *InputMediaPhoto) String() string            { return proto.CompactTextString(m) }
 func (*InputMediaPhoto) ProtoMessage()               {}
-func (*InputMediaPhoto) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{31} }
+func (*InputMediaPhoto) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{32} }
 
 func (m *InputMediaPhoto) GetType() string {
 	if m != nil {
@@ -1926,7 +2087,7 @@ type InputMediaVideo struct {
 func (m *InputMediaVideo) Reset()                    { *m = InputMediaVideo{} }
 func (m *InputMediaVideo) String() string            { return proto.CompactTextString(m) }
 func (*InputMediaVideo) ProtoMessage()               {}
-func (*InputMediaVideo) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{32} }
+func (*InputMediaVideo) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{33} }
 
 func (m *InputMediaVideo) GetType() string {
 	if m != nil {
@@ -2006,7 +2167,7 @@ type InputMediaAnimation struct {
 func (m *InputMediaAnimation) Reset()                    { *m = InputMediaAnimation{} }
 func (m *InputMediaAnimation) String() string            { return proto.CompactTextString(m) }
 func (*InputMediaAnimation) ProtoMessage()               {}
-func (*InputMediaAnimation) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{33} }
+func (*InputMediaAnimation) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{34} }
 
 func (m *InputMediaAnimation) GetType() string {
 	if m != nil {
@@ -2079,7 +2240,7 @@ type InputMediaAudio struct {
 func (m *InputMediaAudio) Reset()                    { *m = InputMediaAudio{} }
 func (m *InputMediaAudio) String() string            { return proto.CompactTextString(m) }
 func (*InputMediaAudio) ProtoMessage()               {}
-func (*InputMediaAudio) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{34} }
+func (*InputMediaAudio) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{35} }
 
 func (m *InputMediaAudio) GetType() string {
 	if m != nil {
@@ -2149,7 +2310,7 @@ type InputMediaDocument struct {
 func (m *InputMediaDocument) Reset()                    { *m = InputMediaDocument{} }
 func (m *InputMediaDocument) String() string            { return proto.CompactTextString(m) }
 func (*InputMediaDocument) ProtoMessage()               {}
-func (*InputMediaDocument) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{35} }
+func (*InputMediaDocument) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{36} }
 
 func (m *InputMediaDocument) GetType() string {
 	if m != nil {
@@ -2189,6 +2350,8 @@ func (m *InputMediaDocument) GetParseMode() string {
 // This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
 //  There are three ways to send files (photos, stickers, audio, media, etc.):
 // Sending by file_id
+// file_id
+// file_id
 // Sending by URL
 // Objects and methods used in the inline mode are described in the Inline mode section.
 type InputFile struct {
@@ -2197,7 +2360,7 @@ type InputFile struct {
 func (m *InputFile) Reset()                    { *m = InputFile{} }
 func (m *InputFile) String() string            { return proto.CompactTextString(m) }
 func (*InputFile) ProtoMessage()               {}
-func (*InputFile) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{36} }
+func (*InputFile) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{37} }
 
 // Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
 // Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @Botfather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
@@ -2214,7 +2377,7 @@ type AnswerCallbackQuery struct {
 func (m *AnswerCallbackQuery) Reset()                    { *m = AnswerCallbackQuery{} }
 func (m *AnswerCallbackQuery) String() string            { return proto.CompactTextString(m) }
 func (*AnswerCallbackQuery) ProtoMessage()               {}
-func (*AnswerCallbackQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{37} }
+func (*AnswerCallbackQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{38} }
 
 func (m *AnswerCallbackQuery) GetCallbackQueryId() string {
 	if m != nil {
@@ -2251,6 +2414,9 @@ func (m *AnswerCallbackQuery) GetCacheTime() int32 {
 	return 0
 }
 
+// The following methods allow you to change an existing message in the message history instead of sending a new one with a result of an action. This is most useful for messages with inline keyboards using callback queries, but can also help reduce clutter in conversations with regular chat bots.
+// Please note, that it is currently only possible to edit messages without reply_markup or with inline keyboards.
+// The following methods and objects allow your bot to handle stickers and sticker sets.
 // This object represents a sticker.
 type Sticker struct {
 	FileId       string        `protobuf:"bytes,1,opt,name=file_id,json=fileId,proto3" json:"file_id,omitempty"`
@@ -2267,7 +2433,7 @@ type Sticker struct {
 func (m *Sticker) Reset()                    { *m = Sticker{} }
 func (m *Sticker) String() string            { return proto.CompactTextString(m) }
 func (*Sticker) ProtoMessage()               {}
-func (*Sticker) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{38} }
+func (*Sticker) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{39} }
 
 func (m *Sticker) GetFileId() string {
 	if m != nil {
@@ -2344,7 +2510,7 @@ type StickerSet struct {
 func (m *StickerSet) Reset()                    { *m = StickerSet{} }
 func (m *StickerSet) String() string            { return proto.CompactTextString(m) }
 func (*StickerSet) ProtoMessage()               {}
-func (*StickerSet) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{39} }
+func (*StickerSet) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{40} }
 
 func (m *StickerSet) GetName() string {
 	if m != nil {
@@ -2392,7 +2558,7 @@ type MaskPosition struct {
 func (m *MaskPosition) Reset()                    { *m = MaskPosition{} }
 func (m *MaskPosition) String() string            { return proto.CompactTextString(m) }
 func (*MaskPosition) ProtoMessage()               {}
-func (*MaskPosition) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{40} }
+func (*MaskPosition) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{41} }
 
 func (m *MaskPosition) GetPoint() string {
 	if m != nil {
@@ -2434,7 +2600,7 @@ type AddStickerToSet struct {
 func (m *AddStickerToSet) Reset()                    { *m = AddStickerToSet{} }
 func (m *AddStickerToSet) String() string            { return proto.CompactTextString(m) }
 func (*AddStickerToSet) ProtoMessage()               {}
-func (*AddStickerToSet) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{41} }
+func (*AddStickerToSet) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{42} }
 
 func (m *AddStickerToSet) GetUserId() int32 {
 	if m != nil {
@@ -2471,6 +2637,2164 @@ func (m *AddStickerToSet) GetMaskPosition() *MaskPosition {
 	return nil
 }
 
+// The following methods and objects allow your bot to work in inline mode.Please see our Introduction to Inline bots for more details.
+// To enable this option, send the /setinline command to @BotFather and provide the placeholder text that the user will see in the input field after typing your bot’s name.
+// This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.
+type InlineQuery struct {
+	Id       string    `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	From     *User     `protobuf:"bytes,2,opt,name=from" json:"from,omitempty"`
+	Location *Location `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	Query    string    `protobuf:"bytes,4,opt,name=query,proto3" json:"query,omitempty"`
+	Offset   string    `protobuf:"bytes,5,opt,name=offset,proto3" json:"offset,omitempty"`
+}
+
+func (m *InlineQuery) Reset()                    { *m = InlineQuery{} }
+func (m *InlineQuery) String() string            { return proto.CompactTextString(m) }
+func (*InlineQuery) ProtoMessage()               {}
+func (*InlineQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{43} }
+
+func (m *InlineQuery) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQuery) GetFrom() *User {
+	if m != nil {
+		return m.From
+	}
+	return nil
+}
+
+func (m *InlineQuery) GetLocation() *Location {
+	if m != nil {
+		return m.Location
+	}
+	return nil
+}
+
+func (m *InlineQuery) GetQuery() string {
+	if m != nil {
+		return m.Query
+	}
+	return ""
+}
+
+func (m *InlineQuery) GetOffset() string {
+	if m != nil {
+		return m.Offset
+	}
+	return ""
+}
+
+// Use this method to send answers to an inline query. On success, True is returned.No more than 50 results per query are allowed.
+type AnswerInlineQuery struct {
+	InlineQueryId     string               `protobuf:"bytes,1,opt,name=inline_query_id,json=inlineQueryId,proto3" json:"inline_query_id,omitempty"`
+	Results           []*InlineQueryResult `protobuf:"bytes,2,rep,name=results" json:"results,omitempty"`
+	CacheTime         int32                `protobuf:"varint,3,opt,name=cache_time,json=cacheTime,proto3" json:"cache_time,omitempty"`
+	IsPersonal        bool                 `protobuf:"varint,4,opt,name=is_personal,json=isPersonal,proto3" json:"is_personal,omitempty"`
+	NextOffset        string               `protobuf:"bytes,5,opt,name=next_offset,json=nextOffset,proto3" json:"next_offset,omitempty"`
+	SwitchPmText      string               `protobuf:"bytes,6,opt,name=switch_pm_text,json=switchPmText,proto3" json:"switch_pm_text,omitempty"`
+	SwitchPmParameter string               `protobuf:"bytes,7,opt,name=switch_pm_parameter,json=switchPmParameter,proto3" json:"switch_pm_parameter,omitempty"`
+}
+
+func (m *AnswerInlineQuery) Reset()                    { *m = AnswerInlineQuery{} }
+func (m *AnswerInlineQuery) String() string            { return proto.CompactTextString(m) }
+func (*AnswerInlineQuery) ProtoMessage()               {}
+func (*AnswerInlineQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{44} }
+
+func (m *AnswerInlineQuery) GetInlineQueryId() string {
+	if m != nil {
+		return m.InlineQueryId
+	}
+	return ""
+}
+
+func (m *AnswerInlineQuery) GetResults() []*InlineQueryResult {
+	if m != nil {
+		return m.Results
+	}
+	return nil
+}
+
+func (m *AnswerInlineQuery) GetCacheTime() int32 {
+	if m != nil {
+		return m.CacheTime
+	}
+	return 0
+}
+
+func (m *AnswerInlineQuery) GetIsPersonal() bool {
+	if m != nil {
+		return m.IsPersonal
+	}
+	return false
+}
+
+func (m *AnswerInlineQuery) GetNextOffset() string {
+	if m != nil {
+		return m.NextOffset
+	}
+	return ""
+}
+
+func (m *AnswerInlineQuery) GetSwitchPmText() string {
+	if m != nil {
+		return m.SwitchPmText
+	}
+	return ""
+}
+
+func (m *AnswerInlineQuery) GetSwitchPmParameter() string {
+	if m != nil {
+		return m.SwitchPmParameter
+	}
+	return ""
+}
+
+// This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
+// InlineQueryResultCachedAudio
+// InlineQueryResultCachedDocument
+// InlineQueryResultCachedGif
+// InlineQueryResultCachedMpeg4Gif
+// InlineQueryResultCachedPhoto
+// InlineQueryResultCachedSticker
+// InlineQueryResultCachedVideo
+// InlineQueryResultCachedVoice
+// InlineQueryResultArticle
+// InlineQueryResultAudio
+// InlineQueryResultContact
+// InlineQueryResultGame
+// InlineQueryResultDocument
+// InlineQueryResultGif
+// InlineQueryResultLocation
+// InlineQueryResultMpeg4Gif
+// InlineQueryResultPhoto
+// InlineQueryResultVenue
+// InlineQueryResultVideo
+// InlineQueryResultVoice
+type InlineQueryResult struct {
+}
+
+func (m *InlineQueryResult) Reset()                    { *m = InlineQueryResult{} }
+func (m *InlineQueryResult) String() string            { return proto.CompactTextString(m) }
+func (*InlineQueryResult) ProtoMessage()               {}
+func (*InlineQueryResult) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{45} }
+
+// Represents a link to an article or web page.
+type InlineQueryResultArticle struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Title               string                `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,4,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,5,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	Url                 string                `protobuf:"bytes,6,opt,name=url,proto3" json:"url,omitempty"`
+	HideUrl             bool                  `protobuf:"varint,7,opt,name=hide_url,json=hideUrl,proto3" json:"hide_url,omitempty"`
+	Description         string                `protobuf:"bytes,8,opt,name=description,proto3" json:"description,omitempty"`
+	ThumbUrl            string                `protobuf:"bytes,9,opt,name=thumb_url,json=thumbUrl,proto3" json:"thumb_url,omitempty"`
+	ThumbWidth          int32                 `protobuf:"varint,10,opt,name=thumb_width,json=thumbWidth,proto3" json:"thumb_width,omitempty"`
+	ThumbHeight         int32                 `protobuf:"varint,11,opt,name=thumb_height,json=thumbHeight,proto3" json:"thumb_height,omitempty"`
+}
+
+func (m *InlineQueryResultArticle) Reset()         { *m = InlineQueryResultArticle{} }
+func (m *InlineQueryResultArticle) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultArticle) ProtoMessage()    {}
+func (*InlineQueryResultArticle) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{46}
+}
+
+func (m *InlineQueryResultArticle) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultArticle) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultArticle) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultArticle) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+func (m *InlineQueryResultArticle) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultArticle) GetUrl() string {
+	if m != nil {
+		return m.Url
+	}
+	return ""
+}
+
+func (m *InlineQueryResultArticle) GetHideUrl() bool {
+	if m != nil {
+		return m.HideUrl
+	}
+	return false
+}
+
+func (m *InlineQueryResultArticle) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *InlineQueryResultArticle) GetThumbUrl() string {
+	if m != nil {
+		return m.ThumbUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultArticle) GetThumbWidth() int32 {
+	if m != nil {
+		return m.ThumbWidth
+	}
+	return 0
+}
+
+func (m *InlineQueryResultArticle) GetThumbHeight() int32 {
+	if m != nil {
+		return m.ThumbHeight
+	}
+	return 0
+}
+
+// Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
+type InlineQueryResultPhoto struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	PhotoUrl            string                `protobuf:"bytes,3,opt,name=photo_url,json=photoUrl,proto3" json:"photo_url,omitempty"`
+	ThumbUrl            string                `protobuf:"bytes,4,opt,name=thumb_url,json=thumbUrl,proto3" json:"thumb_url,omitempty"`
+	PhotoWidth          int32                 `protobuf:"varint,5,opt,name=photo_width,json=photoWidth,proto3" json:"photo_width,omitempty"`
+	PhotoHeight         int32                 `protobuf:"varint,6,opt,name=photo_height,json=photoHeight,proto3" json:"photo_height,omitempty"`
+	Title               string                `protobuf:"bytes,7,opt,name=title,proto3" json:"title,omitempty"`
+	Description         string                `protobuf:"bytes,8,opt,name=description,proto3" json:"description,omitempty"`
+	Caption             string                `protobuf:"bytes,9,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,10,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,11,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,12,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultPhoto) Reset()                    { *m = InlineQueryResultPhoto{} }
+func (m *InlineQueryResultPhoto) String() string            { return proto.CompactTextString(m) }
+func (*InlineQueryResultPhoto) ProtoMessage()               {}
+func (*InlineQueryResultPhoto) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{47} }
+
+func (m *InlineQueryResultPhoto) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultPhoto) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultPhoto) GetPhotoUrl() string {
+	if m != nil {
+		return m.PhotoUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultPhoto) GetThumbUrl() string {
+	if m != nil {
+		return m.ThumbUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultPhoto) GetPhotoWidth() int32 {
+	if m != nil {
+		return m.PhotoWidth
+	}
+	return 0
+}
+
+func (m *InlineQueryResultPhoto) GetPhotoHeight() int32 {
+	if m != nil {
+		return m.PhotoHeight
+	}
+	return 0
+}
+
+func (m *InlineQueryResultPhoto) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultPhoto) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *InlineQueryResultPhoto) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultPhoto) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultPhoto) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultPhoto) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
+type InlineQueryResultGif struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	GifUrl              string                `protobuf:"bytes,3,opt,name=gif_url,json=gifUrl,proto3" json:"gif_url,omitempty"`
+	GifWidth            int32                 `protobuf:"varint,4,opt,name=gif_width,json=gifWidth,proto3" json:"gif_width,omitempty"`
+	GifHeight           int32                 `protobuf:"varint,5,opt,name=gif_height,json=gifHeight,proto3" json:"gif_height,omitempty"`
+	GifDuration         int32                 `protobuf:"varint,6,opt,name=gif_duration,json=gifDuration,proto3" json:"gif_duration,omitempty"`
+	ThumbUrl            string                `protobuf:"bytes,7,opt,name=thumb_url,json=thumbUrl,proto3" json:"thumb_url,omitempty"`
+	Title               string                `protobuf:"bytes,8,opt,name=title,proto3" json:"title,omitempty"`
+	Caption             string                `protobuf:"bytes,9,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,10,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,11,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,12,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultGif) Reset()                    { *m = InlineQueryResultGif{} }
+func (m *InlineQueryResultGif) String() string            { return proto.CompactTextString(m) }
+func (*InlineQueryResultGif) ProtoMessage()               {}
+func (*InlineQueryResultGif) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{48} }
+
+func (m *InlineQueryResultGif) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGif) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGif) GetGifUrl() string {
+	if m != nil {
+		return m.GifUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGif) GetGifWidth() int32 {
+	if m != nil {
+		return m.GifWidth
+	}
+	return 0
+}
+
+func (m *InlineQueryResultGif) GetGifHeight() int32 {
+	if m != nil {
+		return m.GifHeight
+	}
+	return 0
+}
+
+func (m *InlineQueryResultGif) GetGifDuration() int32 {
+	if m != nil {
+		return m.GifDuration
+	}
+	return 0
+}
+
+func (m *InlineQueryResultGif) GetThumbUrl() string {
+	if m != nil {
+		return m.ThumbUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGif) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGif) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGif) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGif) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultGif) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
+type InlineQueryResultMpeg4Gif struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Mpeg4Url            string                `protobuf:"bytes,3,opt,name=mpeg4_url,json=mpeg4Url,proto3" json:"mpeg4_url,omitempty"`
+	Mpeg4Width          int32                 `protobuf:"varint,4,opt,name=mpeg4_width,json=mpeg4Width,proto3" json:"mpeg4_width,omitempty"`
+	Mpeg4Height         int32                 `protobuf:"varint,5,opt,name=mpeg4_height,json=mpeg4Height,proto3" json:"mpeg4_height,omitempty"`
+	Mpeg4Duration       int32                 `protobuf:"varint,6,opt,name=mpeg4_duration,json=mpeg4Duration,proto3" json:"mpeg4_duration,omitempty"`
+	ThumbUrl            string                `protobuf:"bytes,7,opt,name=thumb_url,json=thumbUrl,proto3" json:"thumb_url,omitempty"`
+	Title               string                `protobuf:"bytes,8,opt,name=title,proto3" json:"title,omitempty"`
+	Caption             string                `protobuf:"bytes,9,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,10,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,11,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,12,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultMpeg4Gif) Reset()         { *m = InlineQueryResultMpeg4Gif{} }
+func (m *InlineQueryResultMpeg4Gif) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultMpeg4Gif) ProtoMessage()    {}
+func (*InlineQueryResultMpeg4Gif) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{49}
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetMpeg4Url() string {
+	if m != nil {
+		return m.Mpeg4Url
+	}
+	return ""
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetMpeg4Width() int32 {
+	if m != nil {
+		return m.Mpeg4Width
+	}
+	return 0
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetMpeg4Height() int32 {
+	if m != nil {
+		return m.Mpeg4Height
+	}
+	return 0
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetMpeg4Duration() int32 {
+	if m != nil {
+		return m.Mpeg4Duration
+	}
+	return 0
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetThumbUrl() string {
+	if m != nil {
+		return m.ThumbUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultMpeg4Gif) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.
+// If an InlineQueryResultVideo message contains an embedded video (e.g., YouTube), you must replace its content using input_message_content.
+//
+type InlineQueryResultVideo struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	VideoUrl            string                `protobuf:"bytes,3,opt,name=video_url,json=videoUrl,proto3" json:"video_url,omitempty"`
+	MimeType            string                `protobuf:"bytes,4,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	ThumbUrl            string                `protobuf:"bytes,5,opt,name=thumb_url,json=thumbUrl,proto3" json:"thumb_url,omitempty"`
+	Title               string                `protobuf:"bytes,6,opt,name=title,proto3" json:"title,omitempty"`
+	Caption             string                `protobuf:"bytes,7,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,8,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	VideoWidth          int32                 `protobuf:"varint,9,opt,name=video_width,json=videoWidth,proto3" json:"video_width,omitempty"`
+	VideoHeight         int32                 `protobuf:"varint,10,opt,name=video_height,json=videoHeight,proto3" json:"video_height,omitempty"`
+	VideoDuration       int32                 `protobuf:"varint,11,opt,name=video_duration,json=videoDuration,proto3" json:"video_duration,omitempty"`
+	Description         string                `protobuf:"bytes,12,opt,name=description,proto3" json:"description,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,13,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,14,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultVideo) Reset()                    { *m = InlineQueryResultVideo{} }
+func (m *InlineQueryResultVideo) String() string            { return proto.CompactTextString(m) }
+func (*InlineQueryResultVideo) ProtoMessage()               {}
+func (*InlineQueryResultVideo) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{50} }
+
+func (m *InlineQueryResultVideo) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVideo) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVideo) GetVideoUrl() string {
+	if m != nil {
+		return m.VideoUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVideo) GetMimeType() string {
+	if m != nil {
+		return m.MimeType
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVideo) GetThumbUrl() string {
+	if m != nil {
+		return m.ThumbUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVideo) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVideo) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVideo) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVideo) GetVideoWidth() int32 {
+	if m != nil {
+		return m.VideoWidth
+	}
+	return 0
+}
+
+func (m *InlineQueryResultVideo) GetVideoHeight() int32 {
+	if m != nil {
+		return m.VideoHeight
+	}
+	return 0
+}
+
+func (m *InlineQueryResultVideo) GetVideoDuration() int32 {
+	if m != nil {
+		return m.VideoDuration
+	}
+	return 0
+}
+
+func (m *InlineQueryResultVideo) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVideo) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultVideo) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to an mp3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+type InlineQueryResultAudio struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	AudioUrl            string                `protobuf:"bytes,3,opt,name=audio_url,json=audioUrl,proto3" json:"audio_url,omitempty"`
+	Title               string                `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
+	Caption             string                `protobuf:"bytes,5,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,6,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	Performer           string                `protobuf:"bytes,7,opt,name=performer,proto3" json:"performer,omitempty"`
+	AudioDuration       int32                 `protobuf:"varint,8,opt,name=audio_duration,json=audioDuration,proto3" json:"audio_duration,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,9,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,10,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultAudio) Reset()                    { *m = InlineQueryResultAudio{} }
+func (m *InlineQueryResultAudio) String() string            { return proto.CompactTextString(m) }
+func (*InlineQueryResultAudio) ProtoMessage()               {}
+func (*InlineQueryResultAudio) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{51} }
+
+func (m *InlineQueryResultAudio) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultAudio) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultAudio) GetAudioUrl() string {
+	if m != nil {
+		return m.AudioUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultAudio) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultAudio) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultAudio) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultAudio) GetPerformer() string {
+	if m != nil {
+		return m.Performer
+	}
+	return ""
+}
+
+func (m *InlineQueryResultAudio) GetAudioDuration() int32 {
+	if m != nil {
+		return m.AudioDuration
+	}
+	return 0
+}
+
+func (m *InlineQueryResultAudio) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultAudio) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to a voice recording in an .ogg container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the the voice message.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+type InlineQueryResultVoice struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	VoiceUrl            string                `protobuf:"bytes,3,opt,name=voice_url,json=voiceUrl,proto3" json:"voice_url,omitempty"`
+	Title               string                `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
+	Caption             string                `protobuf:"bytes,5,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,6,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	VoiceDuration       int32                 `protobuf:"varint,7,opt,name=voice_duration,json=voiceDuration,proto3" json:"voice_duration,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,8,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,9,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultVoice) Reset()                    { *m = InlineQueryResultVoice{} }
+func (m *InlineQueryResultVoice) String() string            { return proto.CompactTextString(m) }
+func (*InlineQueryResultVoice) ProtoMessage()               {}
+func (*InlineQueryResultVoice) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{52} }
+
+func (m *InlineQueryResultVoice) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVoice) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVoice) GetVoiceUrl() string {
+	if m != nil {
+		return m.VoiceUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVoice) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVoice) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVoice) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVoice) GetVoiceDuration() int32 {
+	if m != nil {
+		return m.VoiceDuration
+	}
+	return 0
+}
+
+func (m *InlineQueryResultVoice) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultVoice) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+type InlineQueryResultDocument struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Title               string                `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Caption             string                `protobuf:"bytes,4,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,5,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	DocumentUrl         string                `protobuf:"bytes,6,opt,name=document_url,json=documentUrl,proto3" json:"document_url,omitempty"`
+	MimeType            string                `protobuf:"bytes,7,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
+	Description         string                `protobuf:"bytes,8,opt,name=description,proto3" json:"description,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,9,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,10,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+	ThumbUrl            string                `protobuf:"bytes,11,opt,name=thumb_url,json=thumbUrl,proto3" json:"thumb_url,omitempty"`
+	ThumbWidth          int32                 `protobuf:"varint,12,opt,name=thumb_width,json=thumbWidth,proto3" json:"thumb_width,omitempty"`
+	ThumbHeight         int32                 `protobuf:"varint,13,opt,name=thumb_height,json=thumbHeight,proto3" json:"thumb_height,omitempty"`
+}
+
+func (m *InlineQueryResultDocument) Reset()         { *m = InlineQueryResultDocument{} }
+func (m *InlineQueryResultDocument) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultDocument) ProtoMessage()    {}
+func (*InlineQueryResultDocument) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{53}
+}
+
+func (m *InlineQueryResultDocument) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultDocument) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultDocument) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultDocument) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultDocument) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultDocument) GetDocumentUrl() string {
+	if m != nil {
+		return m.DocumentUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultDocument) GetMimeType() string {
+	if m != nil {
+		return m.MimeType
+	}
+	return ""
+}
+
+func (m *InlineQueryResultDocument) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *InlineQueryResultDocument) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultDocument) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+func (m *InlineQueryResultDocument) GetThumbUrl() string {
+	if m != nil {
+		return m.ThumbUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultDocument) GetThumbWidth() int32 {
+	if m != nil {
+		return m.ThumbWidth
+	}
+	return 0
+}
+
+func (m *InlineQueryResultDocument) GetThumbHeight() int32 {
+	if m != nil {
+		return m.ThumbHeight
+	}
+	return 0
+}
+
+// Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the location.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+type InlineQueryResultLocation struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Latitude            int64                 `protobuf:"varint,3,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude           int64                 `protobuf:"varint,4,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	Title               string                `protobuf:"bytes,5,opt,name=title,proto3" json:"title,omitempty"`
+	LivePeriod          int32                 `protobuf:"varint,6,opt,name=live_period,json=livePeriod,proto3" json:"live_period,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,7,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,8,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+	ThumbUrl            string                `protobuf:"bytes,9,opt,name=thumb_url,json=thumbUrl,proto3" json:"thumb_url,omitempty"`
+	ThumbWidth          int32                 `protobuf:"varint,10,opt,name=thumb_width,json=thumbWidth,proto3" json:"thumb_width,omitempty"`
+	ThumbHeight         int32                 `protobuf:"varint,11,opt,name=thumb_height,json=thumbHeight,proto3" json:"thumb_height,omitempty"`
+}
+
+func (m *InlineQueryResultLocation) Reset()         { *m = InlineQueryResultLocation{} }
+func (m *InlineQueryResultLocation) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultLocation) ProtoMessage()    {}
+func (*InlineQueryResultLocation) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{54}
+}
+
+func (m *InlineQueryResultLocation) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultLocation) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultLocation) GetLatitude() int64 {
+	if m != nil {
+		return m.Latitude
+	}
+	return 0
+}
+
+func (m *InlineQueryResultLocation) GetLongitude() int64 {
+	if m != nil {
+		return m.Longitude
+	}
+	return 0
+}
+
+func (m *InlineQueryResultLocation) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultLocation) GetLivePeriod() int32 {
+	if m != nil {
+		return m.LivePeriod
+	}
+	return 0
+}
+
+func (m *InlineQueryResultLocation) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultLocation) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+func (m *InlineQueryResultLocation) GetThumbUrl() string {
+	if m != nil {
+		return m.ThumbUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultLocation) GetThumbWidth() int32 {
+	if m != nil {
+		return m.ThumbWidth
+	}
+	return 0
+}
+
+func (m *InlineQueryResultLocation) GetThumbHeight() int32 {
+	if m != nil {
+		return m.ThumbHeight
+	}
+	return 0
+}
+
+// Represents a venue. By default, the venue will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the venue.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+type InlineQueryResultVenue struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Latitude            int64                 `protobuf:"varint,3,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude           int64                 `protobuf:"varint,4,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	Title               string                `protobuf:"bytes,5,opt,name=title,proto3" json:"title,omitempty"`
+	Address             string                `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
+	FoursquareId        string                `protobuf:"bytes,7,opt,name=foursquare_id,json=foursquareId,proto3" json:"foursquare_id,omitempty"`
+	FoursquareType      string                `protobuf:"bytes,8,opt,name=foursquare_type,json=foursquareType,proto3" json:"foursquare_type,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,9,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,10,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+	ThumbUrl            string                `protobuf:"bytes,11,opt,name=thumb_url,json=thumbUrl,proto3" json:"thumb_url,omitempty"`
+	ThumbWidth          int32                 `protobuf:"varint,12,opt,name=thumb_width,json=thumbWidth,proto3" json:"thumb_width,omitempty"`
+	ThumbHeight         int32                 `protobuf:"varint,13,opt,name=thumb_height,json=thumbHeight,proto3" json:"thumb_height,omitempty"`
+}
+
+func (m *InlineQueryResultVenue) Reset()                    { *m = InlineQueryResultVenue{} }
+func (m *InlineQueryResultVenue) String() string            { return proto.CompactTextString(m) }
+func (*InlineQueryResultVenue) ProtoMessage()               {}
+func (*InlineQueryResultVenue) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{55} }
+
+func (m *InlineQueryResultVenue) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVenue) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVenue) GetLatitude() int64 {
+	if m != nil {
+		return m.Latitude
+	}
+	return 0
+}
+
+func (m *InlineQueryResultVenue) GetLongitude() int64 {
+	if m != nil {
+		return m.Longitude
+	}
+	return 0
+}
+
+func (m *InlineQueryResultVenue) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVenue) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVenue) GetFoursquareId() string {
+	if m != nil {
+		return m.FoursquareId
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVenue) GetFoursquareType() string {
+	if m != nil {
+		return m.FoursquareType
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVenue) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultVenue) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+func (m *InlineQueryResultVenue) GetThumbUrl() string {
+	if m != nil {
+		return m.ThumbUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultVenue) GetThumbWidth() int32 {
+	if m != nil {
+		return m.ThumbWidth
+	}
+	return 0
+}
+
+func (m *InlineQueryResultVenue) GetThumbHeight() int32 {
+	if m != nil {
+		return m.ThumbHeight
+	}
+	return 0
+}
+
+// Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the contact.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+type InlineQueryResultContact struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	PhoneNumber         string                `protobuf:"bytes,3,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
+	FirstName           string                `protobuf:"bytes,4,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName            string                `protobuf:"bytes,5,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	Vcard               string                `protobuf:"bytes,6,opt,name=vcard,proto3" json:"vcard,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,7,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,8,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+	ThumbUrl            string                `protobuf:"bytes,9,opt,name=thumb_url,json=thumbUrl,proto3" json:"thumb_url,omitempty"`
+	ThumbWidth          int32                 `protobuf:"varint,10,opt,name=thumb_width,json=thumbWidth,proto3" json:"thumb_width,omitempty"`
+	ThumbHeight         int32                 `protobuf:"varint,11,opt,name=thumb_height,json=thumbHeight,proto3" json:"thumb_height,omitempty"`
+}
+
+func (m *InlineQueryResultContact) Reset()         { *m = InlineQueryResultContact{} }
+func (m *InlineQueryResultContact) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultContact) ProtoMessage()    {}
+func (*InlineQueryResultContact) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{56}
+}
+
+func (m *InlineQueryResultContact) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultContact) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultContact) GetPhoneNumber() string {
+	if m != nil {
+		return m.PhoneNumber
+	}
+	return ""
+}
+
+func (m *InlineQueryResultContact) GetFirstName() string {
+	if m != nil {
+		return m.FirstName
+	}
+	return ""
+}
+
+func (m *InlineQueryResultContact) GetLastName() string {
+	if m != nil {
+		return m.LastName
+	}
+	return ""
+}
+
+func (m *InlineQueryResultContact) GetVcard() string {
+	if m != nil {
+		return m.Vcard
+	}
+	return ""
+}
+
+func (m *InlineQueryResultContact) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultContact) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+func (m *InlineQueryResultContact) GetThumbUrl() string {
+	if m != nil {
+		return m.ThumbUrl
+	}
+	return ""
+}
+
+func (m *InlineQueryResultContact) GetThumbWidth() int32 {
+	if m != nil {
+		return m.ThumbWidth
+	}
+	return 0
+}
+
+func (m *InlineQueryResultContact) GetThumbHeight() int32 {
+	if m != nil {
+		return m.ThumbHeight
+	}
+	return 0
+}
+
+// Represents a Game.
+// Note: This will only work in Telegram versions released after October 1, 2016. Older clients will not display any inline results if a game result is among them.
+type InlineQueryResultGame struct {
+	Type          string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id            string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	GameShortName string                `protobuf:"bytes,3,opt,name=game_short_name,json=gameShortName,proto3" json:"game_short_name,omitempty"`
+	ReplyMarkup   *InlineKeyboardMarkup `protobuf:"bytes,4,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+}
+
+func (m *InlineQueryResultGame) Reset()                    { *m = InlineQueryResultGame{} }
+func (m *InlineQueryResultGame) String() string            { return proto.CompactTextString(m) }
+func (*InlineQueryResultGame) ProtoMessage()               {}
+func (*InlineQueryResultGame) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{57} }
+
+func (m *InlineQueryResultGame) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGame) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGame) GetGameShortName() string {
+	if m != nil {
+		return m.GameShortName
+	}
+	return ""
+}
+
+func (m *InlineQueryResultGame) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+// Represents a link to a photo stored on the Telegram servers. By default, this photo will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
+type InlineQueryResultCachedPhoto struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	PhotoFileId         string                `protobuf:"bytes,3,opt,name=photo_file_id,json=photoFileId,proto3" json:"photo_file_id,omitempty"`
+	Title               string                `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
+	Description         string                `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	Caption             string                `protobuf:"bytes,6,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,7,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,8,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,9,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultCachedPhoto) Reset()         { *m = InlineQueryResultCachedPhoto{} }
+func (m *InlineQueryResultCachedPhoto) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultCachedPhoto) ProtoMessage()    {}
+func (*InlineQueryResultCachedPhoto) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{58}
+}
+
+func (m *InlineQueryResultCachedPhoto) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedPhoto) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedPhoto) GetPhotoFileId() string {
+	if m != nil {
+		return m.PhotoFileId
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedPhoto) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedPhoto) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedPhoto) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedPhoto) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedPhoto) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultCachedPhoto) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to an animated GIF file stored on the Telegram servers. By default, this animated GIF file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with specified content instead of the animation.
+type InlineQueryResultCachedGif struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	GifFileId           string                `protobuf:"bytes,3,opt,name=gif_file_id,json=gifFileId,proto3" json:"gif_file_id,omitempty"`
+	Title               string                `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
+	Caption             string                `protobuf:"bytes,5,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,6,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,7,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,8,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultCachedGif) Reset()         { *m = InlineQueryResultCachedGif{} }
+func (m *InlineQueryResultCachedGif) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultCachedGif) ProtoMessage()    {}
+func (*InlineQueryResultCachedGif) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{59}
+}
+
+func (m *InlineQueryResultCachedGif) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedGif) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedGif) GetGifFileId() string {
+	if m != nil {
+		return m.GifFileId
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedGif) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedGif) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedGif) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedGif) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultCachedGif) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to a video animation (H.264/MPEG-4 AVC video without sound) stored on the Telegram servers. By default, this animated MPEG-4 file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
+type InlineQueryResultCachedMpeg4Gif struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Mpeg4FileId         string                `protobuf:"bytes,3,opt,name=mpeg4_file_id,json=mpeg4FileId,proto3" json:"mpeg4_file_id,omitempty"`
+	Title               string                `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
+	Caption             string                `protobuf:"bytes,5,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,6,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,7,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,8,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) Reset()         { *m = InlineQueryResultCachedMpeg4Gif{} }
+func (m *InlineQueryResultCachedMpeg4Gif) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultCachedMpeg4Gif) ProtoMessage()    {}
+func (*InlineQueryResultCachedMpeg4Gif) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{60}
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) GetMpeg4FileId() string {
+	if m != nil {
+		return m.Mpeg4FileId
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the sticker.
+// Note: This will only work in Telegram versions released after 9 April, 2016 for static stickers and after 06 July, 2019 for animated stickers. Older clients will ignore them.
+type InlineQueryResultCachedSticker struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	StickerFileId       string                `protobuf:"bytes,3,opt,name=sticker_file_id,json=stickerFileId,proto3" json:"sticker_file_id,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,4,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,5,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultCachedSticker) Reset()         { *m = InlineQueryResultCachedSticker{} }
+func (m *InlineQueryResultCachedSticker) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultCachedSticker) ProtoMessage()    {}
+func (*InlineQueryResultCachedSticker) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{61}
+}
+
+func (m *InlineQueryResultCachedSticker) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedSticker) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedSticker) GetStickerFileId() string {
+	if m != nil {
+		return m.StickerFileId
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedSticker) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultCachedSticker) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to a file stored on the Telegram servers. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+type InlineQueryResultCachedDocument struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	Title               string                `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	DocumentFileId      string                `protobuf:"bytes,4,opt,name=document_file_id,json=documentFileId,proto3" json:"document_file_id,omitempty"`
+	Description         string                `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	Caption             string                `protobuf:"bytes,6,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,7,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,8,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,9,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultCachedDocument) Reset()         { *m = InlineQueryResultCachedDocument{} }
+func (m *InlineQueryResultCachedDocument) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultCachedDocument) ProtoMessage()    {}
+func (*InlineQueryResultCachedDocument) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{62}
+}
+
+func (m *InlineQueryResultCachedDocument) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedDocument) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedDocument) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedDocument) GetDocumentFileId() string {
+	if m != nil {
+		return m.DocumentFileId
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedDocument) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedDocument) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedDocument) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedDocument) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultCachedDocument) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to a video file stored on the Telegram servers. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.
+type InlineQueryResultCachedVideo struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	VideoFileId         string                `protobuf:"bytes,3,opt,name=video_file_id,json=videoFileId,proto3" json:"video_file_id,omitempty"`
+	Title               string                `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
+	Description         string                `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
+	Caption             string                `protobuf:"bytes,6,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,7,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,8,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,9,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultCachedVideo) Reset()         { *m = InlineQueryResultCachedVideo{} }
+func (m *InlineQueryResultCachedVideo) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultCachedVideo) ProtoMessage()    {}
+func (*InlineQueryResultCachedVideo) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{63}
+}
+
+func (m *InlineQueryResultCachedVideo) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVideo) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVideo) GetVideoFileId() string {
+	if m != nil {
+		return m.VideoFileId
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVideo) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVideo) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVideo) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVideo) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVideo) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultCachedVideo) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to a voice message stored on the Telegram servers. By default, this voice message will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the voice message.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+type InlineQueryResultCachedVoice struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	VoiceFileId         string                `protobuf:"bytes,3,opt,name=voice_file_id,json=voiceFileId,proto3" json:"voice_file_id,omitempty"`
+	Title               string                `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
+	Caption             string                `protobuf:"bytes,5,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,6,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,7,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,8,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultCachedVoice) Reset()         { *m = InlineQueryResultCachedVoice{} }
+func (m *InlineQueryResultCachedVoice) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultCachedVoice) ProtoMessage()    {}
+func (*InlineQueryResultCachedVoice) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{64}
+}
+
+func (m *InlineQueryResultCachedVoice) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVoice) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVoice) GetVoiceFileId() string {
+	if m != nil {
+		return m.VoiceFileId
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVoice) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVoice) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVoice) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedVoice) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultCachedVoice) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// Represents a link to an mp3 audio file stored on the Telegram servers. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+type InlineQueryResultCachedAudio struct {
+	Type                string                `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
+	Id                  string                `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
+	AudioFileId         string                `protobuf:"bytes,3,opt,name=audio_file_id,json=audioFileId,proto3" json:"audio_file_id,omitempty"`
+	Caption             string                `protobuf:"bytes,4,opt,name=caption,proto3" json:"caption,omitempty"`
+	ParseMode           string                `protobuf:"bytes,5,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	ReplyMarkup         *InlineKeyboardMarkup `protobuf:"bytes,6,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
+	InputMessageContent *InputMessageContent  `protobuf:"bytes,7,opt,name=input_message_content,json=inputMessageContent" json:"input_message_content,omitempty"`
+}
+
+func (m *InlineQueryResultCachedAudio) Reset()         { *m = InlineQueryResultCachedAudio{} }
+func (m *InlineQueryResultCachedAudio) String() string { return proto.CompactTextString(m) }
+func (*InlineQueryResultCachedAudio) ProtoMessage()    {}
+func (*InlineQueryResultCachedAudio) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{65}
+}
+
+func (m *InlineQueryResultCachedAudio) GetType() string {
+	if m != nil {
+		return m.Type
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedAudio) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedAudio) GetAudioFileId() string {
+	if m != nil {
+		return m.AudioFileId
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedAudio) GetCaption() string {
+	if m != nil {
+		return m.Caption
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedAudio) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InlineQueryResultCachedAudio) GetReplyMarkup() *InlineKeyboardMarkup {
+	if m != nil {
+		return m.ReplyMarkup
+	}
+	return nil
+}
+
+func (m *InlineQueryResultCachedAudio) GetInputMessageContent() *InputMessageContent {
+	if m != nil {
+		return m.InputMessageContent
+	}
+	return nil
+}
+
+// This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 4 types:
+// InputTextMessageContent
+// InputLocationMessageContent
+// InputVenueMessageContent
+// InputContactMessageContent
+type InputMessageContent struct {
+}
+
+func (m *InputMessageContent) Reset()                    { *m = InputMessageContent{} }
+func (m *InputMessageContent) String() string            { return proto.CompactTextString(m) }
+func (*InputMessageContent) ProtoMessage()               {}
+func (*InputMessageContent) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{66} }
+
+// Represents the content of a text message to be sent as the result of an inline query.
+type InputTextMessageContent struct {
+	MessageText           string `protobuf:"bytes,1,opt,name=message_text,json=messageText,proto3" json:"message_text,omitempty"`
+	ParseMode             string `protobuf:"bytes,2,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
+	DisableWebPagePreview bool   `protobuf:"varint,3,opt,name=disable_web_page_preview,json=disableWebPagePreview,proto3" json:"disable_web_page_preview,omitempty"`
+}
+
+func (m *InputTextMessageContent) Reset()                    { *m = InputTextMessageContent{} }
+func (m *InputTextMessageContent) String() string            { return proto.CompactTextString(m) }
+func (*InputTextMessageContent) ProtoMessage()               {}
+func (*InputTextMessageContent) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{67} }
+
+func (m *InputTextMessageContent) GetMessageText() string {
+	if m != nil {
+		return m.MessageText
+	}
+	return ""
+}
+
+func (m *InputTextMessageContent) GetParseMode() string {
+	if m != nil {
+		return m.ParseMode
+	}
+	return ""
+}
+
+func (m *InputTextMessageContent) GetDisableWebPagePreview() bool {
+	if m != nil {
+		return m.DisableWebPagePreview
+	}
+	return false
+}
+
+// Represents the content of a location message to be sent as the result of an inline query.
+type InputLocationMessageContent struct {
+	Latitude   int64 `protobuf:"varint,1,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude  int64 `protobuf:"varint,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	LivePeriod int32 `protobuf:"varint,3,opt,name=live_period,json=livePeriod,proto3" json:"live_period,omitempty"`
+}
+
+func (m *InputLocationMessageContent) Reset()         { *m = InputLocationMessageContent{} }
+func (m *InputLocationMessageContent) String() string { return proto.CompactTextString(m) }
+func (*InputLocationMessageContent) ProtoMessage()    {}
+func (*InputLocationMessageContent) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{68}
+}
+
+func (m *InputLocationMessageContent) GetLatitude() int64 {
+	if m != nil {
+		return m.Latitude
+	}
+	return 0
+}
+
+func (m *InputLocationMessageContent) GetLongitude() int64 {
+	if m != nil {
+		return m.Longitude
+	}
+	return 0
+}
+
+func (m *InputLocationMessageContent) GetLivePeriod() int32 {
+	if m != nil {
+		return m.LivePeriod
+	}
+	return 0
+}
+
+// Represents the content of a venue message to be sent as the result of an inline query.
+type InputVenueMessageContent struct {
+	Latitude       int64  `protobuf:"varint,1,opt,name=latitude,proto3" json:"latitude,omitempty"`
+	Longitude      int64  `protobuf:"varint,2,opt,name=longitude,proto3" json:"longitude,omitempty"`
+	Title          string `protobuf:"bytes,3,opt,name=title,proto3" json:"title,omitempty"`
+	Address        string `protobuf:"bytes,4,opt,name=address,proto3" json:"address,omitempty"`
+	FoursquareId   string `protobuf:"bytes,5,opt,name=foursquare_id,json=foursquareId,proto3" json:"foursquare_id,omitempty"`
+	FoursquareType string `protobuf:"bytes,6,opt,name=foursquare_type,json=foursquareType,proto3" json:"foursquare_type,omitempty"`
+}
+
+func (m *InputVenueMessageContent) Reset()         { *m = InputVenueMessageContent{} }
+func (m *InputVenueMessageContent) String() string { return proto.CompactTextString(m) }
+func (*InputVenueMessageContent) ProtoMessage()    {}
+func (*InputVenueMessageContent) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{69}
+}
+
+func (m *InputVenueMessageContent) GetLatitude() int64 {
+	if m != nil {
+		return m.Latitude
+	}
+	return 0
+}
+
+func (m *InputVenueMessageContent) GetLongitude() int64 {
+	if m != nil {
+		return m.Longitude
+	}
+	return 0
+}
+
+func (m *InputVenueMessageContent) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *InputVenueMessageContent) GetAddress() string {
+	if m != nil {
+		return m.Address
+	}
+	return ""
+}
+
+func (m *InputVenueMessageContent) GetFoursquareId() string {
+	if m != nil {
+		return m.FoursquareId
+	}
+	return ""
+}
+
+func (m *InputVenueMessageContent) GetFoursquareType() string {
+	if m != nil {
+		return m.FoursquareType
+	}
+	return ""
+}
+
+// Represents the content of a contact message to be sent as the result of an inline query.
+type InputContactMessageContent struct {
+	PhoneNumber string `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
+	FirstName   string `protobuf:"bytes,2,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
+	LastName    string `protobuf:"bytes,3,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
+	Vcard       string `protobuf:"bytes,4,opt,name=vcard,proto3" json:"vcard,omitempty"`
+}
+
+func (m *InputContactMessageContent) Reset()         { *m = InputContactMessageContent{} }
+func (m *InputContactMessageContent) String() string { return proto.CompactTextString(m) }
+func (*InputContactMessageContent) ProtoMessage()    {}
+func (*InputContactMessageContent) Descriptor() ([]byte, []int) {
+	return fileDescriptorTgbotapi, []int{70}
+}
+
+func (m *InputContactMessageContent) GetPhoneNumber() string {
+	if m != nil {
+		return m.PhoneNumber
+	}
+	return ""
+}
+
+func (m *InputContactMessageContent) GetFirstName() string {
+	if m != nil {
+		return m.FirstName
+	}
+	return ""
+}
+
+func (m *InputContactMessageContent) GetLastName() string {
+	if m != nil {
+		return m.LastName
+	}
+	return ""
+}
+
+func (m *InputContactMessageContent) GetVcard() string {
+	if m != nil {
+		return m.Vcard
+	}
+	return ""
+}
+
+// Represents a result of an inline query that was chosen by the user and sent to their chat partner.
+// Note: It is necessary to enable inline feedback via @Botfather in order to receive these objects in updates.
+type ChosenInlineResult struct {
+	ResultId        string    `protobuf:"bytes,1,opt,name=result_id,json=resultId,proto3" json:"result_id,omitempty"`
+	From            *User     `protobuf:"bytes,2,opt,name=from" json:"from,omitempty"`
+	Location        *Location `protobuf:"bytes,3,opt,name=location" json:"location,omitempty"`
+	InlineMessageId string    `protobuf:"bytes,4,opt,name=inline_message_id,json=inlineMessageId,proto3" json:"inline_message_id,omitempty"`
+	Query           string    `protobuf:"bytes,5,opt,name=query,proto3" json:"query,omitempty"`
+}
+
+func (m *ChosenInlineResult) Reset()                    { *m = ChosenInlineResult{} }
+func (m *ChosenInlineResult) String() string            { return proto.CompactTextString(m) }
+func (*ChosenInlineResult) ProtoMessage()               {}
+func (*ChosenInlineResult) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{71} }
+
+func (m *ChosenInlineResult) GetResultId() string {
+	if m != nil {
+		return m.ResultId
+	}
+	return ""
+}
+
+func (m *ChosenInlineResult) GetFrom() *User {
+	if m != nil {
+		return m.From
+	}
+	return nil
+}
+
+func (m *ChosenInlineResult) GetLocation() *Location {
+	if m != nil {
+		return m.Location
+	}
+	return nil
+}
+
+func (m *ChosenInlineResult) GetInlineMessageId() string {
+	if m != nil {
+		return m.InlineMessageId
+	}
+	return ""
+}
+
+func (m *ChosenInlineResult) GetQuery() string {
+	if m != nil {
+		return m.Query
+	}
+	return ""
+}
+
+// Your bot can accept payments from Telegram users. Please see the introduction to payments for more details on the process and how to set up payments for your bot. Please note that users will need Telegram v.4.0 or higher to use payments (released on May 18, 2017).
 // If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
 type AnswerShippingQuery struct {
 	ShippingQueryId string            `protobuf:"bytes,1,opt,name=shipping_query_id,json=shippingQueryId,proto3" json:"shipping_query_id,omitempty"`
@@ -2482,7 +4806,7 @@ type AnswerShippingQuery struct {
 func (m *AnswerShippingQuery) Reset()                    { *m = AnswerShippingQuery{} }
 func (m *AnswerShippingQuery) String() string            { return proto.CompactTextString(m) }
 func (*AnswerShippingQuery) ProtoMessage()               {}
-func (*AnswerShippingQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{42} }
+func (*AnswerShippingQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{72} }
 
 func (m *AnswerShippingQuery) GetShippingQueryId() string {
 	if m != nil {
@@ -2522,7 +4846,7 @@ type AnswerPreCheckoutQuery struct {
 func (m *AnswerPreCheckoutQuery) Reset()                    { *m = AnswerPreCheckoutQuery{} }
 func (m *AnswerPreCheckoutQuery) String() string            { return proto.CompactTextString(m) }
 func (*AnswerPreCheckoutQuery) ProtoMessage()               {}
-func (*AnswerPreCheckoutQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{43} }
+func (*AnswerPreCheckoutQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{73} }
 
 func (m *AnswerPreCheckoutQuery) GetPreCheckoutQueryId() string {
 	if m != nil {
@@ -2554,7 +4878,7 @@ type LabeledPrice struct {
 func (m *LabeledPrice) Reset()                    { *m = LabeledPrice{} }
 func (m *LabeledPrice) String() string            { return proto.CompactTextString(m) }
 func (*LabeledPrice) ProtoMessage()               {}
-func (*LabeledPrice) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{44} }
+func (*LabeledPrice) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{74} }
 
 func (m *LabeledPrice) GetLabel() string {
 	if m != nil {
@@ -2582,7 +4906,7 @@ type Invoice struct {
 func (m *Invoice) Reset()                    { *m = Invoice{} }
 func (m *Invoice) String() string            { return proto.CompactTextString(m) }
 func (*Invoice) ProtoMessage()               {}
-func (*Invoice) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{45} }
+func (*Invoice) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{75} }
 
 func (m *Invoice) GetTitle() string {
 	if m != nil {
@@ -2632,7 +4956,7 @@ type ShippingAddress struct {
 func (m *ShippingAddress) Reset()                    { *m = ShippingAddress{} }
 func (m *ShippingAddress) String() string            { return proto.CompactTextString(m) }
 func (*ShippingAddress) ProtoMessage()               {}
-func (*ShippingAddress) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{46} }
+func (*ShippingAddress) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{76} }
 
 func (m *ShippingAddress) GetCountryCode() string {
 	if m != nil {
@@ -2687,7 +5011,7 @@ type OrderInfo struct {
 func (m *OrderInfo) Reset()                    { *m = OrderInfo{} }
 func (m *OrderInfo) String() string            { return proto.CompactTextString(m) }
 func (*OrderInfo) ProtoMessage()               {}
-func (*OrderInfo) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{47} }
+func (*OrderInfo) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{77} }
 
 func (m *OrderInfo) GetName() string {
 	if m != nil {
@@ -2727,7 +5051,7 @@ type ShippingOption struct {
 func (m *ShippingOption) Reset()                    { *m = ShippingOption{} }
 func (m *ShippingOption) String() string            { return proto.CompactTextString(m) }
 func (*ShippingOption) ProtoMessage()               {}
-func (*ShippingOption) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{48} }
+func (*ShippingOption) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{78} }
 
 func (m *ShippingOption) GetId() string {
 	if m != nil {
@@ -2764,7 +5088,7 @@ type SuccessfulPayment struct {
 func (m *SuccessfulPayment) Reset()                    { *m = SuccessfulPayment{} }
 func (m *SuccessfulPayment) String() string            { return proto.CompactTextString(m) }
 func (*SuccessfulPayment) ProtoMessage()               {}
-func (*SuccessfulPayment) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{49} }
+func (*SuccessfulPayment) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{79} }
 
 func (m *SuccessfulPayment) GetCurrency() string {
 	if m != nil {
@@ -2826,7 +5150,7 @@ type ShippingQuery struct {
 func (m *ShippingQuery) Reset()                    { *m = ShippingQuery{} }
 func (m *ShippingQuery) String() string            { return proto.CompactTextString(m) }
 func (*ShippingQuery) ProtoMessage()               {}
-func (*ShippingQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{50} }
+func (*ShippingQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{80} }
 
 func (m *ShippingQuery) GetId() string {
 	if m != nil {
@@ -2870,7 +5194,7 @@ type PreCheckoutQuery struct {
 func (m *PreCheckoutQuery) Reset()                    { *m = PreCheckoutQuery{} }
 func (m *PreCheckoutQuery) String() string            { return proto.CompactTextString(m) }
 func (*PreCheckoutQuery) ProtoMessage()               {}
-func (*PreCheckoutQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{51} }
+func (*PreCheckoutQuery) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{81} }
 
 func (m *PreCheckoutQuery) GetId() string {
 	if m != nil {
@@ -2921,6 +5245,7 @@ func (m *PreCheckoutQuery) GetOrderInfo() *OrderInfo {
 	return nil
 }
 
+// Telegram Passport is a unified authorization method for services that require personal identification. Users can upload their documents once, then instantly share their data with services that require real-world ID (finance, ICOs, etc.). Please see the manual for details.
 // Contains information about Telegram Passport data shared with the bot by the user.
 type PassportData struct {
 	Data        []*EncryptedPassportElement `protobuf:"bytes,1,rep,name=data" json:"data,omitempty"`
@@ -2930,7 +5255,7 @@ type PassportData struct {
 func (m *PassportData) Reset()                    { *m = PassportData{} }
 func (m *PassportData) String() string            { return proto.CompactTextString(m) }
 func (*PassportData) ProtoMessage()               {}
-func (*PassportData) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{52} }
+func (*PassportData) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{82} }
 
 func (m *PassportData) GetData() []*EncryptedPassportElement {
 	if m != nil {
@@ -2956,7 +5281,7 @@ type PassportFile struct {
 func (m *PassportFile) Reset()                    { *m = PassportFile{} }
 func (m *PassportFile) String() string            { return proto.CompactTextString(m) }
 func (*PassportFile) ProtoMessage()               {}
-func (*PassportFile) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{53} }
+func (*PassportFile) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{83} }
 
 func (m *PassportFile) GetFileId() string {
 	if m != nil {
@@ -2997,7 +5322,7 @@ func (m *EncryptedPassportElement) Reset()         { *m = EncryptedPassportEleme
 func (m *EncryptedPassportElement) String() string { return proto.CompactTextString(m) }
 func (*EncryptedPassportElement) ProtoMessage()    {}
 func (*EncryptedPassportElement) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{54}
+	return fileDescriptorTgbotapi, []int{84}
 }
 
 func (m *EncryptedPassportElement) GetType() string {
@@ -3080,7 +5405,7 @@ type EncryptedCredentials struct {
 func (m *EncryptedCredentials) Reset()                    { *m = EncryptedCredentials{} }
 func (m *EncryptedCredentials) String() string            { return proto.CompactTextString(m) }
 func (*EncryptedCredentials) ProtoMessage()               {}
-func (*EncryptedCredentials) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{55} }
+func (*EncryptedCredentials) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{85} }
 
 func (m *EncryptedCredentials) GetData() string {
 	if m != nil {
@@ -3104,13 +5429,22 @@ func (m *EncryptedCredentials) GetSecret() string {
 }
 
 // This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
+// PassportElementErrorDataField
+// PassportElementErrorFrontSide
+// PassportElementErrorReverseSide
+// PassportElementErrorSelfie
+// PassportElementErrorFile
+// PassportElementErrorFiles
+// PassportElementErrorTranslationFile
+// PassportElementErrorTranslationFiles
+// PassportElementErrorUnspecified
 type PassportElementError struct {
 }
 
 func (m *PassportElementError) Reset()                    { *m = PassportElementError{} }
 func (m *PassportElementError) String() string            { return proto.CompactTextString(m) }
 func (*PassportElementError) ProtoMessage()               {}
-func (*PassportElementError) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{56} }
+func (*PassportElementError) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{86} }
 
 // Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
 type PassportElementErrorDataField struct {
@@ -3125,7 +5459,7 @@ func (m *PassportElementErrorDataField) Reset()         { *m = PassportElementEr
 func (m *PassportElementErrorDataField) String() string { return proto.CompactTextString(m) }
 func (*PassportElementErrorDataField) ProtoMessage()    {}
 func (*PassportElementErrorDataField) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{57}
+	return fileDescriptorTgbotapi, []int{87}
 }
 
 func (m *PassportElementErrorDataField) GetSource() string {
@@ -3175,7 +5509,7 @@ func (m *PassportElementErrorFrontSide) Reset()         { *m = PassportElementEr
 func (m *PassportElementErrorFrontSide) String() string { return proto.CompactTextString(m) }
 func (*PassportElementErrorFrontSide) ProtoMessage()    {}
 func (*PassportElementErrorFrontSide) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{58}
+	return fileDescriptorTgbotapi, []int{88}
 }
 
 func (m *PassportElementErrorFrontSide) GetSource() string {
@@ -3218,7 +5552,7 @@ func (m *PassportElementErrorReverseSide) Reset()         { *m = PassportElement
 func (m *PassportElementErrorReverseSide) String() string { return proto.CompactTextString(m) }
 func (*PassportElementErrorReverseSide) ProtoMessage()    {}
 func (*PassportElementErrorReverseSide) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{59}
+	return fileDescriptorTgbotapi, []int{89}
 }
 
 func (m *PassportElementErrorReverseSide) GetSource() string {
@@ -3261,7 +5595,7 @@ func (m *PassportElementErrorSelfie) Reset()         { *m = PassportElementError
 func (m *PassportElementErrorSelfie) String() string { return proto.CompactTextString(m) }
 func (*PassportElementErrorSelfie) ProtoMessage()    {}
 func (*PassportElementErrorSelfie) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{60}
+	return fileDescriptorTgbotapi, []int{90}
 }
 
 func (m *PassportElementErrorSelfie) GetSource() string {
@@ -3304,7 +5638,7 @@ func (m *PassportElementErrorFile) Reset()         { *m = PassportElementErrorFi
 func (m *PassportElementErrorFile) String() string { return proto.CompactTextString(m) }
 func (*PassportElementErrorFile) ProtoMessage()    {}
 func (*PassportElementErrorFile) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{61}
+	return fileDescriptorTgbotapi, []int{91}
 }
 
 func (m *PassportElementErrorFile) GetSource() string {
@@ -3347,7 +5681,7 @@ func (m *PassportElementErrorFiles) Reset()         { *m = PassportElementErrorF
 func (m *PassportElementErrorFiles) String() string { return proto.CompactTextString(m) }
 func (*PassportElementErrorFiles) ProtoMessage()    {}
 func (*PassportElementErrorFiles) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{62}
+	return fileDescriptorTgbotapi, []int{92}
 }
 
 func (m *PassportElementErrorFiles) GetSource() string {
@@ -3390,7 +5724,7 @@ func (m *PassportElementErrorTranslationFile) Reset()         { *m = PassportEle
 func (m *PassportElementErrorTranslationFile) String() string { return proto.CompactTextString(m) }
 func (*PassportElementErrorTranslationFile) ProtoMessage()    {}
 func (*PassportElementErrorTranslationFile) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{63}
+	return fileDescriptorTgbotapi, []int{93}
 }
 
 func (m *PassportElementErrorTranslationFile) GetSource() string {
@@ -3433,7 +5767,7 @@ func (m *PassportElementErrorTranslationFiles) Reset()         { *m = PassportEl
 func (m *PassportElementErrorTranslationFiles) String() string { return proto.CompactTextString(m) }
 func (*PassportElementErrorTranslationFiles) ProtoMessage()    {}
 func (*PassportElementErrorTranslationFiles) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{64}
+	return fileDescriptorTgbotapi, []int{94}
 }
 
 func (m *PassportElementErrorTranslationFiles) GetSource() string {
@@ -3476,7 +5810,7 @@ func (m *PassportElementErrorUnspecified) Reset()         { *m = PassportElement
 func (m *PassportElementErrorUnspecified) String() string { return proto.CompactTextString(m) }
 func (*PassportElementErrorUnspecified) ProtoMessage()    {}
 func (*PassportElementErrorUnspecified) Descriptor() ([]byte, []int) {
-	return fileDescriptorTgbotapi, []int{65}
+	return fileDescriptorTgbotapi, []int{95}
 }
 
 func (m *PassportElementErrorUnspecified) GetSource() string {
@@ -3507,6 +5841,7 @@ func (m *PassportElementErrorUnspecified) GetMessage() string {
 	return ""
 }
 
+// Your bot can offer users HTML5 games to play solo or to compete against each other in groups and one-on-one chats. Create games via @BotFather using the /newgame command. Please note that this kind of power requires responsibility: you will need to accept the terms for each game that your bots will be offering.
 // This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers.
 type Game struct {
 	Title        string           `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
@@ -3520,7 +5855,7 @@ type Game struct {
 func (m *Game) Reset()                    { *m = Game{} }
 func (m *Game) String() string            { return proto.CompactTextString(m) }
 func (*Game) ProtoMessage()               {}
-func (*Game) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{66} }
+func (*Game) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{96} }
 
 func (m *Game) GetTitle() string {
 	if m != nil {
@@ -3571,7 +5906,7 @@ type CallbackGame struct {
 func (m *CallbackGame) Reset()                    { *m = CallbackGame{} }
 func (m *CallbackGame) String() string            { return proto.CompactTextString(m) }
 func (*CallbackGame) ProtoMessage()               {}
-func (*CallbackGame) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{67} }
+func (*CallbackGame) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{97} }
 
 // This object represents one row of the high scores table for a game.
 // And that‘s about all we’ve got for now.If you've got any questions, please check out our Bot FAQ »
@@ -3584,7 +5919,7 @@ type GameHighScore struct {
 func (m *GameHighScore) Reset()                    { *m = GameHighScore{} }
 func (m *GameHighScore) String() string            { return proto.CompactTextString(m) }
 func (*GameHighScore) ProtoMessage()               {}
-func (*GameHighScore) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{68} }
+func (*GameHighScore) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{98} }
 
 func (m *GameHighScore) GetPosition() int32 {
 	if m != nil {
@@ -3619,7 +5954,7 @@ type ReplyMarkup struct {
 func (m *ReplyMarkup) Reset()                    { *m = ReplyMarkup{} }
 func (m *ReplyMarkup) String() string            { return proto.CompactTextString(m) }
 func (*ReplyMarkup) ProtoMessage()               {}
-func (*ReplyMarkup) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{69} }
+func (*ReplyMarkup) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{99} }
 
 type isReplyMarkup_ReplyMarkup interface {
 	isReplyMarkup_ReplyMarkup()
@@ -3792,7 +6127,231 @@ func _ReplyMarkup_OneofSizer(msg proto.Message) (n int) {
 	return n
 }
 
+// This object represents the content of a media message to be sent. It should be one of
+// InputMediaAnimation
+// InputMediaDocument
+// InputMediaAudio
+// InputMediaPhoto
+// InputMediaVideo
+type InputMedia struct {
+	// Types that are valid to be assigned to InputMedia:
+	//	*InputMedia_InputMediaAnimation
+	//	*InputMedia_InputMediaDocument
+	//	*InputMedia_InputMediaAudio
+	//	*InputMedia_InputMediaPhoto
+	//	*InputMedia_InputMediaVideo
+	InputMedia isInputMedia_InputMedia `protobuf_oneof:"InputMedia"`
+}
+
+func (m *InputMedia) Reset()                    { *m = InputMedia{} }
+func (m *InputMedia) String() string            { return proto.CompactTextString(m) }
+func (*InputMedia) ProtoMessage()               {}
+func (*InputMedia) Descriptor() ([]byte, []int) { return fileDescriptorTgbotapi, []int{100} }
+
+type isInputMedia_InputMedia interface {
+	isInputMedia_InputMedia()
+	MarshalTo([]byte) (int, error)
+	Size() int
+}
+
+type InputMedia_InputMediaAnimation struct {
+	InputMediaAnimation *InputMediaAnimation `protobuf:"bytes,1,opt,name=InputMediaAnimation,oneof"`
+}
+type InputMedia_InputMediaDocument struct {
+	InputMediaDocument *InputMediaDocument `protobuf:"bytes,2,opt,name=InputMediaDocument,oneof"`
+}
+type InputMedia_InputMediaAudio struct {
+	InputMediaAudio *InputMediaAudio `protobuf:"bytes,3,opt,name=InputMediaAudio,oneof"`
+}
+type InputMedia_InputMediaPhoto struct {
+	InputMediaPhoto *InputMediaPhoto `protobuf:"bytes,4,opt,name=InputMediaPhoto,oneof"`
+}
+type InputMedia_InputMediaVideo struct {
+	InputMediaVideo *InputMediaVideo `protobuf:"bytes,5,opt,name=InputMediaVideo,oneof"`
+}
+
+func (*InputMedia_InputMediaAnimation) isInputMedia_InputMedia() {}
+func (*InputMedia_InputMediaDocument) isInputMedia_InputMedia()  {}
+func (*InputMedia_InputMediaAudio) isInputMedia_InputMedia()     {}
+func (*InputMedia_InputMediaPhoto) isInputMedia_InputMedia()     {}
+func (*InputMedia_InputMediaVideo) isInputMedia_InputMedia()     {}
+
+func (m *InputMedia) GetInputMedia() isInputMedia_InputMedia {
+	if m != nil {
+		return m.InputMedia
+	}
+	return nil
+}
+
+func (m *InputMedia) GetInputMediaAnimation() *InputMediaAnimation {
+	if x, ok := m.GetInputMedia().(*InputMedia_InputMediaAnimation); ok {
+		return x.InputMediaAnimation
+	}
+	return nil
+}
+
+func (m *InputMedia) GetInputMediaDocument() *InputMediaDocument {
+	if x, ok := m.GetInputMedia().(*InputMedia_InputMediaDocument); ok {
+		return x.InputMediaDocument
+	}
+	return nil
+}
+
+func (m *InputMedia) GetInputMediaAudio() *InputMediaAudio {
+	if x, ok := m.GetInputMedia().(*InputMedia_InputMediaAudio); ok {
+		return x.InputMediaAudio
+	}
+	return nil
+}
+
+func (m *InputMedia) GetInputMediaPhoto() *InputMediaPhoto {
+	if x, ok := m.GetInputMedia().(*InputMedia_InputMediaPhoto); ok {
+		return x.InputMediaPhoto
+	}
+	return nil
+}
+
+func (m *InputMedia) GetInputMediaVideo() *InputMediaVideo {
+	if x, ok := m.GetInputMedia().(*InputMedia_InputMediaVideo); ok {
+		return x.InputMediaVideo
+	}
+	return nil
+}
+
+// XXX_OneofFuncs is for the internal use of the proto package.
+func (*InputMedia) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
+	return _InputMedia_OneofMarshaler, _InputMedia_OneofUnmarshaler, _InputMedia_OneofSizer, []interface{}{
+		(*InputMedia_InputMediaAnimation)(nil),
+		(*InputMedia_InputMediaDocument)(nil),
+		(*InputMedia_InputMediaAudio)(nil),
+		(*InputMedia_InputMediaPhoto)(nil),
+		(*InputMedia_InputMediaVideo)(nil),
+	}
+}
+
+func _InputMedia_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*InputMedia)
+	// InputMedia
+	switch x := m.InputMedia.(type) {
+	case *InputMedia_InputMediaAnimation:
+		_ = b.EncodeVarint(1<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.InputMediaAnimation); err != nil {
+			return err
+		}
+	case *InputMedia_InputMediaDocument:
+		_ = b.EncodeVarint(2<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.InputMediaDocument); err != nil {
+			return err
+		}
+	case *InputMedia_InputMediaAudio:
+		_ = b.EncodeVarint(3<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.InputMediaAudio); err != nil {
+			return err
+		}
+	case *InputMedia_InputMediaPhoto:
+		_ = b.EncodeVarint(4<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.InputMediaPhoto); err != nil {
+			return err
+		}
+	case *InputMedia_InputMediaVideo:
+		_ = b.EncodeVarint(5<<3 | proto.WireBytes)
+		if err := b.EncodeMessage(x.InputMediaVideo); err != nil {
+			return err
+		}
+	case nil:
+	default:
+		return fmt.Errorf("InputMedia.InputMedia has unexpected type %T", x)
+	}
+	return nil
+}
+
+func _InputMedia_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*InputMedia)
+	switch tag {
+	case 1: // InputMedia.InputMediaAnimation
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(InputMediaAnimation)
+		err := b.DecodeMessage(msg)
+		m.InputMedia = &InputMedia_InputMediaAnimation{msg}
+		return true, err
+	case 2: // InputMedia.InputMediaDocument
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(InputMediaDocument)
+		err := b.DecodeMessage(msg)
+		m.InputMedia = &InputMedia_InputMediaDocument{msg}
+		return true, err
+	case 3: // InputMedia.InputMediaAudio
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(InputMediaAudio)
+		err := b.DecodeMessage(msg)
+		m.InputMedia = &InputMedia_InputMediaAudio{msg}
+		return true, err
+	case 4: // InputMedia.InputMediaPhoto
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(InputMediaPhoto)
+		err := b.DecodeMessage(msg)
+		m.InputMedia = &InputMedia_InputMediaPhoto{msg}
+		return true, err
+	case 5: // InputMedia.InputMediaVideo
+		if wire != proto.WireBytes {
+			return true, proto.ErrInternalBadWireType
+		}
+		msg := new(InputMediaVideo)
+		err := b.DecodeMessage(msg)
+		m.InputMedia = &InputMedia_InputMediaVideo{msg}
+		return true, err
+	default:
+		return false, nil
+	}
+}
+
+func _InputMedia_OneofSizer(msg proto.Message) (n int) {
+	m := msg.(*InputMedia)
+	// InputMedia
+	switch x := m.InputMedia.(type) {
+	case *InputMedia_InputMediaAnimation:
+		s := proto.Size(x.InputMediaAnimation)
+		n += proto.SizeVarint(1<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *InputMedia_InputMediaDocument:
+		s := proto.Size(x.InputMediaDocument)
+		n += proto.SizeVarint(2<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *InputMedia_InputMediaAudio:
+		s := proto.Size(x.InputMediaAudio)
+		n += proto.SizeVarint(3<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *InputMedia_InputMediaPhoto:
+		s := proto.Size(x.InputMediaPhoto)
+		n += proto.SizeVarint(4<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case *InputMedia_InputMediaVideo:
+		s := proto.Size(x.InputMediaVideo)
+		n += proto.SizeVarint(5<<3 | proto.WireBytes)
+		n += proto.SizeVarint(uint64(s))
+		n += s
+	case nil:
+	default:
+		panic(fmt.Sprintf("proto: unexpected type %T in oneof", x))
+	}
+	return n
+}
+
 func init() {
+	proto.RegisterType((*Update)(nil), "botproto.Update")
+	proto.RegisterType((*WebhookInfo)(nil), "botproto.WebhookInfo")
 	proto.RegisterType((*User)(nil), "botproto.User")
 	proto.RegisterType((*Chat)(nil), "botproto.Chat")
 	proto.RegisterType((*Message)(nil), "botproto.Message")
@@ -3823,7 +6382,6 @@ func init() {
 	proto.RegisterType((*ChatMember)(nil), "botproto.ChatMember")
 	proto.RegisterType((*ChatPermissions)(nil), "botproto.ChatPermissions")
 	proto.RegisterType((*ResponseParameters)(nil), "botproto.ResponseParameters")
-	proto.RegisterType((*InputMedia)(nil), "botproto.InputMedia")
 	proto.RegisterType((*InputMediaPhoto)(nil), "botproto.InputMediaPhoto")
 	proto.RegisterType((*InputMediaVideo)(nil), "botproto.InputMediaVideo")
 	proto.RegisterType((*InputMediaAnimation)(nil), "botproto.InputMediaAnimation")
@@ -3835,6 +6393,35 @@ func init() {
 	proto.RegisterType((*StickerSet)(nil), "botproto.StickerSet")
 	proto.RegisterType((*MaskPosition)(nil), "botproto.MaskPosition")
 	proto.RegisterType((*AddStickerToSet)(nil), "botproto.addStickerToSet")
+	proto.RegisterType((*InlineQuery)(nil), "botproto.InlineQuery")
+	proto.RegisterType((*AnswerInlineQuery)(nil), "botproto.answerInlineQuery")
+	proto.RegisterType((*InlineQueryResult)(nil), "botproto.InlineQueryResult")
+	proto.RegisterType((*InlineQueryResultArticle)(nil), "botproto.InlineQueryResultArticle")
+	proto.RegisterType((*InlineQueryResultPhoto)(nil), "botproto.InlineQueryResultPhoto")
+	proto.RegisterType((*InlineQueryResultGif)(nil), "botproto.InlineQueryResultGif")
+	proto.RegisterType((*InlineQueryResultMpeg4Gif)(nil), "botproto.InlineQueryResultMpeg4Gif")
+	proto.RegisterType((*InlineQueryResultVideo)(nil), "botproto.InlineQueryResultVideo")
+	proto.RegisterType((*InlineQueryResultAudio)(nil), "botproto.InlineQueryResultAudio")
+	proto.RegisterType((*InlineQueryResultVoice)(nil), "botproto.InlineQueryResultVoice")
+	proto.RegisterType((*InlineQueryResultDocument)(nil), "botproto.InlineQueryResultDocument")
+	proto.RegisterType((*InlineQueryResultLocation)(nil), "botproto.InlineQueryResultLocation")
+	proto.RegisterType((*InlineQueryResultVenue)(nil), "botproto.InlineQueryResultVenue")
+	proto.RegisterType((*InlineQueryResultContact)(nil), "botproto.InlineQueryResultContact")
+	proto.RegisterType((*InlineQueryResultGame)(nil), "botproto.InlineQueryResultGame")
+	proto.RegisterType((*InlineQueryResultCachedPhoto)(nil), "botproto.InlineQueryResultCachedPhoto")
+	proto.RegisterType((*InlineQueryResultCachedGif)(nil), "botproto.InlineQueryResultCachedGif")
+	proto.RegisterType((*InlineQueryResultCachedMpeg4Gif)(nil), "botproto.InlineQueryResultCachedMpeg4Gif")
+	proto.RegisterType((*InlineQueryResultCachedSticker)(nil), "botproto.InlineQueryResultCachedSticker")
+	proto.RegisterType((*InlineQueryResultCachedDocument)(nil), "botproto.InlineQueryResultCachedDocument")
+	proto.RegisterType((*InlineQueryResultCachedVideo)(nil), "botproto.InlineQueryResultCachedVideo")
+	proto.RegisterType((*InlineQueryResultCachedVoice)(nil), "botproto.InlineQueryResultCachedVoice")
+	proto.RegisterType((*InlineQueryResultCachedAudio)(nil), "botproto.InlineQueryResultCachedAudio")
+	proto.RegisterType((*InputMessageContent)(nil), "botproto.InputMessageContent")
+	proto.RegisterType((*InputTextMessageContent)(nil), "botproto.InputTextMessageContent")
+	proto.RegisterType((*InputLocationMessageContent)(nil), "botproto.InputLocationMessageContent")
+	proto.RegisterType((*InputVenueMessageContent)(nil), "botproto.InputVenueMessageContent")
+	proto.RegisterType((*InputContactMessageContent)(nil), "botproto.InputContactMessageContent")
+	proto.RegisterType((*ChosenInlineResult)(nil), "botproto.ChosenInlineResult")
 	proto.RegisterType((*AnswerShippingQuery)(nil), "botproto.answerShippingQuery")
 	proto.RegisterType((*AnswerPreCheckoutQuery)(nil), "botproto.answerPreCheckoutQuery")
 	proto.RegisterType((*LabeledPrice)(nil), "botproto.LabeledPrice")
@@ -3863,7 +6450,201 @@ func init() {
 	proto.RegisterType((*CallbackGame)(nil), "botproto.CallbackGame")
 	proto.RegisterType((*GameHighScore)(nil), "botproto.GameHighScore")
 	proto.RegisterType((*ReplyMarkup)(nil), "botproto.ReplyMarkup")
+	proto.RegisterType((*InputMedia)(nil), "botproto.InputMedia")
 }
+func (m *Update) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *Update) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.UpdateId != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.UpdateId))
+	}
+	if m.Message != nil {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Message.Size()))
+		n1, err := m.Message.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n1
+	}
+	if m.EditedMessage != nil {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.EditedMessage.Size()))
+		n2, err := m.EditedMessage.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n2
+	}
+	if m.ChannelPost != nil {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ChannelPost.Size()))
+		n3, err := m.ChannelPost.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n3
+	}
+	if m.EditedChannelPost != nil {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.EditedChannelPost.Size()))
+		n4, err := m.EditedChannelPost.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n4
+	}
+	if m.InlineQuery != nil {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InlineQuery.Size()))
+		n5, err := m.InlineQuery.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n5
+	}
+	if m.ChosenInlineResult != nil {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ChosenInlineResult.Size()))
+		n6, err := m.ChosenInlineResult.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n6
+	}
+	if m.CallbackQuery != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.CallbackQuery.Size()))
+		n7, err := m.CallbackQuery.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n7
+	}
+	if m.ShippingQuery != nil {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ShippingQuery.Size()))
+		n8, err := m.ShippingQuery.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n8
+	}
+	if m.PreCheckoutQuery != nil {
+		dAtA[i] = 0x52
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.PreCheckoutQuery.Size()))
+		n9, err := m.PreCheckoutQuery.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n9
+	}
+	if m.Poll != nil {
+		dAtA[i] = 0x5a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Poll.Size()))
+		n10, err := m.Poll.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n10
+	}
+	return i, nil
+}
+
+func (m *WebhookInfo) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *WebhookInfo) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Url) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Url)))
+		i += copy(dAtA[i:], m.Url)
+	}
+	if m.HasCustomCertificate {
+		dAtA[i] = 0x10
+		i++
+		if m.HasCustomCertificate {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i++
+	}
+	if m.PendingUpdateCount != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.PendingUpdateCount))
+	}
+	if m.LastErrorDate != 0 {
+		dAtA[i] = 0x20
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.LastErrorDate))
+	}
+	if len(m.LastErrorMessage) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.LastErrorMessage)))
+		i += copy(dAtA[i:], m.LastErrorMessage)
+	}
+	if m.MaxConnections != 0 {
+		dAtA[i] = 0x30
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.MaxConnections))
+	}
+	if len(m.AllowedUpdates) > 0 {
+		for _, s := range m.AllowedUpdates {
+			dAtA[i] = 0x3a
+			i++
+			l = len(s)
+			for l >= 1<<7 {
+				dAtA[i] = uint8(uint64(l)&0x7f | 0x80)
+				l >>= 7
+				i++
+			}
+			dAtA[i] = uint8(l)
+			i++
+			i += copy(dAtA[i:], s)
+		}
+	}
+	return i, nil
+}
+
 func (m *User) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -3975,11 +6756,11 @@ func (m *Chat) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Photo.Size()))
-		n1, err := m.Photo.MarshalTo(dAtA[i:])
+		n11, err := m.Photo.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n1
+		i += n11
 	}
 	if len(m.Description) > 0 {
 		dAtA[i] = 0x42
@@ -3997,21 +6778,21 @@ func (m *Chat) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x52
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.PinnedMessage.Size()))
-		n2, err := m.PinnedMessage.MarshalTo(dAtA[i:])
+		n12, err := m.PinnedMessage.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n2
+		i += n12
 	}
 	if m.Permissions != nil {
 		dAtA[i] = 0x5a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Permissions.Size()))
-		n3, err := m.Permissions.MarshalTo(dAtA[i:])
+		n13, err := m.Permissions.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n3
+		i += n13
 	}
 	if len(m.StickerSetName) > 0 {
 		dAtA[i] = 0x62
@@ -4056,11 +6837,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.From.Size()))
-		n4, err := m.From.MarshalTo(dAtA[i:])
+		n14, err := m.From.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n4
+		i += n14
 	}
 	if m.Date != 0 {
 		dAtA[i] = 0x18
@@ -4071,31 +6852,31 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x22
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Chat.Size()))
-		n5, err := m.Chat.MarshalTo(dAtA[i:])
+		n15, err := m.Chat.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n5
+		i += n15
 	}
 	if m.ForwardFrom != nil {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ForwardFrom.Size()))
-		n6, err := m.ForwardFrom.MarshalTo(dAtA[i:])
+		n16, err := m.ForwardFrom.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n6
+		i += n16
 	}
 	if m.ForwardFromChat != nil {
 		dAtA[i] = 0x32
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ForwardFromChat.Size()))
-		n7, err := m.ForwardFromChat.MarshalTo(dAtA[i:])
+		n17, err := m.ForwardFromChat.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n7
+		i += n17
 	}
 	if m.ForwardFromMessageId != 0 {
 		dAtA[i] = 0x38
@@ -4123,11 +6904,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x5a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyToMessage.Size()))
-		n8, err := m.ReplyToMessage.MarshalTo(dAtA[i:])
+		n18, err := m.ReplyToMessage.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n8
+		i += n18
 	}
 	if m.EditDate != 0 {
 		dAtA[i] = 0x60
@@ -4186,11 +6967,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Audio.Size()))
-		n9, err := m.Audio.MarshalTo(dAtA[i:])
+		n19, err := m.Audio.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n9
+		i += n19
 	}
 	if m.Document != nil {
 		dAtA[i] = 0x9a
@@ -4198,11 +6979,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Document.Size()))
-		n10, err := m.Document.MarshalTo(dAtA[i:])
+		n20, err := m.Document.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n10
+		i += n20
 	}
 	if m.Animation != nil {
 		dAtA[i] = 0xa2
@@ -4210,11 +6991,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Animation.Size()))
-		n11, err := m.Animation.MarshalTo(dAtA[i:])
+		n21, err := m.Animation.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n11
+		i += n21
 	}
 	if m.Game != nil {
 		dAtA[i] = 0xaa
@@ -4222,11 +7003,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Game.Size()))
-		n12, err := m.Game.MarshalTo(dAtA[i:])
+		n22, err := m.Game.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n12
+		i += n22
 	}
 	if len(m.Photo) > 0 {
 		for _, msg := range m.Photo {
@@ -4248,11 +7029,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Sticker.Size()))
-		n13, err := m.Sticker.MarshalTo(dAtA[i:])
+		n23, err := m.Sticker.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n13
+		i += n23
 	}
 	if m.Video != nil {
 		dAtA[i] = 0xc2
@@ -4260,11 +7041,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Video.Size()))
-		n14, err := m.Video.MarshalTo(dAtA[i:])
+		n24, err := m.Video.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n14
+		i += n24
 	}
 	if m.Voice != nil {
 		dAtA[i] = 0xca
@@ -4272,11 +7053,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Voice.Size()))
-		n15, err := m.Voice.MarshalTo(dAtA[i:])
+		n25, err := m.Voice.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n15
+		i += n25
 	}
 	if m.VideoNote != nil {
 		dAtA[i] = 0xd2
@@ -4284,11 +7065,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.VideoNote.Size()))
-		n16, err := m.VideoNote.MarshalTo(dAtA[i:])
+		n26, err := m.VideoNote.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n16
+		i += n26
 	}
 	if len(m.Caption) > 0 {
 		dAtA[i] = 0xda
@@ -4304,11 +7085,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Contact.Size()))
-		n17, err := m.Contact.MarshalTo(dAtA[i:])
+		n27, err := m.Contact.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n17
+		i += n27
 	}
 	if m.Location != nil {
 		dAtA[i] = 0xea
@@ -4316,11 +7097,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Location.Size()))
-		n18, err := m.Location.MarshalTo(dAtA[i:])
+		n28, err := m.Location.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n18
+		i += n28
 	}
 	if m.Venue != nil {
 		dAtA[i] = 0xf2
@@ -4328,11 +7109,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Venue.Size()))
-		n19, err := m.Venue.MarshalTo(dAtA[i:])
+		n29, err := m.Venue.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n19
+		i += n29
 	}
 	if m.Poll != nil {
 		dAtA[i] = 0xfa
@@ -4340,11 +7121,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Poll.Size()))
-		n20, err := m.Poll.MarshalTo(dAtA[i:])
+		n30, err := m.Poll.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n20
+		i += n30
 	}
 	if len(m.NewChatMembers) > 0 {
 		for _, msg := range m.NewChatMembers {
@@ -4366,11 +7147,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.LeftChatMember.Size()))
-		n21, err := m.LeftChatMember.MarshalTo(dAtA[i:])
+		n31, err := m.LeftChatMember.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n21
+		i += n31
 	}
 	if len(m.NewChatTitle) > 0 {
 		dAtA[i] = 0x92
@@ -4462,11 +7243,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.PinnedMessage.Size()))
-		n22, err := m.PinnedMessage.MarshalTo(dAtA[i:])
+		n32, err := m.PinnedMessage.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n22
+		i += n32
 	}
 	if m.Invoice != nil {
 		dAtA[i] = 0xda
@@ -4474,11 +7255,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Invoice.Size()))
-		n23, err := m.Invoice.MarshalTo(dAtA[i:])
+		n33, err := m.Invoice.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n23
+		i += n33
 	}
 	if m.SuccessfulPayment != nil {
 		dAtA[i] = 0xe2
@@ -4486,11 +7267,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.SuccessfulPayment.Size()))
-		n24, err := m.SuccessfulPayment.MarshalTo(dAtA[i:])
+		n34, err := m.SuccessfulPayment.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n24
+		i += n34
 	}
 	if len(m.ConnectedWebsite) > 0 {
 		dAtA[i] = 0xea
@@ -4506,11 +7287,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.PassportData.Size()))
-		n25, err := m.PassportData.MarshalTo(dAtA[i:])
+		n35, err := m.PassportData.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n25
+		i += n35
 	}
 	if m.ReplyMarkup != nil {
 		dAtA[i] = 0xfa
@@ -4518,11 +7299,11 @@ func (m *Message) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
-		n26, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		n36, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n26
+		i += n36
 	}
 	return i, nil
 }
@@ -4568,11 +7349,11 @@ func (m *MessageEntity) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.User.Size()))
-		n27, err := m.User.MarshalTo(dAtA[i:])
+		n37, err := m.User.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n27
+		i += n37
 	}
 	return i, nil
 }
@@ -4669,11 +7450,11 @@ func (m *Audio) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Thumb.Size()))
-		n28, err := m.Thumb.MarshalTo(dAtA[i:])
+		n38, err := m.Thumb.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n28
+		i += n38
 	}
 	return i, nil
 }
@@ -4703,11 +7484,11 @@ func (m *Document) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Thumb.Size()))
-		n29, err := m.Thumb.MarshalTo(dAtA[i:])
+		n39, err := m.Thumb.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n29
+		i += n39
 	}
 	if len(m.FileName) > 0 {
 		dAtA[i] = 0x1a
@@ -4769,11 +7550,11 @@ func (m *Video) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Thumb.Size()))
-		n30, err := m.Thumb.MarshalTo(dAtA[i:])
+		n40, err := m.Thumb.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n30
+		i += n40
 	}
 	if len(m.MimeType) > 0 {
 		dAtA[i] = 0x32
@@ -4829,11 +7610,11 @@ func (m *Animation) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Thumb.Size()))
-		n31, err := m.Thumb.MarshalTo(dAtA[i:])
+		n41, err := m.Thumb.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n31
+		i += n41
 	}
 	if len(m.FileName) > 0 {
 		dAtA[i] = 0x32
@@ -4930,11 +7711,11 @@ func (m *VideoNote) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x22
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Thumb.Size()))
-		n32, err := m.Thumb.MarshalTo(dAtA[i:])
+		n42, err := m.Thumb.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n32
+		i += n42
 	}
 	if m.FileSize != 0 {
 		dAtA[i] = 0x28
@@ -5038,11 +7819,11 @@ func (m *Venue) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Location.Size()))
-		n33, err := m.Location.MarshalTo(dAtA[i:])
+		n43, err := m.Location.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n33
+		i += n43
 	}
 	if len(m.Title) > 0 {
 		dAtA[i] = 0x12
@@ -5425,11 +8206,11 @@ func (m *InlineKeyboardButton) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.LoginUrl.Size()))
-		n34, err := m.LoginUrl.MarshalTo(dAtA[i:])
+		n44, err := m.LoginUrl.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n34
+		i += n44
 	}
 	if len(m.CallbackData) > 0 {
 		dAtA[i] = 0x22
@@ -5453,11 +8234,11 @@ func (m *InlineKeyboardButton) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.CallbackGame.Size()))
-		n35, err := m.CallbackGame.MarshalTo(dAtA[i:])
+		n45, err := m.CallbackGame.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n35
+		i += n45
 	}
 	if m.Pay {
 		dAtA[i] = 0x40
@@ -5543,21 +8324,21 @@ func (m *CallbackQuery) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.From.Size()))
-		n36, err := m.From.MarshalTo(dAtA[i:])
+		n46, err := m.From.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n36
+		i += n46
 	}
 	if m.Message != nil {
 		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Message.Size()))
-		n37, err := m.Message.MarshalTo(dAtA[i:])
+		n47, err := m.Message.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n37
+		i += n47
 	}
 	if len(m.InlineMessageId) > 0 {
 		dAtA[i] = 0x22
@@ -5673,11 +8454,11 @@ func (m *ChatMember) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.User.Size()))
-		n38, err := m.User.MarshalTo(dAtA[i:])
+		n48, err := m.User.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n38
+		i += n48
 	}
 	if len(m.Status) > 0 {
 		dAtA[i] = 0x12
@@ -5972,24 +8753,6 @@ func (m *ResponseParameters) MarshalTo(dAtA []byte) (int, error) {
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.RetryAfter))
 	}
-	return i, nil
-}
-
-func (m *InputMedia) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalTo(dAtA)
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *InputMedia) MarshalTo(dAtA []byte) (int, error) {
-	var i int
-	_ = i
-	var l int
-	_ = l
 	return i, nil
 }
 
@@ -6398,11 +9161,11 @@ func (m *Sticker) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Thumb.Size()))
-		n39, err := m.Thumb.MarshalTo(dAtA[i:])
+		n49, err := m.Thumb.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n39
+		i += n49
 	}
 	if len(m.Emoji) > 0 {
 		dAtA[i] = 0x32
@@ -6420,11 +9183,11 @@ func (m *Sticker) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x42
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.MaskPosition.Size()))
-		n40, err := m.MaskPosition.MarshalTo(dAtA[i:])
+		n50, err := m.MaskPosition.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n40
+		i += n50
 	}
 	if m.FileSize != 0 {
 		dAtA[i] = 0x48
@@ -6577,11 +9340,2057 @@ func (m *AddStickerToSet) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.MaskPosition.Size()))
-		n41, err := m.MaskPosition.MarshalTo(dAtA[i:])
+		n51, err := m.MaskPosition.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n41
+		i += n51
+	}
+	return i, nil
+}
+
+func (m *InlineQuery) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQuery) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Id) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if m.From != nil {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.From.Size()))
+		n52, err := m.From.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n52
+	}
+	if m.Location != nil {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Location.Size()))
+		n53, err := m.Location.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n53
+	}
+	if len(m.Query) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Query)))
+		i += copy(dAtA[i:], m.Query)
+	}
+	if len(m.Offset) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Offset)))
+		i += copy(dAtA[i:], m.Offset)
+	}
+	return i, nil
+}
+
+func (m *AnswerInlineQuery) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *AnswerInlineQuery) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.InlineQueryId) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.InlineQueryId)))
+		i += copy(dAtA[i:], m.InlineQueryId)
+	}
+	if len(m.Results) > 0 {
+		for _, msg := range m.Results {
+			dAtA[i] = 0x12
+			i++
+			i = encodeVarintTgbotapi(dAtA, i, uint64(msg.Size()))
+			n, err := msg.MarshalTo(dAtA[i:])
+			if err != nil {
+				return 0, err
+			}
+			i += n
+		}
+	}
+	if m.CacheTime != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.CacheTime))
+	}
+	if m.IsPersonal {
+		dAtA[i] = 0x20
+		i++
+		if m.IsPersonal {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i++
+	}
+	if len(m.NextOffset) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.NextOffset)))
+		i += copy(dAtA[i:], m.NextOffset)
+	}
+	if len(m.SwitchPmText) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.SwitchPmText)))
+		i += copy(dAtA[i:], m.SwitchPmText)
+	}
+	if len(m.SwitchPmParameter) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.SwitchPmParameter)))
+		i += copy(dAtA[i:], m.SwitchPmParameter)
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResult) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResult) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	return i, nil
+}
+
+func (m *InlineQueryResultArticle) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultArticle) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n54, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n54
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n55, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n55
+	}
+	if len(m.Url) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Url)))
+		i += copy(dAtA[i:], m.Url)
+	}
+	if m.HideUrl {
+		dAtA[i] = 0x38
+		i++
+		if m.HideUrl {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i++
+	}
+	if len(m.Description) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Description)))
+		i += copy(dAtA[i:], m.Description)
+	}
+	if len(m.ThumbUrl) > 0 {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ThumbUrl)))
+		i += copy(dAtA[i:], m.ThumbUrl)
+	}
+	if m.ThumbWidth != 0 {
+		dAtA[i] = 0x50
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		dAtA[i] = 0x58
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbHeight))
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultPhoto) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultPhoto) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.PhotoUrl) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.PhotoUrl)))
+		i += copy(dAtA[i:], m.PhotoUrl)
+	}
+	if len(m.ThumbUrl) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ThumbUrl)))
+		i += copy(dAtA[i:], m.ThumbUrl)
+	}
+	if m.PhotoWidth != 0 {
+		dAtA[i] = 0x28
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.PhotoWidth))
+	}
+	if m.PhotoHeight != 0 {
+		dAtA[i] = 0x30
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.PhotoHeight))
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Description) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Description)))
+		i += copy(dAtA[i:], m.Description)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x52
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x5a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n56, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n56
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x62
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n57, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n57
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultGif) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultGif) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.GifUrl) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.GifUrl)))
+		i += copy(dAtA[i:], m.GifUrl)
+	}
+	if m.GifWidth != 0 {
+		dAtA[i] = 0x20
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.GifWidth))
+	}
+	if m.GifHeight != 0 {
+		dAtA[i] = 0x28
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.GifHeight))
+	}
+	if m.GifDuration != 0 {
+		dAtA[i] = 0x30
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.GifDuration))
+	}
+	if len(m.ThumbUrl) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ThumbUrl)))
+		i += copy(dAtA[i:], m.ThumbUrl)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x52
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x5a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n58, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n58
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x62
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n59, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n59
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultMpeg4Gif) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultMpeg4Gif) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.Mpeg4Url) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Mpeg4Url)))
+		i += copy(dAtA[i:], m.Mpeg4Url)
+	}
+	if m.Mpeg4Width != 0 {
+		dAtA[i] = 0x20
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Mpeg4Width))
+	}
+	if m.Mpeg4Height != 0 {
+		dAtA[i] = 0x28
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Mpeg4Height))
+	}
+	if m.Mpeg4Duration != 0 {
+		dAtA[i] = 0x30
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Mpeg4Duration))
+	}
+	if len(m.ThumbUrl) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ThumbUrl)))
+		i += copy(dAtA[i:], m.ThumbUrl)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x52
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x5a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n60, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n60
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x62
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n61, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n61
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultVideo) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultVideo) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.VideoUrl) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.VideoUrl)))
+		i += copy(dAtA[i:], m.VideoUrl)
+	}
+	if len(m.MimeType) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.MimeType)))
+		i += copy(dAtA[i:], m.MimeType)
+	}
+	if len(m.ThumbUrl) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ThumbUrl)))
+		i += copy(dAtA[i:], m.ThumbUrl)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.VideoWidth != 0 {
+		dAtA[i] = 0x48
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.VideoWidth))
+	}
+	if m.VideoHeight != 0 {
+		dAtA[i] = 0x50
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.VideoHeight))
+	}
+	if m.VideoDuration != 0 {
+		dAtA[i] = 0x58
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.VideoDuration))
+	}
+	if len(m.Description) > 0 {
+		dAtA[i] = 0x62
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Description)))
+		i += copy(dAtA[i:], m.Description)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x6a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n62, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n62
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x72
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n63, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n63
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultAudio) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultAudio) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.AudioUrl) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.AudioUrl)))
+		i += copy(dAtA[i:], m.AudioUrl)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if len(m.Performer) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Performer)))
+		i += copy(dAtA[i:], m.Performer)
+	}
+	if m.AudioDuration != 0 {
+		dAtA[i] = 0x40
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.AudioDuration))
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n64, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n64
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x52
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n65, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n65
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultVoice) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultVoice) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.VoiceUrl) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.VoiceUrl)))
+		i += copy(dAtA[i:], m.VoiceUrl)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.VoiceDuration != 0 {
+		dAtA[i] = 0x38
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.VoiceDuration))
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n66, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n66
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n67, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n67
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultDocument) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultDocument) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if len(m.DocumentUrl) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.DocumentUrl)))
+		i += copy(dAtA[i:], m.DocumentUrl)
+	}
+	if len(m.MimeType) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.MimeType)))
+		i += copy(dAtA[i:], m.MimeType)
+	}
+	if len(m.Description) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Description)))
+		i += copy(dAtA[i:], m.Description)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n68, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n68
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x52
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n69, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n69
+	}
+	if len(m.ThumbUrl) > 0 {
+		dAtA[i] = 0x5a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ThumbUrl)))
+		i += copy(dAtA[i:], m.ThumbUrl)
+	}
+	if m.ThumbWidth != 0 {
+		dAtA[i] = 0x60
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		dAtA[i] = 0x68
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbHeight))
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultLocation) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultLocation) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if m.Latitude != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Latitude))
+	}
+	if m.Longitude != 0 {
+		dAtA[i] = 0x20
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Longitude))
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if m.LivePeriod != 0 {
+		dAtA[i] = 0x30
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.LivePeriod))
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n70, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n70
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n71, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n71
+	}
+	if len(m.ThumbUrl) > 0 {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ThumbUrl)))
+		i += copy(dAtA[i:], m.ThumbUrl)
+	}
+	if m.ThumbWidth != 0 {
+		dAtA[i] = 0x50
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		dAtA[i] = 0x58
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbHeight))
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultVenue) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultVenue) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if m.Latitude != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Latitude))
+	}
+	if m.Longitude != 0 {
+		dAtA[i] = 0x20
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Longitude))
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Address) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Address)))
+		i += copy(dAtA[i:], m.Address)
+	}
+	if len(m.FoursquareId) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.FoursquareId)))
+		i += copy(dAtA[i:], m.FoursquareId)
+	}
+	if len(m.FoursquareType) > 0 {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.FoursquareType)))
+		i += copy(dAtA[i:], m.FoursquareType)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n72, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n72
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x52
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n73, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n73
+	}
+	if len(m.ThumbUrl) > 0 {
+		dAtA[i] = 0x5a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ThumbUrl)))
+		i += copy(dAtA[i:], m.ThumbUrl)
+	}
+	if m.ThumbWidth != 0 {
+		dAtA[i] = 0x60
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		dAtA[i] = 0x68
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbHeight))
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultContact) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultContact) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.PhoneNumber) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.PhoneNumber)))
+		i += copy(dAtA[i:], m.PhoneNumber)
+	}
+	if len(m.FirstName) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.FirstName)))
+		i += copy(dAtA[i:], m.FirstName)
+	}
+	if len(m.LastName) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.LastName)))
+		i += copy(dAtA[i:], m.LastName)
+	}
+	if len(m.Vcard) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Vcard)))
+		i += copy(dAtA[i:], m.Vcard)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n74, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n74
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n75, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n75
+	}
+	if len(m.ThumbUrl) > 0 {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ThumbUrl)))
+		i += copy(dAtA[i:], m.ThumbUrl)
+	}
+	if m.ThumbWidth != 0 {
+		dAtA[i] = 0x50
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		dAtA[i] = 0x58
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ThumbHeight))
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultGame) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultGame) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.GameShortName) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.GameShortName)))
+		i += copy(dAtA[i:], m.GameShortName)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n76, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n76
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultCachedPhoto) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultCachedPhoto) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.PhotoFileId) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.PhotoFileId)))
+		i += copy(dAtA[i:], m.PhotoFileId)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Description) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Description)))
+		i += copy(dAtA[i:], m.Description)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n77, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n77
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n78, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n78
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultCachedGif) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultCachedGif) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.GifFileId) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.GifFileId)))
+		i += copy(dAtA[i:], m.GifFileId)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n79, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n79
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n80, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n80
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.Mpeg4FileId) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Mpeg4FileId)))
+		i += copy(dAtA[i:], m.Mpeg4FileId)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n81, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n81
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n82, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n82
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultCachedSticker) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultCachedSticker) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.StickerFileId) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.StickerFileId)))
+		i += copy(dAtA[i:], m.StickerFileId)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n83, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n83
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n84, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n84
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultCachedDocument) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultCachedDocument) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.DocumentFileId) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.DocumentFileId)))
+		i += copy(dAtA[i:], m.DocumentFileId)
+	}
+	if len(m.Description) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Description)))
+		i += copy(dAtA[i:], m.Description)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n85, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n85
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n86, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n86
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultCachedVideo) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultCachedVideo) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.VideoFileId) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.VideoFileId)))
+		i += copy(dAtA[i:], m.VideoFileId)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Description) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Description)))
+		i += copy(dAtA[i:], m.Description)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n87, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n87
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x4a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n88, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n88
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultCachedVoice) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultCachedVoice) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.VoiceFileId) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.VoiceFileId)))
+		i += copy(dAtA[i:], m.VoiceFileId)
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n89, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n89
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x42
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n90, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n90
+	}
+	return i, nil
+}
+
+func (m *InlineQueryResultCachedAudio) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InlineQueryResultCachedAudio) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.Type) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Type)))
+		i += copy(dAtA[i:], m.Type)
+	}
+	if len(m.Id) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Id)))
+		i += copy(dAtA[i:], m.Id)
+	}
+	if len(m.AudioFileId) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.AudioFileId)))
+		i += copy(dAtA[i:], m.AudioFileId)
+	}
+	if len(m.Caption) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Caption)))
+		i += copy(dAtA[i:], m.Caption)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.ReplyMarkup != nil {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyMarkup.Size()))
+		n91, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n91
+	}
+	if m.InputMessageContent != nil {
+		dAtA[i] = 0x3a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMessageContent.Size()))
+		n92, err := m.InputMessageContent.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n92
+	}
+	return i, nil
+}
+
+func (m *InputMessageContent) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InputMessageContent) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	return i, nil
+}
+
+func (m *InputTextMessageContent) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InputTextMessageContent) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.MessageText) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.MessageText)))
+		i += copy(dAtA[i:], m.MessageText)
+	}
+	if len(m.ParseMode) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ParseMode)))
+		i += copy(dAtA[i:], m.ParseMode)
+	}
+	if m.DisableWebPagePreview {
+		dAtA[i] = 0x18
+		i++
+		if m.DisableWebPagePreview {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i++
+	}
+	return i, nil
+}
+
+func (m *InputLocationMessageContent) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InputLocationMessageContent) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Latitude != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Latitude))
+	}
+	if m.Longitude != 0 {
+		dAtA[i] = 0x10
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Longitude))
+	}
+	if m.LivePeriod != 0 {
+		dAtA[i] = 0x18
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.LivePeriod))
+	}
+	return i, nil
+}
+
+func (m *InputVenueMessageContent) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InputVenueMessageContent) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.Latitude != 0 {
+		dAtA[i] = 0x8
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Latitude))
+	}
+	if m.Longitude != 0 {
+		dAtA[i] = 0x10
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Longitude))
+	}
+	if len(m.Title) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Title)))
+		i += copy(dAtA[i:], m.Title)
+	}
+	if len(m.Address) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Address)))
+		i += copy(dAtA[i:], m.Address)
+	}
+	if len(m.FoursquareId) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.FoursquareId)))
+		i += copy(dAtA[i:], m.FoursquareId)
+	}
+	if len(m.FoursquareType) > 0 {
+		dAtA[i] = 0x32
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.FoursquareType)))
+		i += copy(dAtA[i:], m.FoursquareType)
+	}
+	return i, nil
+}
+
+func (m *InputContactMessageContent) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InputContactMessageContent) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.PhoneNumber) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.PhoneNumber)))
+		i += copy(dAtA[i:], m.PhoneNumber)
+	}
+	if len(m.FirstName) > 0 {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.FirstName)))
+		i += copy(dAtA[i:], m.FirstName)
+	}
+	if len(m.LastName) > 0 {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.LastName)))
+		i += copy(dAtA[i:], m.LastName)
+	}
+	if len(m.Vcard) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Vcard)))
+		i += copy(dAtA[i:], m.Vcard)
+	}
+	return i, nil
+}
+
+func (m *ChosenInlineResult) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ChosenInlineResult) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if len(m.ResultId) > 0 {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.ResultId)))
+		i += copy(dAtA[i:], m.ResultId)
+	}
+	if m.From != nil {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.From.Size()))
+		n93, err := m.From.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n93
+	}
+	if m.Location != nil {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Location.Size()))
+		n94, err := m.Location.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n94
+	}
+	if len(m.InlineMessageId) > 0 {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.InlineMessageId)))
+		i += copy(dAtA[i:], m.InlineMessageId)
+	}
+	if len(m.Query) > 0 {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(len(m.Query)))
+		i += copy(dAtA[i:], m.Query)
 	}
 	return i, nil
 }
@@ -6845,11 +11654,11 @@ func (m *OrderInfo) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x22
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ShippingAddress.Size()))
-		n42, err := m.ShippingAddress.MarshalTo(dAtA[i:])
+		n95, err := m.ShippingAddress.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n42
+		i += n95
 	}
 	return i, nil
 }
@@ -6938,11 +11747,11 @@ func (m *SuccessfulPayment) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x2a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.OrderInfo.Size()))
-		n43, err := m.OrderInfo.MarshalTo(dAtA[i:])
+		n96, err := m.OrderInfo.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n43
+		i += n96
 	}
 	if len(m.TelegramPaymentChargeId) > 0 {
 		dAtA[i] = 0x32
@@ -6984,11 +11793,11 @@ func (m *ShippingQuery) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.From.Size()))
-		n44, err := m.From.MarshalTo(dAtA[i:])
+		n97, err := m.From.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n44
+		i += n97
 	}
 	if len(m.InvoicePayload) > 0 {
 		dAtA[i] = 0x1a
@@ -7000,11 +11809,11 @@ func (m *ShippingQuery) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x22
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ShippingAddress.Size()))
-		n45, err := m.ShippingAddress.MarshalTo(dAtA[i:])
+		n98, err := m.ShippingAddress.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n45
+		i += n98
 	}
 	return i, nil
 }
@@ -7034,11 +11843,11 @@ func (m *PreCheckoutQuery) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.From.Size()))
-		n46, err := m.From.MarshalTo(dAtA[i:])
+		n99, err := m.From.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n46
+		i += n99
 	}
 	if len(m.Currency) > 0 {
 		dAtA[i] = 0x1a
@@ -7067,11 +11876,11 @@ func (m *PreCheckoutQuery) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.OrderInfo.Size()))
-		n47, err := m.OrderInfo.MarshalTo(dAtA[i:])
+		n100, err := m.OrderInfo.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n47
+		i += n100
 	}
 	return i, nil
 }
@@ -7107,11 +11916,11 @@ func (m *PassportData) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Credentials.Size()))
-		n48, err := m.Credentials.MarshalTo(dAtA[i:])
+		n101, err := m.Credentials.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n48
+		i += n101
 	}
 	return i, nil
 }
@@ -7205,31 +12014,31 @@ func (m *EncryptedPassportElement) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x32
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.FrontSide.Size()))
-		n49, err := m.FrontSide.MarshalTo(dAtA[i:])
+		n102, err := m.FrontSide.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n49
+		i += n102
 	}
 	if m.ReverseSide != nil {
 		dAtA[i] = 0x3a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReverseSide.Size()))
-		n50, err := m.ReverseSide.MarshalTo(dAtA[i:])
+		n103, err := m.ReverseSide.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n50
+		i += n103
 	}
 	if m.Selfie != nil {
 		dAtA[i] = 0x42
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Selfie.Size()))
-		n51, err := m.Selfie.MarshalTo(dAtA[i:])
+		n104, err := m.Selfie.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n51
+		i += n104
 	}
 	if len(m.Translation) > 0 {
 		for _, msg := range m.Translation {
@@ -7769,11 +12578,11 @@ func (m *Game) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x32
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.Animation.Size()))
-		n52, err := m.Animation.MarshalTo(dAtA[i:])
+		n105, err := m.Animation.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n52
+		i += n105
 	}
 	return i, nil
 }
@@ -7820,11 +12629,11 @@ func (m *GameHighScore) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.User.Size()))
-		n53, err := m.User.MarshalTo(dAtA[i:])
+		n106, err := m.User.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n53
+		i += n106
 	}
 	if m.Score != 0 {
 		dAtA[i] = 0x18
@@ -7850,11 +12659,11 @@ func (m *ReplyMarkup) MarshalTo(dAtA []byte) (int, error) {
 	var l int
 	_ = l
 	if m.ReplyMarkup != nil {
-		nn54, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
+		nn107, err := m.ReplyMarkup.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += nn54
+		i += nn107
 	}
 	return i, nil
 }
@@ -7865,11 +12674,11 @@ func (m *ReplyMarkup_InlineKeyboardMarkup) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0xa
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InlineKeyboardMarkup.Size()))
-		n55, err := m.InlineKeyboardMarkup.MarshalTo(dAtA[i:])
+		n108, err := m.InlineKeyboardMarkup.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n55
+		i += n108
 	}
 	return i, nil
 }
@@ -7879,11 +12688,11 @@ func (m *ReplyMarkup_ReplyKeyboardMarkup) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x12
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyKeyboardMarkup.Size()))
-		n56, err := m.ReplyKeyboardMarkup.MarshalTo(dAtA[i:])
+		n109, err := m.ReplyKeyboardMarkup.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n56
+		i += n109
 	}
 	return i, nil
 }
@@ -7893,11 +12702,11 @@ func (m *ReplyMarkup_ReplyKeyboardRemove) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x1a
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ReplyKeyboardRemove.Size()))
-		n57, err := m.ReplyKeyboardRemove.MarshalTo(dAtA[i:])
+		n110, err := m.ReplyKeyboardRemove.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n57
+		i += n110
 	}
 	return i, nil
 }
@@ -7907,11 +12716,106 @@ func (m *ReplyMarkup_ForceReply) MarshalTo(dAtA []byte) (int, error) {
 		dAtA[i] = 0x22
 		i++
 		i = encodeVarintTgbotapi(dAtA, i, uint64(m.ForceReply.Size()))
-		n58, err := m.ForceReply.MarshalTo(dAtA[i:])
+		n111, err := m.ForceReply.MarshalTo(dAtA[i:])
 		if err != nil {
 			return 0, err
 		}
-		i += n58
+		i += n111
+	}
+	return i, nil
+}
+func (m *InputMedia) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalTo(dAtA)
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *InputMedia) MarshalTo(dAtA []byte) (int, error) {
+	var i int
+	_ = i
+	var l int
+	_ = l
+	if m.InputMedia != nil {
+		nn112, err := m.InputMedia.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += nn112
+	}
+	return i, nil
+}
+
+func (m *InputMedia_InputMediaAnimation) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	if m.InputMediaAnimation != nil {
+		dAtA[i] = 0xa
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMediaAnimation.Size()))
+		n113, err := m.InputMediaAnimation.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n113
+	}
+	return i, nil
+}
+func (m *InputMedia_InputMediaDocument) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	if m.InputMediaDocument != nil {
+		dAtA[i] = 0x12
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMediaDocument.Size()))
+		n114, err := m.InputMediaDocument.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n114
+	}
+	return i, nil
+}
+func (m *InputMedia_InputMediaAudio) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	if m.InputMediaAudio != nil {
+		dAtA[i] = 0x1a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMediaAudio.Size()))
+		n115, err := m.InputMediaAudio.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n115
+	}
+	return i, nil
+}
+func (m *InputMedia_InputMediaPhoto) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	if m.InputMediaPhoto != nil {
+		dAtA[i] = 0x22
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMediaPhoto.Size()))
+		n116, err := m.InputMediaPhoto.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n116
+	}
+	return i, nil
+}
+func (m *InputMedia_InputMediaVideo) MarshalTo(dAtA []byte) (int, error) {
+	i := 0
+	if m.InputMediaVideo != nil {
+		dAtA[i] = 0x2a
+		i++
+		i = encodeVarintTgbotapi(dAtA, i, uint64(m.InputMediaVideo.Size()))
+		n117, err := m.InputMediaVideo.MarshalTo(dAtA[i:])
+		if err != nil {
+			return 0, err
+		}
+		i += n117
 	}
 	return i, nil
 }
@@ -7942,6 +12846,87 @@ func encodeVarintTgbotapi(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return offset + 1
 }
+func (m *Update) Size() (n int) {
+	var l int
+	_ = l
+	if m.UpdateId != 0 {
+		n += 1 + sovTgbotapi(uint64(m.UpdateId))
+	}
+	if m.Message != nil {
+		l = m.Message.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.EditedMessage != nil {
+		l = m.EditedMessage.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ChannelPost != nil {
+		l = m.ChannelPost.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.EditedChannelPost != nil {
+		l = m.EditedChannelPost.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InlineQuery != nil {
+		l = m.InlineQuery.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ChosenInlineResult != nil {
+		l = m.ChosenInlineResult.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.CallbackQuery != nil {
+		l = m.CallbackQuery.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ShippingQuery != nil {
+		l = m.ShippingQuery.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.PreCheckoutQuery != nil {
+		l = m.PreCheckoutQuery.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.Poll != nil {
+		l = m.Poll.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *WebhookInfo) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Url)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.HasCustomCertificate {
+		n += 2
+	}
+	if m.PendingUpdateCount != 0 {
+		n += 1 + sovTgbotapi(uint64(m.PendingUpdateCount))
+	}
+	if m.LastErrorDate != 0 {
+		n += 1 + sovTgbotapi(uint64(m.LastErrorDate))
+	}
+	l = len(m.LastErrorMessage)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.MaxConnections != 0 {
+		n += 1 + sovTgbotapi(uint64(m.MaxConnections))
+	}
+	if len(m.AllowedUpdates) > 0 {
+		for _, s := range m.AllowedUpdates {
+			l = len(s)
+			n += 1 + l + sovTgbotapi(uint64(l))
+		}
+	}
+	return n
+}
+
 func (m *User) Size() (n int) {
 	var l int
 	_ = l
@@ -8840,12 +13825,6 @@ func (m *ResponseParameters) Size() (n int) {
 	return n
 }
 
-func (m *InputMedia) Size() (n int) {
-	var l int
-	_ = l
-	return n
-}
-
 func (m *InputMediaPhoto) Size() (n int) {
 	var l int
 	_ = l
@@ -9137,6 +14116,1057 @@ func (m *AddStickerToSet) Size() (n int) {
 	}
 	if m.MaskPosition != nil {
 		l = m.MaskPosition.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQuery) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.From != nil {
+		l = m.From.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.Location != nil {
+		l = m.Location.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Query)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Offset)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *AnswerInlineQuery) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.InlineQueryId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if len(m.Results) > 0 {
+		for _, e := range m.Results {
+			l = e.Size()
+			n += 1 + l + sovTgbotapi(uint64(l))
+		}
+	}
+	if m.CacheTime != 0 {
+		n += 1 + sovTgbotapi(uint64(m.CacheTime))
+	}
+	if m.IsPersonal {
+		n += 2
+	}
+	l = len(m.NextOffset)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.SwitchPmText)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.SwitchPmParameter)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResult) Size() (n int) {
+	var l int
+	_ = l
+	return n
+}
+
+func (m *InlineQueryResultArticle) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Url)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.HideUrl {
+		n += 2
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ThumbUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ThumbWidth != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbHeight))
+	}
+	return n
+}
+
+func (m *InlineQueryResultPhoto) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.PhotoUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ThumbUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.PhotoWidth != 0 {
+		n += 1 + sovTgbotapi(uint64(m.PhotoWidth))
+	}
+	if m.PhotoHeight != 0 {
+		n += 1 + sovTgbotapi(uint64(m.PhotoHeight))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultGif) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.GifUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.GifWidth != 0 {
+		n += 1 + sovTgbotapi(uint64(m.GifWidth))
+	}
+	if m.GifHeight != 0 {
+		n += 1 + sovTgbotapi(uint64(m.GifHeight))
+	}
+	if m.GifDuration != 0 {
+		n += 1 + sovTgbotapi(uint64(m.GifDuration))
+	}
+	l = len(m.ThumbUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultMpeg4Gif) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Mpeg4Url)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.Mpeg4Width != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Mpeg4Width))
+	}
+	if m.Mpeg4Height != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Mpeg4Height))
+	}
+	if m.Mpeg4Duration != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Mpeg4Duration))
+	}
+	l = len(m.ThumbUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultVideo) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.VideoUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.MimeType)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ThumbUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.VideoWidth != 0 {
+		n += 1 + sovTgbotapi(uint64(m.VideoWidth))
+	}
+	if m.VideoHeight != 0 {
+		n += 1 + sovTgbotapi(uint64(m.VideoHeight))
+	}
+	if m.VideoDuration != 0 {
+		n += 1 + sovTgbotapi(uint64(m.VideoDuration))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultAudio) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.AudioUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Performer)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.AudioDuration != 0 {
+		n += 1 + sovTgbotapi(uint64(m.AudioDuration))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultVoice) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.VoiceUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.VoiceDuration != 0 {
+		n += 1 + sovTgbotapi(uint64(m.VoiceDuration))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultDocument) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.DocumentUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.MimeType)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ThumbUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ThumbWidth != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbHeight))
+	}
+	return n
+}
+
+func (m *InlineQueryResultLocation) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.Latitude != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Latitude))
+	}
+	if m.Longitude != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Longitude))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.LivePeriod != 0 {
+		n += 1 + sovTgbotapi(uint64(m.LivePeriod))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ThumbUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ThumbWidth != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbHeight))
+	}
+	return n
+}
+
+func (m *InlineQueryResultVenue) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.Latitude != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Latitude))
+	}
+	if m.Longitude != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Longitude))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Address)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.FoursquareId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.FoursquareType)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ThumbUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ThumbWidth != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbHeight))
+	}
+	return n
+}
+
+func (m *InlineQueryResultContact) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.PhoneNumber)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.FirstName)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.LastName)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Vcard)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ThumbUrl)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ThumbWidth != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbWidth))
+	}
+	if m.ThumbHeight != 0 {
+		n += 1 + sovTgbotapi(uint64(m.ThumbHeight))
+	}
+	return n
+}
+
+func (m *InlineQueryResultGame) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.GameShortName)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultCachedPhoto) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.PhotoFileId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultCachedGif) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.GifFileId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultCachedMpeg4Gif) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Mpeg4FileId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultCachedSticker) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.StickerFileId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultCachedDocument) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.DocumentFileId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultCachedVideo) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.VideoFileId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultCachedVoice) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.VoiceFileId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InlineQueryResultCachedAudio) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.Type)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Id)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.AudioFileId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Caption)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.ReplyMarkup != nil {
+		l = m.ReplyMarkup.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.InputMessageContent != nil {
+		l = m.InputMessageContent.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InputMessageContent) Size() (n int) {
+	var l int
+	_ = l
+	return n
+}
+
+func (m *InputTextMessageContent) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.MessageText)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.ParseMode)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.DisableWebPagePreview {
+		n += 2
+	}
+	return n
+}
+
+func (m *InputLocationMessageContent) Size() (n int) {
+	var l int
+	_ = l
+	if m.Latitude != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Latitude))
+	}
+	if m.Longitude != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Longitude))
+	}
+	if m.LivePeriod != 0 {
+		n += 1 + sovTgbotapi(uint64(m.LivePeriod))
+	}
+	return n
+}
+
+func (m *InputVenueMessageContent) Size() (n int) {
+	var l int
+	_ = l
+	if m.Latitude != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Latitude))
+	}
+	if m.Longitude != 0 {
+		n += 1 + sovTgbotapi(uint64(m.Longitude))
+	}
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Address)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.FoursquareId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.FoursquareType)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *InputContactMessageContent) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.PhoneNumber)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.FirstName)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.LastName)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Vcard)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+
+func (m *ChosenInlineResult) Size() (n int) {
+	var l int
+	_ = l
+	l = len(m.ResultId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.From != nil {
+		l = m.From.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	if m.Location != nil {
+		l = m.Location.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.InlineMessageId)
+	if l > 0 {
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	l = len(m.Query)
+	if l > 0 {
 		n += 1 + l + sovTgbotapi(uint64(l))
 	}
 	return n
@@ -9793,6 +15823,60 @@ func (m *ReplyMarkup_ForceReply) Size() (n int) {
 	}
 	return n
 }
+func (m *InputMedia) Size() (n int) {
+	var l int
+	_ = l
+	if m.InputMedia != nil {
+		n += m.InputMedia.Size()
+	}
+	return n
+}
+
+func (m *InputMedia_InputMediaAnimation) Size() (n int) {
+	var l int
+	_ = l
+	if m.InputMediaAnimation != nil {
+		l = m.InputMediaAnimation.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+func (m *InputMedia_InputMediaDocument) Size() (n int) {
+	var l int
+	_ = l
+	if m.InputMediaDocument != nil {
+		l = m.InputMediaDocument.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+func (m *InputMedia_InputMediaAudio) Size() (n int) {
+	var l int
+	_ = l
+	if m.InputMediaAudio != nil {
+		l = m.InputMediaAudio.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+func (m *InputMedia_InputMediaPhoto) Size() (n int) {
+	var l int
+	_ = l
+	if m.InputMediaPhoto != nil {
+		l = m.InputMediaPhoto.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
+func (m *InputMedia_InputMediaVideo) Size() (n int) {
+	var l int
+	_ = l
+	if m.InputMediaVideo != nil {
+		l = m.InputMediaVideo.Size()
+		n += 1 + l + sovTgbotapi(uint64(l))
+	}
+	return n
+}
 
 func sovTgbotapi(x uint64) (n int) {
 	for {
@@ -9806,6 +15890,619 @@ func sovTgbotapi(x uint64) (n int) {
 }
 func sozTgbotapi(x uint64) (n int) {
 	return sovTgbotapi(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *Update) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: Update: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: Update: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UpdateId", wireType)
+			}
+			m.UpdateId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.UpdateId |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Message", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Message == nil {
+				m.Message = &Message{}
+			}
+			if err := m.Message.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EditedMessage", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.EditedMessage == nil {
+				m.EditedMessage = &Message{}
+			}
+			if err := m.EditedMessage.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChannelPost", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ChannelPost == nil {
+				m.ChannelPost = &Message{}
+			}
+			if err := m.ChannelPost.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EditedChannelPost", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.EditedChannelPost == nil {
+				m.EditedChannelPost = &Message{}
+			}
+			if err := m.EditedChannelPost.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InlineQuery", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InlineQuery == nil {
+				m.InlineQuery = &InlineQuery{}
+			}
+			if err := m.InlineQuery.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChosenInlineResult", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ChosenInlineResult == nil {
+				m.ChosenInlineResult = &ChosenInlineResult{}
+			}
+			if err := m.ChosenInlineResult.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CallbackQuery", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.CallbackQuery == nil {
+				m.CallbackQuery = &CallbackQuery{}
+			}
+			if err := m.CallbackQuery.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ShippingQuery", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ShippingQuery == nil {
+				m.ShippingQuery = &ShippingQuery{}
+			}
+			if err := m.ShippingQuery.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PreCheckoutQuery", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.PreCheckoutQuery == nil {
+				m.PreCheckoutQuery = &PreCheckoutQuery{}
+			}
+			if err := m.PreCheckoutQuery.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Poll", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Poll == nil {
+				m.Poll = &Poll{}
+			}
+			if err := m.Poll.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *WebhookInfo) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: WebhookInfo: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: WebhookInfo: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Url", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Url = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HasCustomCertificate", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.HasCustomCertificate = bool(v != 0)
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PendingUpdateCount", wireType)
+			}
+			m.PendingUpdateCount = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.PendingUpdateCount |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastErrorDate", wireType)
+			}
+			m.LastErrorDate = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LastErrorDate |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastErrorMessage", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastErrorMessage = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MaxConnections", wireType)
+			}
+			m.MaxConnections = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.MaxConnections |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AllowedUpdates", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AllowedUpdates = append(m.AllowedUpdates, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *User) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -16373,56 +23070,6 @@ func (m *ResponseParameters) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *InputMedia) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowTgbotapi
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= (uint64(b) & 0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: InputMedia: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: InputMedia: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		default:
-			iNdEx = preIndex
-			skippy, err := skipTgbotapi(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if skippy < 0 {
-				return ErrInvalidLengthTgbotapi
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
 func (m *InputMediaPhoto) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -18568,6 +25215,7875 @@ func (m *AddStickerToSet) Unmarshal(dAtA []byte) error {
 			if err := m.MaskPosition.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQuery) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQuery: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQuery: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field From", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.From == nil {
+				m.From = &User{}
+			}
+			if err := m.From.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Location", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Location == nil {
+				m.Location = &Location{}
+			}
+			if err := m.Location.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Query", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Query = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Offset", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Offset = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *AnswerInlineQuery) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: answerInlineQuery: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: answerInlineQuery: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InlineQueryId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.InlineQueryId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Results", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Results = append(m.Results, &InlineQueryResult{})
+			if err := m.Results[len(m.Results)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CacheTime", wireType)
+			}
+			m.CacheTime = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CacheTime |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsPersonal", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsPersonal = bool(v != 0)
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NextOffset", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.NextOffset = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SwitchPmText", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SwitchPmText = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SwitchPmParameter", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SwitchPmParameter = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResult) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResult: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResult: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultArticle) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultArticle: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultArticle: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Url", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Url = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HideUrl", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.HideUrl = bool(v != 0)
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ThumbUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbWidth", wireType)
+			}
+			m.ThumbWidth = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbWidth |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbHeight", wireType)
+			}
+			m.ThumbHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbHeight |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultPhoto) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultPhoto: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultPhoto: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PhotoUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PhotoUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ThumbUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PhotoWidth", wireType)
+			}
+			m.PhotoWidth = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.PhotoWidth |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PhotoHeight", wireType)
+			}
+			m.PhotoHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.PhotoHeight |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultGif) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultGif: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultGif: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GifUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GifUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GifWidth", wireType)
+			}
+			m.GifWidth = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.GifWidth |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GifHeight", wireType)
+			}
+			m.GifHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.GifHeight |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GifDuration", wireType)
+			}
+			m.GifDuration = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.GifDuration |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ThumbUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultMpeg4Gif) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultMpeg4Gif: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultMpeg4Gif: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Mpeg4Url", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Mpeg4Url = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Mpeg4Width", wireType)
+			}
+			m.Mpeg4Width = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Mpeg4Width |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Mpeg4Height", wireType)
+			}
+			m.Mpeg4Height = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Mpeg4Height |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Mpeg4Duration", wireType)
+			}
+			m.Mpeg4Duration = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Mpeg4Duration |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ThumbUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultVideo) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultVideo: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultVideo: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VideoUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.VideoUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MimeType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MimeType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ThumbUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VideoWidth", wireType)
+			}
+			m.VideoWidth = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.VideoWidth |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 10:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VideoHeight", wireType)
+			}
+			m.VideoHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.VideoHeight |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VideoDuration", wireType)
+			}
+			m.VideoDuration = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.VideoDuration |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultAudio) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultAudio: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultAudio: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AudioUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AudioUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Performer", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Performer = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AudioDuration", wireType)
+			}
+			m.AudioDuration = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.AudioDuration |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultVoice) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultVoice: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultVoice: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VoiceUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.VoiceUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VoiceDuration", wireType)
+			}
+			m.VoiceDuration = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.VoiceDuration |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultDocument) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultDocument: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultDocument: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DocumentUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DocumentUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MimeType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MimeType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ThumbUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbWidth", wireType)
+			}
+			m.ThumbWidth = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbWidth |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 13:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbHeight", wireType)
+			}
+			m.ThumbHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbHeight |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultLocation) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultLocation: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultLocation: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Latitude", wireType)
+			}
+			m.Latitude = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Latitude |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Longitude", wireType)
+			}
+			m.Longitude = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Longitude |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LivePeriod", wireType)
+			}
+			m.LivePeriod = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LivePeriod |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ThumbUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbWidth", wireType)
+			}
+			m.ThumbWidth = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbWidth |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbHeight", wireType)
+			}
+			m.ThumbHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbHeight |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultVenue) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultVenue: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultVenue: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Latitude", wireType)
+			}
+			m.Latitude = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Latitude |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Longitude", wireType)
+			}
+			m.Longitude = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Longitude |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Address = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FoursquareId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FoursquareId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FoursquareType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FoursquareType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ThumbUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 12:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbWidth", wireType)
+			}
+			m.ThumbWidth = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbWidth |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 13:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbHeight", wireType)
+			}
+			m.ThumbHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbHeight |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultContact) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultContact: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultContact: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PhoneNumber", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PhoneNumber = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FirstName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FirstName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Vcard", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Vcard = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbUrl", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ThumbUrl = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 10:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbWidth", wireType)
+			}
+			m.ThumbWidth = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbWidth |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ThumbHeight", wireType)
+			}
+			m.ThumbHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ThumbHeight |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultGame) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultGame: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultGame: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GameShortName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GameShortName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultCachedPhoto) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultCachedPhoto: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultCachedPhoto: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PhotoFileId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PhotoFileId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultCachedGif) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultCachedGif: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultCachedGif: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field GifFileId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.GifFileId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultCachedMpeg4Gif) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultCachedMpeg4Gif: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultCachedMpeg4Gif: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Mpeg4FileId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Mpeg4FileId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultCachedSticker) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultCachedSticker: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultCachedSticker: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StickerFileId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.StickerFileId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultCachedDocument) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultCachedDocument: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultCachedDocument: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DocumentFileId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DocumentFileId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultCachedVideo) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultCachedVideo: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultCachedVideo: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VideoFileId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.VideoFileId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultCachedVoice) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultCachedVoice: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultCachedVoice: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VoiceFileId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.VoiceFileId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InlineQueryResultCachedAudio) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InlineQueryResultCachedAudio: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InlineQueryResultCachedAudio: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Type", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Type = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Id", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Id = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AudioFileId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AudioFileId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Caption", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Caption = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ReplyMarkup", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ReplyMarkup == nil {
+				m.ReplyMarkup = &InlineKeyboardMarkup{}
+			}
+			if err := m.ReplyMarkup.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMessageContent", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.InputMessageContent == nil {
+				m.InputMessageContent = &InputMessageContent{}
+			}
+			if err := m.InputMessageContent.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InputMessageContent) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InputMessageContent: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InputMessageContent: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InputTextMessageContent) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InputTextMessageContent: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InputTextMessageContent: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MessageText", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MessageText = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ParseMode", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ParseMode = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DisableWebPagePreview", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.DisableWebPagePreview = bool(v != 0)
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InputLocationMessageContent) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InputLocationMessageContent: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InputLocationMessageContent: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Latitude", wireType)
+			}
+			m.Latitude = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Latitude |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Longitude", wireType)
+			}
+			m.Longitude = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Longitude |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LivePeriod", wireType)
+			}
+			m.LivePeriod = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LivePeriod |= (int32(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InputVenueMessageContent) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InputVenueMessageContent: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InputVenueMessageContent: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Latitude", wireType)
+			}
+			m.Latitude = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Latitude |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Longitude", wireType)
+			}
+			m.Longitude = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Longitude |= (int64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Address = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FoursquareId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FoursquareId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FoursquareType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FoursquareType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *InputContactMessageContent) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InputContactMessageContent: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InputContactMessageContent: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field PhoneNumber", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.PhoneNumber = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FirstName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FirstName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastName", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastName = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Vcard", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Vcard = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ChosenInlineResult) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ChosenInlineResult: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ChosenInlineResult: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ResultId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ResultId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field From", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.From == nil {
+				m.From = &User{}
+			}
+			if err := m.From.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Location", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Location == nil {
+				m.Location = &Location{}
+			}
+			if err := m.Location.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InlineMessageId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.InlineMessageId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Query", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= (uint64(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Query = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -23243,6 +37759,216 @@ func (m *ReplyMarkup) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *InputMedia) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTgbotapi
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= (uint64(b) & 0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: InputMedia: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: InputMedia: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMediaAnimation", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &InputMediaAnimation{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.InputMedia = &InputMedia_InputMediaAnimation{v}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMediaDocument", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &InputMediaDocument{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.InputMedia = &InputMedia_InputMediaDocument{v}
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMediaAudio", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &InputMediaAudio{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.InputMedia = &InputMedia_InputMediaAudio{v}
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMediaPhoto", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &InputMediaPhoto{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.InputMedia = &InputMedia_InputMediaPhoto{v}
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field InputMediaVideo", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTgbotapi
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= (int(b) & 0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			postIndex := iNdEx + msglen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			v := &InputMediaVideo{}
+			if err := v.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			m.InputMedia = &InputMedia_InputMediaVideo{v}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTgbotapi(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if skippy < 0 {
+				return ErrInvalidLengthTgbotapi
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func skipTgbotapi(dAtA []byte) (n int, err error) {
 	l := len(dAtA)
 	iNdEx := 0
@@ -23351,276 +38077,381 @@ var (
 func init() { proto.RegisterFile("tgbotapi.proto", fileDescriptorTgbotapi) }
 
 var fileDescriptorTgbotapi = []byte{
-	// 4325 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x7a, 0xcd, 0x8f, 0x24, 0x47,
-	0x56, 0xb8, 0xb3, 0xbe, 0xeb, 0x55, 0x75, 0x75, 0x77, 0x4e, 0x7b, 0x26, 0x3d, 0xf6, 0x7c, 0xa5,
-	0xbf, 0xc6, 0x3b, 0x76, 0xdb, 0x9e, 0xfd, 0xd9, 0xf2, 0xfe, 0x66, 0x0f, 0xf4, 0xf4, 0xcc, 0xd8,
-	0xcd, 0x7a, 0xec, 0x76, 0xf6, 0x78, 0x2d, 0x24, 0xa4, 0x54, 0x74, 0x66, 0x54, 0x55, 0xd0, 0x59,
-	0x99, 0xe9, 0x8c, 0xa8, 0xee, 0xe9, 0x95, 0xd0, 0xa2, 0x5d, 0x24, 0x0c, 0xd2, 0x4a, 0x1c, 0x90,
-	0x10, 0x17, 0x04, 0x87, 0x15, 0x02, 0x89, 0x0b, 0x82, 0x13, 0x12, 0x12, 0x37, 0x6e, 0xec, 0x85,
-	0xcf, 0x13, 0xf2, 0x1f, 0x80, 0xf8, 0x07, 0x90, 0x50, 0xbc, 0x88, 0xc8, 0xcc, 0xca, 0xca, 0xae,
-	0xe9, 0xb1, 0xac, 0x59, 0x38, 0x55, 0xc5, 0xfb, 0xc8, 0x78, 0x5f, 0xf1, 0xe2, 0xc5, 0x8b, 0x80,
-	0x91, 0x98, 0x1c, 0x26, 0x82, 0xa4, 0x6c, 0x3b, 0xcd, 0x12, 0x91, 0xd8, 0xbd, 0xc3, 0x44, 0xe0,
-	0x3f, 0xf7, 0x2f, 0x2c, 0x68, 0x7d, 0xce, 0x69, 0x66, 0x8f, 0xa0, 0xc1, 0x42, 0xc7, 0xba, 0x6e,
-	0xdd, 0x6c, 0x7b, 0x0d, 0x16, 0xda, 0xcf, 0x43, 0x87, 0x71, 0xff, 0x30, 0x11, 0x4e, 0xe3, 0xba,
-	0x75, 0xb3, 0xe7, 0xb5, 0x19, 0xbf, 0x9b, 0x08, 0xfb, 0x0a, 0xc0, 0x98, 0x65, 0x5c, 0xf8, 0x31,
-	0x99, 0x51, 0xa7, 0x79, 0xdd, 0xba, 0xd9, 0xf7, 0xfa, 0x08, 0xf9, 0x84, 0xcc, 0xa8, 0xfd, 0x22,
-	0xf4, 0x23, 0x62, 0xb0, 0x2d, 0xc4, 0xf6, 0x24, 0x00, 0x91, 0x97, 0xa1, 0x37, 0xe7, 0x34, 0x43,
-	0x5c, 0x5b, 0xe1, 0xcc, 0xd8, 0x7e, 0x19, 0xd6, 0x22, 0x12, 0x4f, 0xe6, 0x64, 0x42, 0xfd, 0x20,
-	0x09, 0xa9, 0xd3, 0x41, 0x82, 0xa1, 0x01, 0xee, 0x26, 0x21, 0x75, 0xff, 0xb9, 0x09, 0xad, 0xdd,
-	0x29, 0x11, 0x4b, 0xc2, 0xda, 0xd0, 0x12, 0xa7, 0x29, 0x45, 0x51, 0xfb, 0x1e, 0xfe, 0xb7, 0xb7,
-	0xa0, 0x2d, 0x98, 0x88, 0x8c, 0x90, 0x6a, 0xb0, 0x20, 0x43, 0xab, 0x22, 0xc3, 0xa2, 0x6e, 0xed,
-	0x95, 0xba, 0x75, 0x2a, 0xba, 0xbd, 0x01, 0xed, 0x74, 0x9a, 0x88, 0xc4, 0xe9, 0x5e, 0xb7, 0x6e,
-	0x0e, 0x6e, 0x5f, 0xd8, 0x36, 0x16, 0xde, 0x96, 0x02, 0xef, 0x4b, 0x94, 0xa7, 0x28, 0xec, 0xeb,
-	0x30, 0x08, 0x29, 0x0f, 0x32, 0x96, 0x0a, 0x96, 0xc4, 0x4e, 0x0f, 0xbf, 0x54, 0x06, 0xd9, 0xd7,
-	0x60, 0xc0, 0xe2, 0x63, 0x26, 0xa8, 0x1f, 0xb1, 0xf8, 0xc8, 0xe9, 0x23, 0x05, 0x28, 0xd0, 0xc7,
-	0x2c, 0x3e, 0xb2, 0x3f, 0x80, 0x51, 0xca, 0xe2, 0x98, 0x86, 0xfe, 0x8c, 0x72, 0x4e, 0x26, 0xd4,
-	0x01, 0x9c, 0x76, 0xb3, 0x98, 0xf6, 0xa1, 0x42, 0x78, 0x6b, 0x8a, 0x50, 0x0f, 0xed, 0x3b, 0x30,
-	0x48, 0x69, 0x36, 0x63, 0x9c, 0xb3, 0x24, 0xe6, 0xce, 0x00, 0xd9, 0x5e, 0xa8, 0x48, 0x5b, 0x10,
-	0x78, 0x65, 0x6a, 0xfb, 0x26, 0x6c, 0x70, 0xc1, 0x82, 0x23, 0x9a, 0xf9, 0x9c, 0x6a, 0x43, 0x0c,
-	0x51, 0xb8, 0x91, 0x86, 0x1f, 0x50, 0x65, 0x8e, 0xb7, 0xe0, 0x42, 0x40, 0x62, 0xa4, 0x2a, 0x71,
-	0x38, 0x6b, 0x18, 0x4a, 0x1b, 0x01, 0x89, 0x0f, 0xa8, 0x38, 0xc8, 0x59, 0xdc, 0x9f, 0x6e, 0x42,
-	0xd7, 0x48, 0x78, 0x05, 0x40, 0x2b, 0xe5, 0xe7, 0x3e, 0xee, 0x6b, 0xc8, 0x5e, 0x68, 0xbb, 0xd0,
-	0x1a, 0x67, 0xc9, 0x0c, 0x5d, 0x3d, 0xb8, 0x3d, 0x2a, 0x24, 0x97, 0x51, 0xec, 0x21, 0x4e, 0x86,
-	0x43, 0x48, 0x84, 0xf2, 0x7c, 0xdb, 0xc3, 0xff, 0x92, 0x2f, 0x98, 0x12, 0x81, 0x4e, 0x5f, 0xe0,
-	0x93, 0x1a, 0x7b, 0x88, 0xb3, 0xdf, 0x85, 0xe1, 0x38, 0xc9, 0x4e, 0x48, 0x16, 0xfa, 0x38, 0x47,
-	0xbb, 0x76, 0x8e, 0x81, 0xa6, 0x79, 0x20, 0xa7, 0xfa, 0xff, 0xb0, 0x59, 0x66, 0xf1, 0x71, 0x8e,
-	0x4e, 0xed, 0x1c, 0xeb, 0x25, 0x3e, 0x8c, 0xe2, 0xf7, 0xe0, 0xd2, 0x02, 0x6f, 0x49, 0xed, 0x2e,
-	0x4a, 0xbe, 0x55, 0xe2, 0x78, 0x98, 0x5b, 0xe0, 0x56, 0x31, 0x25, 0x67, 0x93, 0x98, 0x88, 0x79,
-	0x46, 0x75, 0x14, 0x6d, 0x68, 0xc4, 0x81, 0x81, 0xdb, 0xdb, 0x70, 0x21, 0x27, 0xa6, 0x71, 0x48,
-	0x33, 0xe5, 0x35, 0x15, 0x52, 0xe6, 0x3b, 0x07, 0x88, 0x41, 0xc7, 0xdd, 0x28, 0x4c, 0x80, 0x26,
-	0x04, 0x14, 0xc4, 0xa8, 0x7c, 0x4f, 0x5a, 0xf2, 0x0e, 0x6c, 0x64, 0x34, 0x8d, 0x4e, 0x7d, 0x91,
-	0xe4, 0xe1, 0x37, 0x38, 0x2b, 0xfc, 0x46, 0x48, 0xfa, 0x28, 0x31, 0xde, 0x7d, 0x11, 0xfa, 0x34,
-	0x64, 0x42, 0x7d, 0x7c, 0x88, 0x1f, 0xef, 0x49, 0x00, 0x7e, 0xf9, 0x15, 0x18, 0xcd, 0x68, 0xc8,
-	0x88, 0x3f, 0xc9, 0x92, 0x79, 0x2a, 0xed, 0xb0, 0xa6, 0xb2, 0x00, 0x42, 0x3f, 0x94, 0xc0, 0xbd,
-	0xd0, 0x7e, 0x03, 0x36, 0xc8, 0x5c, 0x4c, 0x93, 0xac, 0xa4, 0xfe, 0x08, 0xe9, 0xd6, 0x15, 0xbc,
-	0xd0, 0x5e, 0xe6, 0x05, 0xfa, 0x58, 0x38, 0xeb, 0x3a, 0x2f, 0xd0, 0xc7, 0xc2, 0xfe, 0x2e, 0xf4,
-	0x68, 0x2c, 0x98, 0x60, 0x94, 0x3b, 0x1b, 0xd7, 0x9b, 0x37, 0x07, 0xb7, 0x2f, 0x2d, 0x89, 0x7d,
-	0x5f, 0x12, 0x9c, 0x7a, 0x39, 0xa1, 0x7d, 0x17, 0x36, 0x02, 0x82, 0x8b, 0xd3, 0xcf, 0x99, 0x37,
-	0x57, 0x33, 0xaf, 0x6b, 0x86, 0xfb, 0xe6, 0x1b, 0xaf, 0x42, 0x9b, 0xcc, 0x43, 0x96, 0x38, 0x36,
-	0x1a, 0x6b, 0xbd, 0x60, 0xdc, 0x91, 0x60, 0x4f, 0x61, 0xed, 0x6d, 0xe8, 0x85, 0x49, 0x30, 0x9f,
-	0xd1, 0x58, 0x38, 0x17, 0x90, 0xd2, 0x2e, 0x28, 0xef, 0x69, 0x8c, 0x97, 0xd3, 0xd8, 0xef, 0x42,
-	0x9f, 0xc4, 0x6c, 0x46, 0x30, 0x99, 0x6c, 0x55, 0xb3, 0xcf, 0x8e, 0x41, 0x79, 0x05, 0x95, 0x5c,
-	0x0b, 0x13, 0x19, 0x05, 0xcf, 0x57, 0xe3, 0xf4, 0x43, 0x32, 0xa3, 0x1e, 0xe2, 0x8a, 0x84, 0x76,
-	0x11, 0xd5, 0x2c, 0x7d, 0x12, 0x93, 0xd9, 0x01, 0xfb, 0x11, 0x35, 0x09, 0xed, 0x16, 0x74, 0xf5,
-	0x22, 0x77, 0x2e, 0x55, 0xe3, 0x40, 0x2f, 0x72, 0xcf, 0x50, 0x48, 0x2b, 0x1c, 0xb3, 0x90, 0x26,
-	0x8e, 0x53, 0xb5, 0xc2, 0x0f, 0x25, 0xd8, 0x53, 0x58, 0x24, 0x4b, 0x58, 0x40, 0x9d, 0x17, 0x96,
-	0xc8, 0x24, 0xd8, 0x53, 0x58, 0xfb, 0x36, 0x00, 0xd2, 0xfb, 0x71, 0x22, 0xa8, 0x73, 0xb9, 0xaa,
-	0x3d, 0x7e, 0xf2, 0x93, 0x44, 0x50, 0xaf, 0x7f, 0x6c, 0xfe, 0xda, 0x0e, 0x74, 0xb5, 0x6b, 0x9c,
-	0x17, 0x31, 0x2e, 0xcc, 0x50, 0x2a, 0x12, 0x24, 0xb1, 0x20, 0x81, 0x70, 0x5e, 0xaa, 0x2a, 0xb2,
-	0xab, 0x10, 0x9e, 0xa1, 0x90, 0x7e, 0x8a, 0x92, 0x40, 0x99, 0xfd, 0x4a, 0xd5, 0x4f, 0x1f, 0x6b,
-	0x8c, 0x97, 0xd3, 0xa0, 0x46, 0x34, 0x9e, 0x53, 0xe7, 0xea, 0x92, 0x46, 0x12, 0xec, 0x29, 0xac,
-	0xf4, 0x4d, 0x9a, 0x44, 0x91, 0x73, 0xad, 0xea, 0x9b, 0xfd, 0x24, 0x8a, 0x3c, 0xc4, 0xd9, 0x1f,
-	0xc0, 0x46, 0x4c, 0x4f, 0x30, 0xd7, 0xf8, 0x33, 0x3a, 0x3b, 0xa4, 0x19, 0x77, 0xae, 0xa3, 0x9b,
-	0xaa, 0xb9, 0x6a, 0x14, 0xd3, 0x13, 0x99, 0x6b, 0x1e, 0x2a, 0x2a, 0xc9, 0x19, 0xd1, 0xb1, 0x28,
-	0xb3, 0x3a, 0x37, 0x6a, 0xb3, 0xdc, 0x48, 0xd2, 0x15, 0xac, 0x72, 0x6d, 0xe6, 0x73, 0xaa, 0x7d,
-	0xd5, 0x55, 0x6b, 0x53, 0xcf, 0xf0, 0x08, 0xb7, 0xd7, 0xef, 0x95, 0xa8, 0x54, 0xf8, 0xbc, 0x7c,
-	0x76, 0xf8, 0x18, 0x56, 0x84, 0xd8, 0xdf, 0x81, 0xcd, 0x90, 0x46, 0x54, 0xd0, 0x32, 0xf7, 0x2b,
-	0xb8, 0x61, 0xac, 0x2b, 0x44, 0x41, 0xfb, 0x26, 0xd8, 0x2a, 0x45, 0x20, 0x69, 0x90, 0x51, 0x22,
-	0x68, 0xe8, 0xbc, 0xaa, 0x76, 0x17, 0xc4, 0x48, 0xda, 0x5d, 0x05, 0xb7, 0xdf, 0x87, 0x4b, 0x7c,
-	0x9e, 0xd2, 0xac, 0x86, 0xe5, 0x35, 0x64, 0x79, 0xbe, 0x40, 0x97, 0xf9, 0xde, 0x81, 0xad, 0x60,
-	0x4a, 0xe2, 0x98, 0x46, 0x8b, 0x4c, 0xaf, 0x23, 0x93, 0xad, 0x71, 0x65, 0x8e, 0x5b, 0x60, 0xcf,
-	0xd8, 0x24, 0x23, 0x82, 0xca, 0xe4, 0x88, 0x4c, 0x2c, 0x74, 0x6e, 0x62, 0x9a, 0x5b, 0xd7, 0x98,
-	0x47, 0x89, 0xe4, 0xd8, 0x0b, 0xed, 0xb7, 0x61, 0xcb, 0x10, 0xe7, 0x5b, 0x87, 0x24, 0x7f, 0x03,
-	0xc9, 0x37, 0x35, 0xce, 0xec, 0x16, 0x7b, 0x61, 0xcd, 0xae, 0xff, 0x9d, 0x73, 0xee, 0xfa, 0xb7,
-	0xa0, 0xcb, 0x62, 0xb5, 0x9e, 0x6e, 0x55, 0x59, 0xf6, 0x14, 0xc2, 0x33, 0x14, 0xf6, 0xaf, 0x82,
-	0xcd, 0xe7, 0x41, 0x40, 0x39, 0x1f, 0xcf, 0x23, 0x3f, 0x25, 0xa7, 0x98, 0x8a, 0xde, 0x44, 0xbe,
-	0x17, 0x4b, 0x2b, 0x3b, 0xa7, 0xd9, 0x57, 0x24, 0xde, 0x26, 0xaf, 0x82, 0xe4, 0x5e, 0x15, 0x24,
-	0x71, 0x4c, 0x03, 0x41, 0x43, 0xff, 0x84, 0x1e, 0x72, 0x26, 0xa8, 0xf3, 0x96, 0xda, 0xab, 0x72,
-	0xc4, 0x17, 0x0a, 0x6e, 0xdf, 0x81, 0xb5, 0x94, 0x70, 0x9e, 0x26, 0x19, 0xee, 0x0f, 0xc4, 0xd9,
-	0xc6, 0x39, 0x2f, 0x96, 0x62, 0x47, 0xa3, 0xef, 0x11, 0x41, 0xbc, 0x61, 0x5a, 0x1a, 0xd9, 0x3b,
-	0x30, 0x54, 0xbb, 0xd2, 0x8c, 0x64, 0x47, 0xf3, 0xd4, 0x79, 0x1b, 0x79, 0xaf, 0x96, 0xf5, 0x8c,
-	0x58, 0x4c, 0x7f, 0x40, 0x4f, 0x0f, 0x13, 0x92, 0x85, 0x0f, 0x91, 0xca, 0x1b, 0x20, 0x8f, 0x1a,
-	0xb8, 0xbf, 0x6b, 0xc1, 0xda, 0x42, 0x0e, 0xcf, 0xeb, 0x4a, 0xab, 0x54, 0x57, 0x5e, 0x84, 0x4e,
-	0x32, 0x1e, 0xcb, 0x6a, 0xa6, 0x81, 0x8e, 0xd2, 0x23, 0x09, 0x8f, 0x68, 0x3c, 0x11, 0x53, 0x5d,
-	0x76, 0xe8, 0x91, 0xbd, 0x01, 0xcd, 0x79, 0x16, 0xe9, 0x62, 0x53, 0xfe, 0x95, 0x4b, 0x5c, 0xd6,
-	0x9c, 0x67, 0x94, 0x17, 0x88, 0x73, 0x13, 0xe8, 0xe7, 0x0b, 0xc5, 0xbe, 0x04, 0xdd, 0x31, 0x8b,
-	0xf2, 0x7a, 0xa8, 0xef, 0x75, 0xe4, 0x70, 0x2f, 0x94, 0x35, 0xee, 0x09, 0x0b, 0xc5, 0x54, 0x8b,
-	0xa2, 0x06, 0x52, 0x92, 0x29, 0x65, 0x93, 0xa9, 0x30, 0x92, 0xa8, 0x91, 0xdc, 0x7b, 0xf1, 0x33,
-	0x9c, 0xfd, 0x48, 0x15, 0xbf, 0x6d, 0xaf, 0x27, 0x01, 0x72, 0x0e, 0xf7, 0x9f, 0x2c, 0x68, 0xe3,
-	0x3e, 0x74, 0xf6, 0x6c, 0x97, 0xa1, 0x17, 0xce, 0x33, 0x95, 0xf1, 0xd4, 0x84, 0xf9, 0xd8, 0x7e,
-	0x09, 0xfa, 0x29, 0xcd, 0xc6, 0x49, 0x36, 0xa3, 0x99, 0x39, 0x16, 0xe4, 0x80, 0xa2, 0x16, 0x6f,
-	0x95, 0x6b, 0xf1, 0x17, 0xa1, 0x3f, 0x63, 0x33, 0xea, 0xa3, 0x89, 0xf5, 0x81, 0x40, 0x02, 0x1e,
-	0x49, 0x33, 0x2f, 0x08, 0xdb, 0x59, 0x14, 0x56, 0x6e, 0x4e, 0x62, 0x3a, 0x9f, 0x1d, 0x2e, 0x57,
-	0xdb, 0xa5, 0xcd, 0x09, 0x29, 0xdc, 0x9f, 0x5b, 0xd0, 0x33, 0xbb, 0xe6, 0xd9, 0xaa, 0xe5, 0x1f,
-	0x6c, 0x3c, 0xe9, 0x83, 0xb9, 0x60, 0xa5, 0x03, 0x10, 0x0a, 0x66, 0xce, 0x08, 0x85, 0x4a, 0xad,
-	0x55, 0x2a, 0xb5, 0x2b, 0xf6, 0xff, 0x47, 0x0b, 0xda, 0xb8, 0x5d, 0x7d, 0x5b, 0xde, 0x2e, 0x7b,
-	0xab, 0x55, 0xf1, 0x56, 0xae, 0x6e, 0xfb, 0x3c, 0xea, 0x16, 0x1a, 0x75, 0x56, 0x69, 0xd4, 0xad,
-	0x68, 0xf4, 0x5f, 0x16, 0xf4, 0xf3, 0xf2, 0xe3, 0x7f, 0x9f, 0x56, 0x85, 0x13, 0x3b, 0xab, 0x9c,
-	0xd8, 0x5d, 0xa5, 0x72, 0xaf, 0xa2, 0xf2, 0x31, 0xb4, 0xb1, 0x3c, 0xf9, 0x66, 0x6b, 0x68, 0x61,
-	0xde, 0xe6, 0xaa, 0x79, 0xab, 0x8b, 0xf7, 0x4f, 0x2c, 0xe8, 0xe7, 0xb5, 0xce, 0xd9, 0x93, 0x17,
-	0x29, 0xaa, 0xb1, 0x90, 0xa2, 0xca, 0x42, 0x35, 0xcf, 0x32, 0x6a, 0xeb, 0xdc, 0x46, 0xad, 0x8d,
-	0xef, 0x3f, 0xb4, 0xa0, 0xab, 0x6b, 0x28, 0x79, 0xc8, 0x48, 0xa7, 0x49, 0x4c, 0xfd, 0x78, 0x8e,
-	0x15, 0x88, 0x92, 0x72, 0x80, 0xb0, 0x4f, 0x10, 0x54, 0x39, 0x8b, 0x37, 0x56, 0x9e, 0xc5, 0x9b,
-	0x95, 0xb3, 0xf8, 0x25, 0xe8, 0xca, 0x1c, 0x2a, 0xf5, 0x57, 0x86, 0xea, 0xc8, 0xa1, 0x0a, 0xb5,
-	0xe3, 0x80, 0x64, 0xa1, 0x4e, 0x36, 0x6a, 0xe0, 0xde, 0x83, 0x9e, 0x29, 0xd7, 0x64, 0x1a, 0x8b,
-	0x92, 0x78, 0xc2, 0xc4, 0x3c, 0x54, 0x59, 0xbf, 0xe9, 0x15, 0x00, 0x69, 0xa7, 0x88, 0x08, 0x85,
-	0x6c, 0x20, 0x32, 0x1f, 0xbb, 0x7f, 0x23, 0xd7, 0x2f, 0x56, 0x70, 0xe5, 0xc2, 0xd0, 0x3a, 0x47,
-	0x61, 0x98, 0x27, 0xc7, 0x46, 0x39, 0x39, 0x3a, 0xd0, 0x25, 0x61, 0x98, 0x51, 0xce, 0xb5, 0x7e,
-	0x66, 0x68, 0xbf, 0x0c, 0x6b, 0xe3, 0x64, 0x9e, 0xf1, 0x2f, 0xe7, 0x24, 0xa3, 0x46, 0xc9, 0xbe,
-	0x37, 0x2c, 0x80, 0x7b, 0xa1, 0xfd, 0x3a, 0xac, 0x97, 0x88, 0x4a, 0x19, 0x76, 0x54, 0x80, 0x65,
-	0x5c, 0xb9, 0x3b, 0x00, 0xb2, 0xb2, 0xfc, 0x54, 0x55, 0xc0, 0xe6, 0xc0, 0x64, 0x95, 0x0e, 0x4c,
-	0xd7, 0x60, 0x70, 0x9c, 0x08, 0x9a, 0xf9, 0x41, 0x32, 0x8f, 0xcd, 0xae, 0x07, 0x08, 0xda, 0x95,
-	0x10, 0xf7, 0xc7, 0xd0, 0x92, 0x9f, 0x28, 0x75, 0x65, 0xfa, 0xd8, 0x95, 0xb9, 0x0c, 0xbd, 0x2f,
-	0xe7, 0x94, 0xe7, 0xb1, 0xde, 0xf7, 0xf2, 0xb1, 0xbd, 0x0d, 0xdd, 0x04, 0xa7, 0x94, 0xea, 0xc9,
-	0x0a, 0x71, 0x6b, 0xb1, 0xd2, 0x55, 0xf2, 0x78, 0x86, 0x48, 0x3a, 0x9c, 0x71, 0x3f, 0x88, 0x12,
-	0x4e, 0x95, 0xc2, 0x3d, 0xaf, 0xc7, 0xf8, 0x2e, 0x8e, 0x5d, 0x02, 0x9b, 0x72, 0xeb, 0xdc, 0xcf,
-	0x12, 0x19, 0x6e, 0x18, 0x97, 0x5c, 0x8a, 0x2d, 0x12, 0x41, 0x22, 0x2d, 0xb6, 0x6a, 0x24, 0x00,
-	0x82, 0x50, 0x6c, 0xfb, 0x16, 0x74, 0xb0, 0xc8, 0xe4, 0x4e, 0xe3, 0xec, 0x1a, 0x55, 0x93, 0xb8,
-	0xbf, 0x06, 0xad, 0x07, 0x2c, 0x5a, 0xb1, 0xb6, 0x16, 0x82, 0xbf, 0x51, 0xd9, 0xaf, 0x0c, 0x32,
-	0x25, 0xba, 0x3c, 0xd0, 0xe9, 0x66, 0x9f, 0x88, 0xa9, 0xfb, 0x77, 0x16, 0x5c, 0xf0, 0x64, 0x19,
-	0xb2, 0x58, 0x9b, 0xd8, 0xff, 0x0f, 0x7a, 0x47, 0x1a, 0xe2, 0x58, 0x28, 0xa1, 0x53, 0x48, 0x68,
-	0x68, 0xef, 0xce, 0x85, 0x90, 0xd1, 0x64, 0x28, 0xa5, 0xe3, 0x33, 0x2a, 0x85, 0xf0, 0x73, 0x66,
-	0xd5, 0xc0, 0x1b, 0x29, 0xb0, 0x61, 0x94, 0xf5, 0xb6, 0x5c, 0x82, 0x42, 0x66, 0x9c, 0x9c, 0xb4,
-	0xa9, 0xea, 0xed, 0x24, 0xa6, 0x8f, 0xd8, 0xac, 0xa0, 0x7d, 0x09, 0xfa, 0x9c, 0x46, 0x34, 0x10,
-	0xec, 0x98, 0x6a, 0xeb, 0x17, 0x00, 0xf7, 0x31, 0x8c, 0x16, 0xc5, 0xa9, 0x0d, 0x23, 0x14, 0x0c,
-	0xfd, 0xef, 0x9b, 0x43, 0x56, 0x2e, 0x18, 0x82, 0x4d, 0x76, 0x78, 0x03, 0x36, 0x0c, 0x61, 0xbe,
-	0x8e, 0xb4, 0x5c, 0x1a, 0x6e, 0x16, 0x91, 0xfb, 0xeb, 0x15, 0xcb, 0x79, 0x74, 0x96, 0x1c, 0x53,
-	0x35, 0x95, 0xfc, 0xe7, 0x97, 0x0c, 0xa8, 0xa7, 0x92, 0xe0, 0x7a, 0xbd, 0x1a, 0x55, 0xbd, 0x7c,
-	0xd8, 0xaa, 0x2b, 0x1a, 0xed, 0x0f, 0x61, 0x9d, 0x21, 0xdc, 0xaf, 0xf8, 0xe7, 0xcc, 0x6a, 0x53,
-	0x7b, 0x69, 0xc4, 0x16, 0xa0, 0xee, 0xbf, 0x35, 0xaa, 0x33, 0xac, 0xb0, 0x9f, 0xae, 0x23, 0x1b,
-	0x45, 0x1d, 0xf9, 0xb6, 0x4c, 0x56, 0x13, 0x16, 0xfb, 0x12, 0xde, 0x5c, 0xce, 0x34, 0x13, 0x16,
-	0x7f, 0x9e, 0x45, 0x32, 0xd3, 0xa8, 0x7f, 0x32, 0x73, 0x04, 0x24, 0x8a, 0x0e, 0x49, 0x70, 0xa4,
-	0x0a, 0x6c, 0x9d, 0x39, 0x0c, 0x10, 0x0b, 0xe9, 0x6d, 0xb8, 0xc0, 0x4f, 0x98, 0x08, 0xa6, 0xbe,
-	0x56, 0xf2, 0xcb, 0x39, 0xcd, 0x4e, 0x75, 0xf6, 0xd8, 0x54, 0x28, 0x25, 0xf4, 0x67, 0x12, 0x61,
-	0x3f, 0x80, 0xeb, 0x35, 0xf4, 0x7e, 0x30, 0xcf, 0x32, 0x1a, 0x8b, 0xa2, 0x21, 0xd6, 0xf7, 0x5e,
-	0x5a, 0x62, 0xde, 0x55, 0x44, 0xd8, 0x0d, 0xbb, 0x53, 0x12, 0x0e, 0xbb, 0x13, 0xdd, 0x6a, 0xf5,
-	0xbf, 0xab, 0xd1, 0xd8, 0xa5, 0xc8, 0x85, 0x96, 0x23, 0x69, 0x9c, 0x94, 0x9c, 0xe2, 0x7e, 0xdc,
-	0xf3, 0xe4, 0x5f, 0xf7, 0x0f, 0x2c, 0x99, 0xd6, 0xb5, 0xe2, 0xda, 0x76, 0x56, 0x61, 0xbb, 0x52,
-	0x9f, 0x0b, 0x2d, 0xad, 0xcc, 0x6a, 0xfa, 0x5c, 0x8f, 0xa4, 0xc1, 0x6f, 0xc0, 0xf0, 0x30, 0x11,
-	0x7e, 0xde, 0x2e, 0x56, 0xeb, 0x76, 0x70, 0x98, 0x88, 0xcf, 0x4d, 0xc7, 0xf8, 0x1d, 0xd8, 0x32,
-	0xa1, 0x7a, 0x92, 0x31, 0x41, 0x7d, 0x82, 0x07, 0x20, 0xbd, 0x44, 0x6c, 0x8d, 0xfb, 0x42, 0xa2,
-	0x76, 0x10, 0xe3, 0xfe, 0xb7, 0x05, 0x6b, 0x46, 0x0f, 0x65, 0xbf, 0x6a, 0xd6, 0x3c, 0x4f, 0x83,
-	0xf3, 0x16, 0x74, 0xcd, 0x11, 0xb0, 0x79, 0xd6, 0x11, 0xd0, 0x50, 0xc8, 0x85, 0xae, 0x3d, 0x53,
-	0x6a, 0x30, 0x2a, 0xcf, 0xeb, 0x38, 0x2e, 0x7a, 0x8b, 0x32, 0x42, 0xf0, 0x18, 0x1a, 0x73, 0x41,
-	0xe2, 0xc0, 0x6c, 0x1a, 0x43, 0x09, 0xdc, 0xd3, 0x30, 0xdd, 0x5e, 0x25, 0xda, 0xab, 0xf8, 0xdf,
-	0x7e, 0x0d, 0xd6, 0xa5, 0xd3, 0x7c, 0x3e, 0x95, 0xa7, 0xb7, 0xd8, 0xf8, 0xaf, 0xef, 0xad, 0x49,
-	0xf0, 0x81, 0x84, 0xca, 0xbd, 0xd9, 0xfd, 0x01, 0xc0, 0x83, 0x24, 0x0b, 0x28, 0x2e, 0x5b, 0x99,
-	0xa3, 0xc7, 0x72, 0xe4, 0xe3, 0x31, 0x4c, 0x2f, 0x52, 0x18, 0x17, 0x04, 0xab, 0x17, 0xe8, 0xa7,
-	0xd0, 0x2f, 0x7a, 0x02, 0x2e, 0xac, 0xf1, 0x19, 0x89, 0x22, 0x7f, 0x31, 0x3f, 0x0f, 0x10, 0xf8,
-	0x40, 0x25, 0xe9, 0xab, 0x30, 0x38, 0x64, 0x93, 0x9c, 0x42, 0x97, 0x15, 0x87, 0x6c, 0xa2, 0xf0,
-	0xee, 0x57, 0x1d, 0x80, 0x52, 0xcf, 0xc3, 0x1c, 0xd4, 0xac, 0xb3, 0x0f, 0x6a, 0xb2, 0xa6, 0xe2,
-	0x82, 0x88, 0x39, 0xd7, 0x5f, 0xd3, 0x23, 0x59, 0xc0, 0xcc, 0x63, 0xc1, 0x22, 0xbf, 0xd4, 0x89,
-	0xee, 0x23, 0xe4, 0x9e, 0x6a, 0x47, 0xaf, 0x05, 0x24, 0xf6, 0x0f, 0xa9, 0x4f, 0x43, 0x26, 0xf2,
-	0x3d, 0x6d, 0x10, 0x90, 0xf8, 0x2e, 0xbd, 0x8f, 0x20, 0xe9, 0x38, 0x49, 0x93, 0x26, 0x5c, 0x18,
-	0xd7, 0x71, 0x74, 0x48, 0xcf, 0x5b, 0x0f, 0x48, 0xbc, 0x9f, 0x70, 0xa1, 0x3d, 0xc7, 0x0d, 0x2d,
-	0xf6, 0x56, 0x73, 0xda, 0x4e, 0x4e, 0x2b, 0xbf, 0x98, 0xd3, 0x6e, 0xab, 0xe6, 0xbc, 0xee, 0xb6,
-	0xe4, 0xd4, 0x5d, 0xa4, 0x96, 0x9f, 0xb9, 0x87, 0x98, 0x9c, 0xfe, 0x1d, 0xd8, 0x92, 0xf4, 0x19,
-	0xe5, 0x22, 0x63, 0x41, 0xd1, 0x72, 0xea, 0xe9, 0x3e, 0x08, 0x89, 0x3d, 0x8d, 0x32, 0x6d, 0x26,
-	0x3d, 0x43, 0x9a, 0x25, 0xb3, 0x04, 0xa7, 0x50, 0x0c, 0xfd, 0x7c, 0x86, 0x7d, 0x85, 0x31, 0xf4,
-	0xaf, 0x81, 0x14, 0x52, 0xe6, 0x8a, 0x58, 0x86, 0x67, 0x3c, 0x4e, 0xb0, 0xf1, 0xdc, 0xf3, 0xa4,
-	0x91, 0x76, 0x11, 0xba, 0x17, 0x8f, 0x13, 0xfb, 0x26, 0x6c, 0x48, 0x3a, 0x7d, 0x39, 0x22, 0xed,
-	0xaf, 0xae, 0x30, 0x7a, 0xde, 0x28, 0x20, 0xf1, 0x1e, 0x82, 0xa5, 0x6f, 0xb8, 0xa1, 0x4c, 0x59,
-	0x5c, 0x28, 0x38, 0xcc, 0x29, 0xf7, 0x59, 0x9c, 0x6b, 0xa7, 0x2a, 0x0b, 0xdd, 0x0b, 0x5b, 0x33,
-	0x95, 0x85, 0x8e, 0x00, 0x6d, 0x56, 0x4e, 0xe3, 0xb0, 0xf8, 0xce, 0x28, 0x37, 0xeb, 0x01, 0x8d,
-	0xc3, 0xfc, 0x43, 0xef, 0xc1, 0xa5, 0x12, 0x6d, 0xc8, 0x48, 0xc1, 0xb1, 0x8e, 0x1c, 0x5b, 0x39,
-	0x47, 0xc8, 0x48, 0xce, 0xf6, 0x0a, 0x8c, 0x72, 0xb6, 0x34, 0x89, 0x22, 0xee, 0x6c, 0x20, 0xf5,
-	0x50, 0x53, 0xcb, 0x6a, 0x68, 0xf1, 0xe3, 0x89, 0x98, 0xd2, 0xac, 0xf8, 0xf8, 0xe6, 0xc2, 0xc7,
-	0x3f, 0x95, 0xc8, 0xfc, 0xe3, 0x1f, 0xc0, 0x0b, 0x92, 0x8d, 0x84, 0xd8, 0x7d, 0xf1, 0x53, 0xb9,
-	0xfa, 0xd3, 0x8c, 0x1e, 0x33, 0x7a, 0xc2, 0xb1, 0x0f, 0xdd, 0xf3, 0x9e, 0x0f, 0x48, 0xbc, 0x13,
-	0x86, 0x5f, 0xd0, 0xc3, 0x7d, 0x32, 0xa1, 0xfb, 0x1a, 0xe9, 0xfe, 0x4e, 0x13, 0xd6, 0x2b, 0x97,
-	0x41, 0xf5, 0xd6, 0xb0, 0x9e, 0xda, 0x1a, 0x8d, 0xa7, 0xb2, 0x46, 0xf3, 0xe9, 0xac, 0xd1, 0xfa,
-	0xa6, 0xd6, 0x68, 0xaf, 0xb0, 0x46, 0x5d, 0x80, 0x76, 0xce, 0x1b, 0xa0, 0xdd, 0x73, 0x07, 0x68,
-	0xaf, 0x2e, 0x40, 0xdd, 0x43, 0xb0, 0x3d, 0xca, 0xd3, 0x24, 0xe6, 0x74, 0x9f, 0x64, 0x64, 0x46,
-	0x85, 0xe4, 0xaf, 0x6f, 0x35, 0x5a, 0xf5, 0xad, 0xc6, 0x6b, 0x30, 0xc8, 0xa8, 0xc8, 0x4e, 0x7d,
-	0x32, 0x16, 0x34, 0x33, 0x25, 0x3c, 0x82, 0x76, 0x24, 0xc4, 0x1d, 0x02, 0xec, 0xc5, 0xe9, 0x5c,
-	0xa0, 0x33, 0x5c, 0x01, 0xeb, 0xc5, 0x48, 0x65, 0xd7, 0xba, 0x4e, 0xd8, 0x16, 0xb4, 0xd1, 0xb3,
-	0xe6, 0xe0, 0x82, 0x83, 0x72, 0x7b, 0xbd, 0xb9, 0xd8, 0x5e, 0xbf, 0x02, 0x90, 0x92, 0x8c, 0x53,
-	0x7f, 0x96, 0x84, 0xa6, 0x3b, 0xd2, 0x47, 0xc8, 0xc3, 0x24, 0xa4, 0xee, 0x4f, 0x1b, 0xe5, 0x69,
-	0x55, 0x2f, 0xe4, 0xfc, 0xd3, 0x6e, 0x99, 0x73, 0xaa, 0xb9, 0xee, 0xc5, 0x23, 0x69, 0x49, 0x98,
-	0xd6, 0x2a, 0x61, 0xda, 0x15, 0x61, 0x8a, 0xae, 0x44, 0xa7, 0xbe, 0x2b, 0xd1, 0x3d, 0xb3, 0x2b,
-	0xd1, 0xab, 0x1c, 0xa0, 0xdf, 0x02, 0x9b, 0xcf, 0xd3, 0x34, 0xc9, 0x04, 0xf7, 0xb9, 0xc8, 0x28,
-	0x99, 0xb1, 0x78, 0x62, 0x52, 0xa1, 0xc1, 0x1c, 0x18, 0x84, 0xfb, 0xaf, 0x16, 0x5c, 0x28, 0xac,
-	0x50, 0xf4, 0x4f, 0xfe, 0xef, 0x5b, 0xc2, 0xfd, 0x77, 0xab, 0xec, 0x60, 0xd5, 0x6c, 0xfc, 0xa5,
-	0xa9, 0x55, 0x16, 0xb4, 0xb3, 0xaa, 0x99, 0xd9, 0x3d, 0xb3, 0x99, 0xd9, 0x2b, 0x9d, 0xd7, 0xdd,
-	0x9f, 0x59, 0x60, 0x17, 0xca, 0xe5, 0x1d, 0xc7, 0x5f, 0x96, 0x7e, 0xee, 0x00, 0xfa, 0x28, 0x8e,
-	0xac, 0x6c, 0xdc, 0x9f, 0x5b, 0x70, 0x81, 0xc4, 0xfc, 0x84, 0x66, 0x8b, 0xb5, 0x27, 0x26, 0x74,
-	0x5d, 0x73, 0xab, 0xb2, 0x3d, 0xaf, 0x9b, 0xd6, 0x83, 0x32, 0xe5, 0x5e, 0x98, 0x9f, 0x49, 0x1a,
-	0xa5, 0x33, 0xc9, 0x15, 0x00, 0x3e, 0x4d, 0x4e, 0x7c, 0x12, 0xd1, 0x4c, 0xe8, 0x4c, 0xdd, 0x97,
-	0x90, 0x1d, 0x09, 0xa8, 0x69, 0x7d, 0x5f, 0x01, 0x08, 0x48, 0x30, 0x55, 0xc7, 0x4e, 0xdd, 0x23,
-	0xea, 0x23, 0x44, 0x9e, 0x37, 0xdd, 0x3f, 0x6b, 0x40, 0x57, 0xdf, 0x18, 0x7e, 0x5b, 0x0d, 0xc3,
-	0x6b, 0x30, 0x60, 0xdc, 0x57, 0x77, 0x9f, 0x79, 0x99, 0x05, 0x8c, 0xef, 0x68, 0xc8, 0xd3, 0x74,
-	0x0d, 0xb7, 0xa0, 0x4d, 0x67, 0xc9, 0x6f, 0x30, 0x5d, 0xf9, 0xaa, 0x81, 0xfd, 0x02, 0xf4, 0xf2,
-	0xd7, 0x10, 0x2a, 0x58, 0xba, 0x5c, 0x3f, 0x83, 0xb8, 0x03, 0x6b, 0x33, 0xc2, 0x8f, 0x64, 0x09,
-	0xc7, 0xf2, 0x25, 0xb1, 0x70, 0xa6, 0x79, 0x48, 0xf8, 0xd1, 0xbe, 0xc6, 0x7a, 0xc3, 0x59, 0x69,
-	0xb4, 0xd8, 0x51, 0xe8, 0x57, 0xda, 0x69, 0x7f, 0x69, 0x01, 0x14, 0x0f, 0x28, 0xa4, 0x73, 0x70,
-	0x7e, 0x1d, 0x66, 0x78, 0x38, 0xa9, 0xef, 0x2b, 0x55, 0xec, 0xd1, 0x5c, 0xb2, 0xc7, 0xab, 0x30,
-	0xc2, 0xf3, 0x39, 0x8b, 0xb9, 0x2f, 0xe5, 0x31, 0x5b, 0xea, 0x9a, 0x81, 0x4a, 0x91, 0xb9, 0xfd,
-	0x16, 0xf4, 0xf4, 0x95, 0xae, 0xdc, 0x3a, 0x9b, 0xf5, 0xb7, 0xbe, 0x39, 0x89, 0x1b, 0xc1, 0xb0,
-	0xac, 0xaa, 0x14, 0x2e, 0x4d, 0x58, 0x6c, 0x8e, 0xb8, 0x6a, 0x20, 0x7d, 0xfe, 0xd8, 0xe7, 0x53,
-	0x36, 0x16, 0xba, 0xbf, 0xd6, 0x79, 0x7c, 0x20, 0x47, 0x12, 0x71, 0xaa, 0x11, 0x4d, 0x85, 0x38,
-	0x55, 0x88, 0x2d, 0x68, 0xf3, 0x80, 0xe8, 0x9b, 0x85, 0xa6, 0xa7, 0x06, 0xee, 0x5f, 0x5b, 0xb0,
-	0x4e, 0xc2, 0x50, 0x8b, 0xf1, 0x28, 0x91, 0x26, 0x2a, 0x75, 0x05, 0xad, 0x85, 0xae, 0xa0, 0xb1,
-	0x5d, 0xa3, 0x64, 0xbb, 0x6b, 0x30, 0x48, 0xe3, 0x89, 0x79, 0xbb, 0xa2, 0x97, 0x24, 0xa4, 0xf1,
-	0xc4, 0x44, 0xe7, 0x45, 0xe8, 0xa0, 0xf7, 0xb9, 0x8e, 0x6e, 0x3d, 0x5a, 0xf6, 0x78, 0xfb, 0xfc,
-	0x1e, 0x77, 0xff, 0x36, 0x5f, 0xa6, 0x07, 0x53, 0x96, 0xa6, 0x2c, 0x9e, 0xe4, 0xcb, 0x94, 0x6b,
-	0xc0, 0xd2, 0x32, 0xe5, 0x65, 0xca, 0xbd, 0x50, 0x1e, 0x27, 0x93, 0x23, 0x5d, 0x62, 0x35, 0x92,
-	0x23, 0x7b, 0x17, 0x36, 0x72, 0xde, 0xc5, 0x8e, 0x5b, 0xa9, 0x9b, 0x64, 0xa6, 0xd3, 0x5d, 0xb7,
-	0xfc, 0xa3, 0x9f, 0xea, 0xee, 0xdb, 0xcb, 0xb0, 0x46, 0xb3, 0x2c, 0xc9, 0xcb, 0x2c, 0xd3, 0x38,
-	0x40, 0xa0, 0x2e, 0x54, 0xdc, 0xdf, 0xb2, 0xe0, 0xa2, 0x92, 0x7e, 0x3f, 0xa3, 0xbb, 0x53, 0x1a,
-	0x1c, 0x25, 0x73, 0xa1, 0x14, 0x78, 0x17, 0x9e, 0x4f, 0x33, 0xea, 0x07, 0x1a, 0x58, 0x55, 0xc2,
-	0x4e, 0x2b, 0x0c, 0x35, 0x7a, 0x2c, 0x89, 0xd0, 0xac, 0x11, 0xe1, 0xfb, 0x30, 0xfc, 0x98, 0x1c,
-	0xd2, 0x88, 0x86, 0xfb, 0x19, 0x0b, 0x70, 0x09, 0x44, 0x72, 0x6c, 0xa2, 0x0c, 0x07, 0xd2, 0x77,
-	0x64, 0x56, 0xea, 0x65, 0xea, 0x91, 0xfb, 0xe7, 0x16, 0x74, 0xf5, 0x6d, 0x68, 0xb1, 0x78, 0xac,
-	0xf2, 0xe2, 0xa9, 0x3c, 0xdd, 0x6a, 0x2c, 0x3f, 0xdd, 0x7a, 0x1d, 0xd6, 0xb9, 0x20, 0x99, 0xf0,
-	0x53, 0x53, 0xaa, 0x69, 0x41, 0x47, 0x08, 0xce, 0x0b, 0x38, 0xb9, 0xff, 0xa8, 0x16, 0x49, 0x70,
-	0x6a, 0x2e, 0x8a, 0xcc, 0xd8, 0xbe, 0x01, 0x43, 0xd5, 0xba, 0xd4, 0x62, 0xaa, 0x3c, 0xa9, 0xda,
-	0x99, 0x3b, 0x4a, 0xd6, 0xbf, 0xb7, 0x60, 0xdd, 0x78, 0x6d, 0x47, 0x37, 0x86, 0x6f, 0xc0, 0x10,
-	0x7b, 0x9d, 0xd9, 0xa9, 0x7a, 0x42, 0xa7, 0x0f, 0xc0, 0x1a, 0xb6, 0xab, 0x37, 0x73, 0x79, 0x3e,
-	0xcd, 0x73, 0x02, 0x0e, 0xe4, 0x0a, 0x08, 0x98, 0x38, 0xd5, 0x92, 0xe2, 0x7f, 0xf9, 0x31, 0x59,
-	0xad, 0x50, 0xe1, 0x47, 0x2c, 0xa6, 0xef, 0x6a, 0x19, 0x07, 0x0a, 0xf6, 0xb1, 0x04, 0x55, 0x48,
-	0x6e, 0xeb, 0x3d, 0xa8, 0x44, 0x72, 0x5b, 0xe6, 0x30, 0x3c, 0xbe, 0x96, 0x9e, 0xf4, 0xf5, 0x24,
-	0x00, 0x9f, 0xf3, 0xfd, 0xb1, 0x05, 0xfd, 0x4f, 0xb3, 0x90, 0x66, 0x58, 0x3a, 0xd7, 0xa5, 0xb0,
-	0xea, 0x45, 0x41, 0x63, 0xf9, 0xa2, 0x00, 0x73, 0x32, 0x61, 0x91, 0xd9, 0x36, 0x71, 0x60, 0xdf,
-	0x2b, 0x45, 0xbd, 0x69, 0xa3, 0xb7, 0xaa, 0x6f, 0xdd, 0x2a, 0xf6, 0x2b, 0xc2, 0x5e, 0x03, 0xdc,
-	0x31, 0x8c, 0x16, 0x57, 0xc6, 0x52, 0xb3, 0xa6, 0x3e, 0xc7, 0x6e, 0x43, 0x27, 0x95, 0xf1, 0x67,
-	0x56, 0x5a, 0x69, 0xf5, 0x97, 0xc3, 0xd3, 0xd3, 0x54, 0xee, 0xbf, 0x34, 0x60, 0x73, 0xe9, 0x3a,
-	0x7d, 0x21, 0x42, 0xac, 0x27, 0x44, 0x48, 0x63, 0x29, 0x42, 0x64, 0x24, 0xea, 0x1b, 0x7d, 0x3f,
-	0x25, 0xa7, 0x51, 0x42, 0x42, 0x13, 0x89, 0x1a, 0xbc, 0xaf, 0xa0, 0xf6, 0x9b, 0x60, 0x57, 0x32,
-	0x44, 0xd1, 0x20, 0xda, 0x58, 0xcc, 0x04, 0x7b, 0xa1, 0x7d, 0x1b, 0x20, 0x91, 0x3e, 0x53, 0x87,
-	0xa0, 0xa5, 0x3d, 0x33, 0xf7, 0xa7, 0xd7, 0x4f, 0x72, 0xd7, 0xde, 0x81, 0xcb, 0x82, 0x46, 0x74,
-	0x92, 0x91, 0x99, 0x79, 0x4f, 0x20, 0x4f, 0x2c, 0x99, 0x6a, 0x45, 0xa9, 0xb0, 0xb8, 0x64, 0x28,
-	0xb4, 0xfa, 0xbb, 0x88, 0xdf, 0x0b, 0x25, 0x73, 0x9a, 0x25, 0xc7, 0x4c, 0xce, 0xb9, 0xcc, 0xac,
-	0x36, 0xdc, 0x4b, 0x86, 0xa2, 0xc2, 0xec, 0xfe, 0x95, 0x05, 0x6b, 0x8b, 0xb9, 0xf4, 0x9b, 0xb4,
-	0xdb, 0xce, 0x6d, 0xca, 0x6f, 0x27, 0xec, 0x7e, 0xbf, 0x01, 0x1b, 0x4b, 0x29, 0xf4, 0x9b, 0xc8,
-	0x5d, 0x8e, 0xa0, 0xe6, 0x13, 0x22, 0xa8, 0x75, 0xae, 0x08, 0x6a, 0x3f, 0x45, 0x04, 0x75, 0xce,
-	0x15, 0x41, 0xdd, 0xf3, 0x44, 0x90, 0xfb, 0x95, 0x05, 0xc3, 0xf2, 0xe3, 0x0f, 0xfb, 0x7d, 0xdd,
-	0x83, 0x54, 0x8d, 0x77, 0xb7, 0x60, 0xbf, 0x1f, 0x07, 0xd9, 0x69, 0x2a, 0x68, 0x68, 0xc8, 0xef,
-	0x47, 0x14, 0x5f, 0xa7, 0xa8, 0x3e, 0xe5, 0xaf, 0xc0, 0x20, 0xc8, 0x68, 0x48, 0x63, 0xc1, 0x48,
-	0xc4, 0xb5, 0xf5, 0xae, 0xd6, 0xb0, 0xef, 0x16, 0x54, 0x5e, 0x99, 0xc5, 0x25, 0x85, 0x24, 0xdf,
-	0xc2, 0x8d, 0x50, 0xa9, 0x3b, 0x88, 0xc8, 0x7b, 0x44, 0x50, 0xf7, 0x8f, 0x9a, 0xe0, 0x9c, 0xa5,
-	0x47, 0xed, 0x89, 0xc2, 0x74, 0x64, 0x1b, 0xa5, 0x8e, 0x6c, 0x35, 0x77, 0x36, 0x57, 0xe4, 0xce,
-	0x56, 0x39, 0x77, 0xbe, 0x09, 0x6d, 0x29, 0x89, 0x29, 0xeb, 0x6a, 0x9e, 0xdf, 0x48, 0xbd, 0x3d,
-	0x45, 0x64, 0xbf, 0x07, 0x30, 0xce, 0x92, 0x58, 0xf8, 0x9c, 0xe9, 0x14, 0x7f, 0x36, 0x4b, 0x1f,
-	0x29, 0x0f, 0x58, 0x48, 0xed, 0xef, 0xc1, 0x30, 0xa3, 0xc7, 0x54, 0x9e, 0x5f, 0x90, 0xb1, 0xbb,
-	0x92, 0x71, 0xa0, 0x69, 0x91, 0x75, 0x1b, 0x3a, 0x9c, 0x46, 0x63, 0x46, 0x97, 0xab, 0xe9, 0x05,
-	0x26, 0x4d, 0x65, 0x7f, 0x00, 0x03, 0x91, 0x91, 0x98, 0x47, 0xea, 0xb0, 0xd7, 0x5f, 0xa9, 0x55,
-	0x99, 0x54, 0x9a, 0x75, 0x4a, 0xf8, 0x14, 0x7b, 0x91, 0x7d, 0x0f, 0xff, 0xbb, 0x3f, 0x84, 0xad,
-	0xba, 0x18, 0xc9, 0x5d, 0x60, 0x95, 0x5c, 0x60, 0xf8, 0x1b, 0x05, 0x3f, 0xf6, 0x8b, 0x69, 0x90,
-	0x51, 0xa1, 0x1d, 0xa2, 0x47, 0xee, 0x45, 0xd8, 0xaa, 0x78, 0xfa, 0xbe, 0xac, 0x6c, 0xdc, 0x3f,
-	0xb5, 0xe0, 0x4a, 0x1d, 0x42, 0xae, 0x82, 0x07, 0x8c, 0x46, 0x78, 0xab, 0xcf, 0x93, 0x79, 0x16,
-	0x98, 0x90, 0xd0, 0xa3, 0xda, 0x47, 0xf1, 0x78, 0xad, 0x4e, 0xa3, 0xb0, 0xf2, 0x7c, 0x9f, 0x46,
-	0xa1, 0xb9, 0x56, 0x97, 0x82, 0xfb, 0x28, 0xb5, 0xae, 0x4a, 0x24, 0xe0, 0x23, 0x29, 0xb9, 0x53,
-	0x5c, 0x3a, 0xa8, 0x34, 0x60, 0x86, 0xee, 0x4f, 0xce, 0x90, 0xf1, 0x41, 0xee, 0xee, 0xa7, 0x91,
-	0xd1, 0x2c, 0x0d, 0x14, 0xa2, 0x74, 0x59, 0x5a, 0x15, 0xa2, 0xb5, 0x28, 0xc4, 0x6f, 0x5b, 0x70,
-	0xad, 0x4e, 0x08, 0xaf, 0x14, 0x3a, 0xcf, 0x40, 0x8c, 0x1f, 0xc3, 0xe5, 0x3a, 0x29, 0x0e, 0x54,
-	0x2c, 0x3e, 0x03, 0x01, 0x7e, 0x13, 0x9c, 0x5a, 0x5f, 0xc8, 0x5c, 0xf5, 0x0c, 0xa6, 0xff, 0x89,
-	0x05, 0x2f, 0x9c, 0x35, 0x3f, 0x7f, 0x2a, 0x01, 0xae, 0xc1, 0x20, 0x17, 0x40, 0x97, 0x52, 0x7d,
-	0x0f, 0x8c, 0x08, 0x94, 0xaf, 0x10, 0xe2, 0x2b, 0x0b, 0x5e, 0xae, 0x13, 0xe2, 0x51, 0xb1, 0xb8,
-	0x9f, 0x95, 0x3d, 0x7e, 0x66, 0xc1, 0x2b, 0xe7, 0x10, 0xe5, 0x99, 0x99, 0xe6, 0xf7, 0xce, 0x58,
-	0x26, 0x9f, 0xc7, 0x3c, 0xa5, 0x01, 0x1b, 0x33, 0xfa, 0x74, 0x19, 0xe5, 0x06, 0x0c, 0xa9, 0xfa,
-	0x4c, 0xd9, 0x32, 0x03, 0x0d, 0x7b, 0x82, 0x71, 0xfe, 0xd3, 0x82, 0xd6, 0x87, 0x0b, 0xbd, 0x8a,
-	0xa7, 0x3c, 0x6e, 0xe5, 0xaf, 0xd4, 0x9b, 0x4f, 0x7c, 0xa5, 0x6e, 0xfa, 0x57, 0xad, 0x52, 0xff,
-	0xea, 0xfb, 0xb0, 0x26, 0x7f, 0x8b, 0x37, 0xfd, 0xed, 0xd5, 0x6f, 0xfa, 0x87, 0x92, 0x3a, 0x7f,
-	0xd0, 0xbf, 0xf0, 0xf2, 0xbe, 0x73, 0x9e, 0x97, 0xf7, 0xee, 0x08, 0x86, 0xe5, 0x5b, 0x6c, 0x97,
-	0xc2, 0x9a, 0xfc, 0xfd, 0x88, 0x4d, 0xa6, 0x07, 0x41, 0x92, 0x61, 0x5b, 0x32, 0x6f, 0x1d, 0xa8,
-	0x36, 0x45, 0x3e, 0xce, 0xaf, 0x23, 0x1b, 0x2b, 0xae, 0x23, 0xb1, 0x1f, 0x92, 0x64, 0xa6, 0xa6,
-	0x50, 0x03, 0xf7, 0x17, 0x0d, 0x18, 0x78, 0xc5, 0x4b, 0x57, 0xfb, 0x51, 0xfd, 0xcb, 0x06, 0x7d,
-	0xd1, 0xf9, 0x84, 0x47, 0xb3, 0x1f, 0x3d, 0xe7, 0xd5, 0xbf, 0x8b, 0xf8, 0xac, 0xf6, 0x1d, 0x8b,
-	0x16, 0xf7, 0x4a, 0xf1, 0xd1, 0x1a, 0xa2, 0x8f, 0x9e, 0xf3, 0x6a, 0xdf, 0xc0, 0x7c, 0x56, 0xfb,
-	0xc0, 0x43, 0x5f, 0x7a, 0x9f, 0xf5, 0x49, 0x45, 0xb4, 0xf4, 0x49, 0xfd, 0x38, 0xe4, 0xfd, 0xf2,
-	0x0d, 0xb4, 0xae, 0xce, 0x4b, 0x8f, 0x8f, 0x0a, 0xdc, 0x47, 0xcf, 0x79, 0x25, 0xca, 0xbb, 0x6b,
-	0x0b, 0x26, 0xbc, 0x3b, 0xfc, 0x87, 0xaf, 0xaf, 0x5a, 0xbf, 0xf8, 0xfa, 0xaa, 0xf5, 0x1f, 0x5f,
-	0x5f, 0xb5, 0x0e, 0x3b, 0xc8, 0xfc, 0xdd, 0xff, 0x09, 0x00, 0x00, 0xff, 0xff, 0xc5, 0x04, 0x8f,
-	0x62, 0x69, 0x37, 0x00, 0x00,
+	// 6011 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x7c, 0x5d, 0x88, 0x24, 0xc9,
+	0x71, 0xf0, 0x55, 0xff, 0x57, 0xf4, 0xcf, 0xcc, 0xd4, 0xce, 0xee, 0xf6, 0xfe, 0xef, 0xd6, 0xfd,
+	0xed, 0x69, 0xef, 0x56, 0x77, 0xa7, 0x3b, 0x7d, 0xa7, 0xef, 0x84, 0xf1, 0xec, 0xec, 0xee, 0xed,
+	0x58, 0xb7, 0x77, 0x73, 0x35, 0xbb, 0x3a, 0x0c, 0x86, 0xa2, 0xa6, 0x2a, 0xbb, 0xbb, 0xbc, 0xd5,
+	0x55, 0xa5, 0xaa, 0xec, 0xdd, 0x1d, 0x81, 0x91, 0x91, 0x6c, 0x2c, 0x1b, 0x04, 0xb6, 0x11, 0x18,
+	0xfb, 0xc1, 0x3f, 0x0f, 0xb2, 0x90, 0xc0, 0x18, 0x8c, 0xf4, 0x64, 0x30, 0xe8, 0xc1, 0xd8, 0xc6,
+	0x60, 0x0b, 0x83, 0x7f, 0x9f, 0x8c, 0xc0, 0xf8, 0xc1, 0xd8, 0xf8, 0xc9, 0x6f, 0x02, 0x93, 0x91,
+	0x99, 0x55, 0x59, 0xd5, 0xd5, 0x3d, 0x3d, 0xe3, 0xbd, 0xd3, 0xd9, 0xa7, 0xa7, 0xee, 0x8c, 0x8c,
+	0xcc, 0x8a, 0x8c, 0x88, 0x8c, 0x8c, 0x8c, 0x8c, 0x4c, 0x18, 0xd0, 0xf1, 0x7e, 0x44, 0x9d, 0xd8,
+	0xbf, 0x1e, 0x27, 0x11, 0x8d, 0x8c, 0xce, 0x7e, 0x44, 0xf1, 0x9f, 0xf9, 0xc3, 0x06, 0xb4, 0xee,
+	0xc7, 0x9e, 0x43, 0x89, 0x71, 0x0e, 0xf4, 0x19, 0xfe, 0xb3, 0x7d, 0x6f, 0xa8, 0x5d, 0xd6, 0xae,
+	0x36, 0xad, 0x0e, 0x07, 0xec, 0x78, 0xc6, 0x35, 0x68, 0x4f, 0x49, 0x9a, 0x3a, 0x63, 0x32, 0xac,
+	0x5d, 0xd6, 0xae, 0x76, 0x5f, 0xdd, 0xb8, 0x2e, 0xfb, 0xb8, 0x7e, 0x97, 0x57, 0x58, 0x12, 0xc3,
+	0x78, 0x03, 0x06, 0xc4, 0xf3, 0x29, 0xf1, 0x6c, 0xd9, 0xa6, 0xbe, 0xa8, 0x4d, 0x9f, 0x23, 0x8a,
+	0xa2, 0xf1, 0x1a, 0xf4, 0xdc, 0x89, 0x13, 0x86, 0x24, 0xb0, 0xe3, 0x28, 0xa5, 0xc3, 0xc6, 0xa2,
+	0x76, 0x5d, 0x81, 0xb6, 0x1b, 0xa5, 0xd4, 0xd8, 0x82, 0x13, 0xe2, 0x7b, 0x85, 0xc6, 0xcd, 0x45,
+	0x8d, 0x37, 0x38, 0xf6, 0xb6, 0xd2, 0xc5, 0x1b, 0xd0, 0xf3, 0xc3, 0xc0, 0x0f, 0x89, 0xfd, 0x85,
+	0x19, 0x49, 0x0e, 0x86, 0x2d, 0x6c, 0x7b, 0x32, 0x6f, 0xbb, 0x83, 0xb5, 0xef, 0xb1, 0x4a, 0xab,
+	0xeb, 0xe7, 0x05, 0xe3, 0x1d, 0xd8, 0x74, 0x27, 0x51, 0x4a, 0x42, 0x5b, 0x74, 0x90, 0x90, 0x74,
+	0x16, 0xd0, 0x61, 0x1b, 0x7b, 0x38, 0x9f, 0xf7, 0xb0, 0x8d, 0x58, 0xbc, 0x1f, 0x0b, 0x71, 0x2c,
+	0xc3, 0x9d, 0x83, 0x19, 0x3f, 0x01, 0x03, 0xd7, 0x09, 0x82, 0x7d, 0xc7, 0x7d, 0x20, 0x68, 0xe9,
+	0x60, 0x4f, 0xa7, 0x95, 0x9e, 0x44, 0x3d, 0xa7, 0xa6, 0xef, 0xaa, 0x45, 0xd6, 0x3e, 0x9d, 0xf8,
+	0x71, 0xec, 0x87, 0x63, 0xd1, 0x5e, 0x2f, 0xb7, 0xdf, 0x13, 0xf5, 0xa2, 0x7d, 0xaa, 0x16, 0x8d,
+	0x3b, 0x60, 0xc4, 0x09, 0xb1, 0xdd, 0x09, 0x71, 0x1f, 0x44, 0x33, 0x2a, 0xfa, 0x00, 0xec, 0xe3,
+	0x6c, 0xde, 0xc7, 0x6e, 0x42, 0xb6, 0x05, 0x0a, 0xef, 0x66, 0x3d, 0x2e, 0x41, 0x0c, 0x13, 0x1a,
+	0x71, 0x14, 0x04, 0xc3, 0x2e, 0xb6, 0x1d, 0x28, 0x6d, 0xa3, 0x20, 0xb0, 0xb0, 0xce, 0xfc, 0xc3,
+	0x1a, 0x74, 0xdf, 0x27, 0xfb, 0x93, 0x28, 0x7a, 0xb0, 0x13, 0x8e, 0x22, 0x63, 0x1d, 0xea, 0xb3,
+	0x24, 0x40, 0xf5, 0xd3, 0x2d, 0xf6, 0xd7, 0x78, 0x0d, 0x4e, 0x4d, 0x9c, 0xd4, 0x76, 0x67, 0x29,
+	0x8d, 0xa6, 0xb6, 0x4b, 0x12, 0xea, 0x8f, 0x7c, 0xd7, 0xa1, 0x5c, 0x11, 0x3b, 0xd6, 0xe6, 0xc4,
+	0x49, 0xb7, 0xb1, 0x72, 0x3b, 0xaf, 0x33, 0x5e, 0x86, 0xcd, 0x98, 0x84, 0x1e, 0x63, 0x82, 0x50,
+	0x6a, 0x37, 0x9a, 0x85, 0x14, 0x15, 0xb1, 0x69, 0x19, 0xa2, 0x8e, 0x6b, 0xfe, 0x36, 0xab, 0x31,
+	0x9e, 0x83, 0xb5, 0xc0, 0x49, 0xa9, 0x4d, 0x92, 0x24, 0x4a, 0x6c, 0x06, 0x47, 0xed, 0x6b, 0x5a,
+	0x7d, 0x06, 0xbe, 0xc5, 0xa0, 0x37, 0x59, 0xcf, 0x2f, 0x82, 0xa1, 0xe0, 0x49, 0x05, 0x6f, 0x22,
+	0xc1, 0xeb, 0x19, 0xaa, 0x54, 0xe8, 0xe7, 0x61, 0x6d, 0xea, 0x3c, 0xb6, 0xdd, 0x28, 0x0c, 0x89,
+	0x4b, 0xfd, 0x28, 0x4c, 0x51, 0xb5, 0x9a, 0xd6, 0x60, 0xea, 0x3c, 0xde, 0xce, 0xa1, 0x0c, 0xd1,
+	0x09, 0x82, 0xe8, 0x11, 0xf1, 0x04, 0xc1, 0xe9, 0xb0, 0x7d, 0xb9, 0x7e, 0x55, 0xb7, 0x06, 0x02,
+	0xcc, 0x69, 0x4d, 0xcd, 0x6f, 0x6b, 0xd0, 0xb8, 0x9f, 0x92, 0xc4, 0x18, 0x40, 0x2d, 0x9b, 0xa8,
+	0x35, 0xdf, 0x33, 0x4e, 0x42, 0xcb, 0x4f, 0xed, 0xfd, 0x88, 0x0a, 0xc6, 0x34, 0xfd, 0xf4, 0x46,
+	0x44, 0x8d, 0x0b, 0x00, 0x23, 0x3f, 0x49, 0xa9, 0x1d, 0x3a, 0x53, 0x3e, 0x11, 0x75, 0x4b, 0x47,
+	0xc8, 0x3b, 0xce, 0x14, 0x67, 0x3d, 0x0e, 0x07, 0x6b, 0x1b, 0x58, 0xdb, 0x61, 0x00, 0xac, 0x3c,
+	0x0b, 0x9d, 0x59, 0x4a, 0x12, 0xac, 0xe3, 0x23, 0xcc, 0xca, 0xc6, 0xd3, 0xd0, 0x0f, 0x9c, 0x70,
+	0x3c, 0x73, 0xc6, 0x8c, 0xb7, 0x1e, 0xc1, 0x71, 0xe9, 0x56, 0x4f, 0x02, 0xb7, 0x23, 0x8f, 0x98,
+	0x7f, 0x57, 0x87, 0xc6, 0xf6, 0xc4, 0xa1, 0x73, 0xc4, 0x1a, 0xd0, 0xa0, 0x07, 0x31, 0x97, 0xa1,
+	0x6e, 0xe1, 0x7f, 0x63, 0x13, 0x9a, 0xd4, 0xa7, 0x81, 0x24, 0x92, 0x17, 0x0a, 0x34, 0x34, 0x4a,
+	0x34, 0x14, 0xc7, 0xd6, 0x5c, 0x3a, 0xb6, 0x56, 0x69, 0x6c, 0x2f, 0x40, 0x33, 0x9e, 0x44, 0x34,
+	0x12, 0x13, 0xf5, 0x84, 0x3a, 0x51, 0x1d, 0xba, 0xcb, 0xaa, 0x2c, 0x8e, 0x61, 0x5c, 0x86, 0xae,
+	0x47, 0x52, 0x37, 0xf1, 0x63, 0x26, 0x2b, 0x9c, 0x8f, 0xba, 0xa5, 0x82, 0x8c, 0x4b, 0xd0, 0xf5,
+	0xc3, 0x87, 0x3e, 0x25, 0x76, 0xe0, 0x87, 0x0f, 0x70, 0xc6, 0xe9, 0x16, 0x70, 0xd0, 0xdb, 0x7e,
+	0xf8, 0x80, 0x99, 0xc4, 0xd8, 0x0f, 0x43, 0xc5, 0x24, 0xc2, 0x42, 0x93, 0xc8, 0x11, 0xa5, 0x06,
+	0xbd, 0x09, 0xdd, 0x98, 0x24, 0x53, 0x3f, 0x4d, 0x51, 0x7b, 0xf8, 0x64, 0x3a, 0x53, 0xa2, 0x36,
+	0x47, 0xb0, 0x54, 0x6c, 0xe3, 0x2a, 0xac, 0xa7, 0xd4, 0x77, 0x1f, 0x90, 0xc4, 0x4e, 0x89, 0x60,
+	0x44, 0x0f, 0x89, 0x1b, 0x08, 0xf8, 0x1e, 0xe1, 0xec, 0x78, 0x09, 0x4e, 0xb8, 0x4e, 0x88, 0x58,
+	0x4a, 0x8b, 0x61, 0x1f, 0x55, 0x69, 0xdd, 0x75, 0xc2, 0x3d, 0x42, 0xf7, 0xb2, 0x26, 0xe6, 0x57,
+	0x36, 0xa0, 0x2d, 0x29, 0xbc, 0x00, 0x20, 0x06, 0x95, 0xaf, 0x1c, 0xba, 0x80, 0xec, 0x78, 0xcc,
+	0x0c, 0x8c, 0x92, 0x68, 0x2a, 0xd6, 0x0d, 0xc5, 0x0c, 0x30, 0x2d, 0xb6, 0xb0, 0x8e, 0xa9, 0x03,
+	0xce, 0x38, 0x3e, 0x3d, 0xf1, 0x3f, 0x6b, 0xe7, 0x4e, 0x1c, 0xb9, 0x06, 0x0c, 0x8a, 0x23, 0xb6,
+	0xb0, 0xce, 0x78, 0x05, 0x7a, 0xa3, 0x28, 0x79, 0xe4, 0x24, 0x9e, 0x8d, 0xdf, 0x68, 0x56, 0x7e,
+	0xa3, 0x2b, 0x70, 0x6e, 0xb3, 0x4f, 0xfd, 0x7f, 0xd8, 0x50, 0x9b, 0xd8, 0xf8, 0x8d, 0x56, 0xe5,
+	0x37, 0xd6, 0x94, 0x76, 0xa8, 0xc5, 0xaf, 0xc3, 0xe9, 0x42, 0x5b, 0x65, 0xd8, 0x6d, 0xa4, 0x7c,
+	0x53, 0x69, 0x71, 0x37, 0xe3, 0xc0, 0xb5, 0xfc, 0x93, 0xa9, 0x3f, 0x0e, 0x1d, 0x3a, 0x4b, 0x88,
+	0xd0, 0xa2, 0x75, 0x51, 0xb1, 0x27, 0xe1, 0xc6, 0x75, 0x38, 0x91, 0x21, 0x93, 0xd0, 0x23, 0x09,
+	0x97, 0x1a, 0x57, 0x29, 0xd9, 0xcf, 0x1e, 0xd6, 0xa0, 0xe0, 0xae, 0xe4, 0x2c, 0x40, 0x16, 0x02,
+	0x12, 0x22, 0x87, 0x8c, 0x26, 0xeb, 0x4d, 0x58, 0x4f, 0x48, 0x1c, 0x1c, 0xd8, 0x34, 0xca, 0xd4,
+	0xaf, 0xbb, 0x48, 0xfd, 0x06, 0x88, 0x7a, 0x2f, 0x92, 0xd2, 0x3d, 0x07, 0x3a, 0x5b, 0x2e, 0x79,
+	0xe7, 0x3d, 0xee, 0x16, 0x30, 0x00, 0xf6, 0xfc, 0x0c, 0x0c, 0xa6, 0xc4, 0xf3, 0x1d, 0x7b, 0x9c,
+	0x44, 0xb3, 0x98, 0xf1, 0xa1, 0xcf, 0xad, 0x00, 0x42, 0xdf, 0x62, 0xc0, 0x1d, 0xcf, 0x78, 0x01,
+	0xd6, 0x9d, 0x19, 0x9d, 0x44, 0x89, 0x32, 0xfc, 0x01, 0xe2, 0xad, 0x71, 0x78, 0x3e, 0x7a, 0x66,
+	0x17, 0xc8, 0x63, 0x3a, 0x5c, 0x13, 0x76, 0x81, 0x3c, 0xa6, 0xc6, 0xa7, 0xa0, 0x43, 0x42, 0xea,
+	0x53, 0x9f, 0xa4, 0xc3, 0xf5, 0xcb, 0xf5, 0xe2, 0x5a, 0x26, 0xc8, 0xbc, 0xc5, 0x10, 0x0e, 0xac,
+	0x0c, 0xd1, 0xb8, 0x01, 0xeb, 0xae, 0x83, 0x93, 0xd3, 0xce, 0x1a, 0x6f, 0x2c, 0x6f, 0xbc, 0x26,
+	0x1a, 0xdc, 0x92, 0x7d, 0x3c, 0x0b, 0x4d, 0x67, 0xe6, 0xf9, 0xd1, 0xd0, 0x40, 0x66, 0xad, 0xe5,
+	0x0d, 0xb7, 0x18, 0xd8, 0xe2, 0xb5, 0xc6, 0x75, 0xe8, 0x78, 0x91, 0x3b, 0x9b, 0x92, 0x90, 0x0e,
+	0x4f, 0x20, 0xa6, 0x91, 0x63, 0xde, 0x14, 0x35, 0x56, 0x86, 0x63, 0xbc, 0x02, 0xba, 0x13, 0xfa,
+	0x53, 0x07, 0x8d, 0xc9, 0x66, 0xd9, 0xfa, 0x6c, 0xc9, 0x2a, 0x2b, 0xc7, 0x62, 0x73, 0x61, 0xcc,
+	0xb4, 0xe0, 0x64, 0x59, 0x4f, 0xdf, 0x72, 0xa6, 0xc4, 0xc2, 0xba, 0xdc, 0xa0, 0x9d, 0xc2, 0x61,
+	0x2a, 0x5d, 0xa2, 0x31, 0xdb, 0xf3, 0xbf, 0x48, 0xa4, 0x41, 0xbb, 0x06, 0x6d, 0x31, 0xc9, 0x87,
+	0xa7, 0xcb, 0x7a, 0x20, 0x26, 0xb9, 0x25, 0x31, 0x18, 0x17, 0x1e, 0xfa, 0x1e, 0x89, 0x86, 0xc3,
+	0x32, 0x17, 0x3e, 0xcf, 0xc0, 0x16, 0xaf, 0x45, 0xb4, 0xc8, 0x77, 0xc9, 0xf0, 0xcc, 0x1c, 0x1a,
+	0x03, 0x5b, 0xbc, 0xd6, 0x78, 0x15, 0x00, 0xf1, 0xed, 0x30, 0xa2, 0x64, 0x78, 0xb6, 0x3c, 0x7a,
+	0xec, 0xf2, 0x9d, 0x88, 0x12, 0x4b, 0x7f, 0x28, 0xff, 0x1a, 0x43, 0x68, 0x0b, 0xd1, 0x0c, 0xcf,
+	0xa1, 0x5e, 0xc8, 0x22, 0x1b, 0x88, 0x1b, 0x85, 0xd4, 0x71, 0xe9, 0xf0, 0x7c, 0x79, 0x20, 0xdb,
+	0xbc, 0xc2, 0x92, 0x18, 0x4c, 0x4e, 0x41, 0xe4, 0x72, 0xb6, 0x5f, 0x28, 0xcb, 0xe9, 0x6d, 0x51,
+	0x63, 0x65, 0x38, 0x38, 0x22, 0x12, 0xce, 0xc8, 0xf0, 0xe2, 0xdc, 0x88, 0x18, 0xd8, 0xe2, 0xb5,
+	0x99, 0x9b, 0x73, 0x69, 0xb1, 0x9b, 0x63, 0xbc, 0x01, 0xeb, 0x21, 0x79, 0x84, 0xb6, 0xc6, 0x9e,
+	0x92, 0xe9, 0x3e, 0x49, 0xd2, 0xe1, 0x65, 0x14, 0x53, 0xd9, 0x56, 0x0d, 0x42, 0xf2, 0x88, 0xd9,
+	0x9a, 0xbb, 0x1c, 0x8b, 0xb5, 0x0c, 0xc8, 0x88, 0xaa, 0x4d, 0x87, 0x57, 0x2a, 0xad, 0xdc, 0x80,
+	0xe1, 0xe5, 0x4d, 0xd9, 0xdc, 0xcc, 0xbe, 0xc9, 0xd7, 0x55, 0x93, 0xcf, 0x4d, 0xf1, 0x85, 0x7b,
+	0xb8, 0xbc, 0x7e, 0x46, 0xc1, 0xe2, 0xea, 0xf3, 0xf4, 0x62, 0xf5, 0x91, 0x4d, 0x11, 0x62, 0x7c,
+	0x02, 0x36, 0x3c, 0x12, 0x10, 0xe6, 0x5b, 0xe5, 0xad, 0x9f, 0xc1, 0x05, 0x63, 0x8d, 0x57, 0xe4,
+	0xb8, 0x2f, 0x82, 0xc1, 0x4d, 0x04, 0xa2, 0xba, 0x09, 0x71, 0x28, 0xf1, 0x86, 0xcf, 0xf2, 0xd5,
+	0x05, 0x6b, 0x18, 0xee, 0x36, 0x87, 0x1b, 0x9f, 0x86, 0xd3, 0xe9, 0x2c, 0x26, 0x49, 0x45, 0x93,
+	0xe7, 0xb0, 0xc9, 0xc9, 0xbc, 0x5a, 0x6d, 0xf7, 0x32, 0xf3, 0xc5, 0xf9, 0x0e, 0xa0, 0xd0, 0xe8,
+	0x79, 0x6c, 0x64, 0x88, 0x3a, 0xb5, 0xc5, 0x35, 0x30, 0xa6, 0xfe, 0x38, 0x61, 0x0e, 0x22, 0x8d,
+	0x78, 0x23, 0xdf, 0x1b, 0x5e, 0x45, 0x33, 0xb7, 0x26, 0x6a, 0xee, 0x45, 0xac, 0xc5, 0x8e, 0x67,
+	0x7c, 0x12, 0x36, 0x25, 0x72, 0xb6, 0x74, 0x30, 0xf4, 0x17, 0x10, 0x7d, 0x43, 0xd4, 0xc9, 0xd5,
+	0x62, 0xc7, 0xab, 0x58, 0xf5, 0x3f, 0xb1, 0xe2, 0xaa, 0x7f, 0x0d, 0xda, 0x7e, 0xc8, 0xe7, 0xd3,
+	0xb5, 0x72, 0x93, 0x1d, 0x5e, 0x61, 0x49, 0x0c, 0xe3, 0xa7, 0xc0, 0x48, 0x67, 0xae, 0x4b, 0xd2,
+	0x74, 0x34, 0x0b, 0xec, 0xd8, 0x39, 0x40, 0x53, 0xf4, 0x22, 0xb6, 0x3b, 0xa7, 0xcc, 0xec, 0x0c,
+	0x67, 0x97, 0xa3, 0x58, 0x1b, 0x69, 0x19, 0xc4, 0xd6, 0x2a, 0xe1, 0xac, 0x12, 0xcf, 0x7e, 0x44,
+	0xf6, 0x53, 0x9f, 0x92, 0xe1, 0x4b, 0x7c, 0xad, 0xca, 0x2a, 0xde, 0xe7, 0x70, 0xe3, 0x4d, 0xe8,
+	0xc7, 0x4e, 0x9a, 0xc6, 0x51, 0x82, 0xeb, 0x83, 0x33, 0xbc, 0x8e, 0xdf, 0x3c, 0xa5, 0xe8, 0x8e,
+	0xa8, 0xbe, 0xe9, 0x50, 0xc7, 0xea, 0xc5, 0x4a, 0xc9, 0xd8, 0x82, 0x1e, 0x5f, 0x95, 0xa6, 0x4e,
+	0xf2, 0x60, 0x16, 0x0f, 0x3f, 0x89, 0x6d, 0x2f, 0x96, 0xb7, 0x5c, 0x9f, 0x23, 0x07, 0xfb, 0x91,
+	0x93, 0x78, 0x77, 0x11, 0xcb, 0xea, 0x62, 0x1b, 0x5e, 0x30, 0x7f, 0x59, 0x83, 0x7e, 0xc1, 0x86,
+	0x67, 0x7e, 0xa5, 0xa6, 0xf8, 0x95, 0xa7, 0xa0, 0x15, 0x8d, 0x46, 0xcc, 0x9b, 0xa9, 0xa1, 0xa0,
+	0x44, 0x89, 0xc1, 0x03, 0x12, 0x8e, 0xe9, 0x44, 0xb8, 0x1d, 0xa2, 0x24, 0xf7, 0x20, 0x8d, 0x7c,
+	0x0f, 0x62, 0x42, 0x83, 0xf9, 0x9c, 0x0b, 0xdc, 0x0b, 0xac, 0x33, 0x23, 0xd0, 0xb3, 0x89, 0x62,
+	0x9c, 0x86, 0xf6, 0xc8, 0x0f, 0x32, 0x7f, 0x48, 0xb7, 0x5a, 0xac, 0xb8, 0xe3, 0x31, 0x1f, 0xf7,
+	0x91, 0xef, 0xd1, 0x89, 0x20, 0x85, 0x17, 0x18, 0x25, 0x13, 0xe2, 0x8f, 0x27, 0x72, 0x7f, 0x22,
+	0x4a, 0x6c, 0xed, 0xc5, 0x6e, 0x52, 0xff, 0x8b, 0x72, 0x37, 0xd2, 0x61, 0x00, 0xf6, 0x0d, 0xf3,
+	0x6f, 0x35, 0x68, 0xe2, 0x3a, 0xb4, 0xf8, 0x6b, 0x67, 0xa1, 0xe3, 0xcd, 0x12, 0x6e, 0xf1, 0xf8,
+	0x07, 0xb3, 0xb2, 0x71, 0x1e, 0xf4, 0x98, 0x24, 0xa3, 0x28, 0x99, 0x92, 0x44, 0x6e, 0x0b, 0x32,
+	0x40, 0xee, 0x8b, 0x37, 0x54, 0x5f, 0xfc, 0x1c, 0xe8, 0x53, 0x7f, 0x4a, 0x6c, 0x64, 0xb1, 0xd8,
+	0x10, 0x30, 0xc0, 0x3d, 0xc6, 0xe6, 0x02, 0xb1, 0xad, 0x22, 0xb1, 0x6c, 0x71, 0xa2, 0x93, 0xd9,
+	0x74, 0x7f, 0xde, 0xdb, 0x56, 0x16, 0x27, 0xc4, 0x30, 0xbf, 0xa1, 0x41, 0x47, 0xae, 0x9a, 0x8b,
+	0x87, 0x96, 0x75, 0x58, 0x3b, 0xac, 0xc3, 0x8c, 0x30, 0x65, 0x03, 0x84, 0x84, 0xc9, 0x3d, 0x42,
+	0x3e, 0xa4, 0xc6, 0xb2, 0x21, 0x35, 0x4b, 0xfc, 0xff, 0x6b, 0x0d, 0x9a, 0xb8, 0x5c, 0x3d, 0x29,
+	0x69, 0xab, 0xd2, 0x6a, 0x94, 0xa4, 0x95, 0x0d, 0xb7, 0xb9, 0xca, 0x70, 0xf3, 0x11, 0xb5, 0x96,
+	0x8d, 0xa8, 0x5d, 0x1a, 0xd1, 0x7f, 0x6a, 0xa0, 0x67, 0xee, 0xc7, 0x47, 0x6f, 0x54, 0xb9, 0x10,
+	0x5b, 0xcb, 0x84, 0xd8, 0x5e, 0x36, 0xe4, 0x4e, 0x69, 0xc8, 0x0f, 0xa1, 0x89, 0xee, 0xc9, 0xf1,
+	0xe6, 0x50, 0xe1, 0xbb, 0xf5, 0x65, 0xdf, 0x2d, 0x4f, 0xde, 0xdf, 0xd5, 0x40, 0xcf, 0x7c, 0x9d,
+	0xc5, 0x1f, 0xcf, 0x4d, 0x54, 0xad, 0x60, 0xa2, 0x54, 0xa2, 0xea, 0x8b, 0x98, 0xda, 0x58, 0x99,
+	0xa9, 0x95, 0xfa, 0xfd, 0x1b, 0x1a, 0xb4, 0x85, 0x0f, 0xc5, 0x36, 0x19, 0xf1, 0x24, 0x0a, 0x89,
+	0x1d, 0xce, 0xd0, 0x03, 0xe1, 0x54, 0x76, 0x11, 0xf6, 0x0e, 0x82, 0x4a, 0x7b, 0xf1, 0xda, 0xd2,
+	0xbd, 0x78, 0xbd, 0xb4, 0x17, 0x3f, 0x0d, 0x6d, 0x66, 0x43, 0xd9, 0xf8, 0x39, 0xa3, 0x5a, 0xac,
+	0xc8, 0x55, 0xed, 0xa1, 0xeb, 0x24, 0x9e, 0x30, 0x36, 0xbc, 0x60, 0xde, 0x84, 0x8e, 0x74, 0xd7,
+	0x98, 0x19, 0x0b, 0xa2, 0x70, 0xec, 0xd3, 0x99, 0xc7, 0xad, 0x7e, 0xdd, 0xca, 0x01, 0x8c, 0x4f,
+	0x81, 0x43, 0x79, 0x65, 0x0d, 0x2b, 0xb3, 0xb2, 0xf9, 0x5d, 0x36, 0x7f, 0xd1, 0x83, 0x53, 0x1d,
+	0x43, 0x6d, 0x05, 0xc7, 0x30, 0x33, 0x8e, 0x35, 0xd5, 0x38, 0x0e, 0xa1, 0xed, 0x78, 0x5e, 0x42,
+	0xd2, 0x54, 0x8c, 0x4f, 0x16, 0x8d, 0xa7, 0xa1, 0x3f, 0x8a, 0x66, 0x49, 0xfa, 0x85, 0x99, 0x93,
+	0x10, 0x39, 0x48, 0xdd, 0xea, 0xe5, 0xc0, 0x1d, 0xcf, 0x78, 0x1e, 0xd6, 0x14, 0x24, 0xc5, 0xc2,
+	0x0e, 0x72, 0x30, 0xd3, 0x2b, 0x73, 0x0b, 0x80, 0x79, 0x96, 0xef, 0x72, 0x0f, 0x58, 0x6e, 0x98,
+	0x34, 0x65, 0xc3, 0x74, 0x09, 0xba, 0x0f, 0x23, 0x4a, 0x12, 0x11, 0xf3, 0xe2, 0xaa, 0x03, 0x08,
+	0xc2, 0x58, 0x97, 0xf9, 0x25, 0x68, 0xb0, 0x2e, 0x94, 0xa8, 0x8c, 0x8e, 0x51, 0x99, 0xb3, 0xd0,
+	0xf9, 0xc2, 0x8c, 0xa4, 0x99, 0xae, 0xeb, 0x56, 0x56, 0x36, 0xae, 0x43, 0x3b, 0x8a, 0x79, 0x04,
+	0xab, 0x8e, 0x1e, 0xe2, 0x66, 0xd1, 0xd3, 0xe5, 0xf4, 0x58, 0x12, 0x89, 0x09, 0xdc, 0x4f, 0x6d,
+	0x37, 0x88, 0x52, 0xc2, 0x07, 0xdc, 0xb1, 0x3a, 0x7e, 0xba, 0x8d, 0x65, 0xd3, 0x81, 0x0d, 0xb6,
+	0x74, 0xee, 0x26, 0x11, 0x53, 0x37, 0xd4, 0xcb, 0x94, 0x91, 0x4d, 0x23, 0xea, 0x04, 0x82, 0x6c,
+	0x1e, 0x48, 0x00, 0x04, 0xf1, 0x10, 0xdd, 0x35, 0x68, 0xa1, 0x93, 0x99, 0x0e, 0x6b, 0x8b, 0x7d,
+	0x54, 0x81, 0x62, 0xfe, 0x34, 0x34, 0x6e, 0xfb, 0xc1, 0x92, 0xb9, 0x55, 0x50, 0xfe, 0x5a, 0x69,
+	0xbd, 0x92, 0x95, 0xb1, 0x23, 0xdc, 0x03, 0x61, 0x6e, 0x76, 0x1d, 0x3a, 0x31, 0xff, 0x44, 0x83,
+	0x13, 0x16, 0x73, 0x43, 0x8a, 0xbe, 0x89, 0xf1, 0x1a, 0x74, 0x1e, 0x08, 0xc8, 0x50, 0x43, 0x0a,
+	0x87, 0x39, 0x85, 0x12, 0xf7, 0xc6, 0x8c, 0x52, 0xa6, 0x4d, 0x12, 0x93, 0x09, 0x3e, 0x21, 0x8c,
+	0x08, 0x3b, 0x6b, 0xcc, 0x03, 0x78, 0x03, 0x0e, 0x96, 0x0d, 0x99, 0xbf, 0xcd, 0xa6, 0x20, 0x65,
+	0x16, 0x27, 0x43, 0xad, 0x73, 0x7f, 0x3b, 0x0a, 0xc9, 0x3d, 0x7f, 0x9a, 0xe3, 0x9e, 0x07, 0x3d,
+	0x25, 0x01, 0x71, 0xa9, 0xff, 0x90, 0x08, 0xee, 0xe7, 0x00, 0xf3, 0x31, 0x0c, 0x8a, 0xe4, 0x54,
+	0xaa, 0x11, 0x12, 0x86, 0xf2, 0xb7, 0xe5, 0x26, 0x2b, 0x23, 0x0c, 0xc1, 0xd2, 0x3a, 0xbc, 0x00,
+	0xeb, 0x12, 0x31, 0x9b, 0x47, 0x82, 0x2e, 0x01, 0x97, 0x93, 0xc8, 0xfc, 0x99, 0x12, 0xe7, 0x2c,
+	0x32, 0x8d, 0x1e, 0x12, 0xfe, 0x29, 0xf6, 0xcf, 0x56, 0x18, 0x28, 0x3e, 0xc5, 0xc0, 0xd5, 0xe3,
+	0xaa, 0x95, 0xc7, 0x65, 0xc3, 0x66, 0x95, 0xd3, 0x68, 0xbc, 0x05, 0x6b, 0x22, 0x38, 0x5f, 0x92,
+	0xcf, 0x42, 0x6f, 0x53, 0x48, 0x69, 0xe0, 0x17, 0xa0, 0xe6, 0x3f, 0xd6, 0xca, 0x5f, 0x58, 0xc2,
+	0x3f, 0xe1, 0x47, 0xd6, 0x72, 0x3f, 0xf2, 0x93, 0xcc, 0x58, 0x8d, 0xfd, 0xd0, 0x66, 0xf0, 0xfa,
+	0xbc, 0xa5, 0x19, 0xfb, 0xe1, 0xfd, 0x24, 0x60, 0x96, 0x86, 0xff, 0x63, 0x96, 0x23, 0x3b, 0x0c,
+	0x40, 0x07, 0x5b, 0x58, 0x0e, 0x09, 0x44, 0x47, 0xfa, 0x3a, 0x9c, 0x48, 0x1f, 0xf9, 0xd4, 0x9d,
+	0xd8, 0x85, 0x23, 0x0c, 0x6e, 0x3d, 0x36, 0x78, 0x95, 0x72, 0x7c, 0x61, 0xdc, 0x86, 0xcb, 0x15,
+	0xf8, 0xb6, 0x3b, 0x4b, 0x12, 0x12, 0xd2, 0x3c, 0x20, 0xa6, 0x5b, 0xe7, 0xe7, 0x1a, 0x6f, 0x73,
+	0x24, 0x8c, 0x86, 0xbd, 0xa9, 0x10, 0x87, 0xd1, 0x89, 0x76, 0xd9, 0xfb, 0x97, 0x07, 0x15, 0x18,
+	0xa5, 0xc8, 0x88, 0x66, 0x25, 0xc6, 0x9c, 0xd8, 0xe1, 0x67, 0x1b, 0x1d, 0x8b, 0xfd, 0x35, 0xbf,
+	0xae, 0x31, 0xb3, 0x2e, 0x06, 0x3e, 0x7f, 0x0e, 0xa0, 0xc4, 0xb9, 0x90, 0xd3, 0x9c, 0xad, 0x32,
+	0xce, 0x75, 0x8f, 0x31, 0xfc, 0x0a, 0xf4, 0xf6, 0x23, 0x6a, 0x67, 0xe1, 0x62, 0x3e, 0x6f, 0xbb,
+	0xfb, 0x11, 0xbd, 0x2f, 0x23, 0xc6, 0x2f, 0xc3, 0xa6, 0x54, 0xd5, 0x47, 0x89, 0x4f, 0x89, 0xed,
+	0xe0, 0x06, 0x48, 0x4c, 0x11, 0x43, 0xd4, 0xbd, 0xcf, 0xaa, 0xb6, 0xb0, 0xc6, 0xfc, 0xa1, 0x06,
+	0xfd, 0xc2, 0x81, 0xcb, 0x9c, 0xd5, 0x5c, 0x25, 0xc0, 0xa9, 0x9c, 0x9f, 0xd5, 0x0f, 0x3d, 0x3f,
+	0xfb, 0x04, 0x6c, 0x08, 0xc9, 0x28, 0x01, 0x46, 0x2e, 0x79, 0xa1, 0xc7, 0x79, 0x6c, 0x91, 0x69,
+	0x08, 0x6e, 0x43, 0xc3, 0x94, 0x3a, 0xa1, 0x2b, 0x17, 0x8d, 0x1e, 0x03, 0xee, 0x08, 0x98, 0x08,
+	0xaf, 0x3a, 0x42, 0xaa, 0xf8, 0xdf, 0x78, 0x0e, 0xd6, 0x98, 0xd0, 0xec, 0x74, 0xc2, 0x76, 0x6f,
+	0xa1, 0x94, 0x9f, 0x6e, 0xf5, 0x19, 0x78, 0x8f, 0x41, 0xd9, 0xda, 0x6c, 0x7e, 0x0e, 0xe0, 0x76,
+	0x94, 0xb8, 0x04, 0xa7, 0x2d, 0xb3, 0xd1, 0x23, 0x56, 0xb2, 0x71, 0x1b, 0x26, 0x26, 0x29, 0x8c,
+	0x72, 0x84, 0xe5, 0x13, 0xf4, 0x5d, 0xd0, 0xf3, 0x98, 0x80, 0x09, 0xfd, 0x74, 0xea, 0x04, 0x81,
+	0x5d, 0xb4, 0xcf, 0x5d, 0x04, 0xde, 0xe6, 0x46, 0xfa, 0x22, 0x74, 0xf7, 0xfd, 0x71, 0x86, 0x21,
+	0xdc, 0x8a, 0x7d, 0x7f, 0xcc, 0xeb, 0xcd, 0xaf, 0xb6, 0x00, 0x94, 0x98, 0x87, 0xdc, 0xa8, 0x69,
+	0x8b, 0x37, 0x6a, 0xcc, 0xa7, 0x4a, 0xa9, 0x43, 0x67, 0xa9, 0xe8, 0x4d, 0x94, 0x98, 0x03, 0x33,
+	0x0b, 0xa9, 0x1f, 0xd8, 0x4a, 0x24, 0x5a, 0x47, 0xc8, 0x4d, 0x1e, 0x8e, 0xee, 0xbb, 0x4e, 0x68,
+	0xef, 0x13, 0x9b, 0x9f, 0x1e, 0x0a, 0x95, 0xe9, 0xba, 0x4e, 0x78, 0x83, 0xdc, 0x42, 0x10, 0x13,
+	0x1c, 0xc3, 0x89, 0xa3, 0x94, 0x4a, 0xd1, 0xa5, 0x28, 0x90, 0x8e, 0xb5, 0xe6, 0x3a, 0xe1, 0x6e,
+	0x94, 0x52, 0x21, 0xb9, 0x54, 0xe2, 0x62, 0x6c, 0x35, 0xc3, 0x6d, 0x65, 0xb8, 0xac, 0xc7, 0x0c,
+	0xf7, 0x3a, 0x0f, 0xce, 0x8b, 0x68, 0x4b, 0x86, 0xdd, 0x46, 0x6c, 0xd6, 0xcd, 0x4d, 0xac, 0xc9,
+	0xf0, 0x5f, 0x86, 0x4d, 0x86, 0x9f, 0x90, 0x94, 0x26, 0xbe, 0x9b, 0x87, 0x9c, 0x3a, 0x22, 0x0e,
+	0xe2, 0x84, 0x96, 0xa8, 0x92, 0x61, 0x26, 0xf1, 0x85, 0x38, 0x89, 0xa6, 0x11, 0x7e, 0x82, 0x37,
+	0xd0, 0xb3, 0x2f, 0xec, 0xf2, 0x1a, 0x89, 0xff, 0x1c, 0x30, 0x22, 0xf1, 0xbc, 0x95, 0xa9, 0x67,
+	0x38, 0x8a, 0x30, 0xf0, 0xdc, 0xb1, 0x18, 0x93, 0xb6, 0x11, 0x8a, 0xe7, 0x79, 0x57, 0x61, 0x9d,
+	0xe1, 0x89, 0xc3, 0x11, 0xc6, 0x7f, 0x7e, 0x84, 0xd1, 0xb1, 0x06, 0xae, 0x13, 0xee, 0x20, 0x98,
+	0xc9, 0x26, 0x95, 0x98, 0xb1, 0x1f, 0xe6, 0x03, 0xec, 0x65, 0x98, 0xbb, 0x7e, 0x98, 0x8d, 0x8e,
+	0x7b, 0x16, 0x22, 0x16, 0xd6, 0x97, 0x9e, 0x85, 0xd0, 0x00, 0xc1, 0xd6, 0x94, 0x84, 0x5e, 0xde,
+	0xcf, 0x20, 0x63, 0xeb, 0x1e, 0x09, 0xbd, 0xac, 0xa3, 0xd7, 0xe1, 0xb4, 0x82, 0xeb, 0xf9, 0x4e,
+	0xde, 0x62, 0x8d, 0x9f, 0x2d, 0x66, 0x2d, 0x3c, 0xdf, 0xc9, 0x9a, 0x3d, 0x03, 0x83, 0xac, 0x59,
+	0x1c, 0x05, 0x41, 0x3a, 0x5c, 0x47, 0xec, 0x9e, 0xc0, 0x66, 0xde, 0x50, 0xb1, 0xf3, 0x88, 0x4e,
+	0x48, 0x92, 0x77, 0xbe, 0x51, 0xe8, 0xfc, 0x5d, 0x56, 0x99, 0x75, 0xfe, 0x06, 0x9c, 0x61, 0xcd,
+	0x1c, 0x0f, 0xa3, 0x2f, 0x76, 0xcc, 0x66, 0x7f, 0x9c, 0x90, 0x87, 0x3e, 0x79, 0x94, 0x62, 0x1c,
+	0xba, 0x63, 0x9d, 0x74, 0x9d, 0x70, 0xcb, 0xf3, 0xde, 0x27, 0xfb, 0xbb, 0xce, 0x98, 0xec, 0x8a,
+	0x4a, 0xf3, 0x97, 0xea, 0xb0, 0x56, 0x3a, 0x0c, 0xaa, 0xe6, 0x86, 0x76, 0x64, 0x6e, 0xd4, 0x8e,
+	0xc4, 0x8d, 0xfa, 0xd1, 0xb8, 0xd1, 0x38, 0x2e, 0x37, 0x9a, 0x4b, 0xb8, 0x51, 0xa5, 0xa0, 0xad,
+	0x55, 0x15, 0xb4, 0xbd, 0xb2, 0x82, 0x76, 0xaa, 0x14, 0xd4, 0xdc, 0x07, 0xc3, 0x22, 0x69, 0x1c,
+	0x85, 0x29, 0xd9, 0x75, 0x12, 0x67, 0x4a, 0x28, 0x6b, 0x5f, 0x1d, 0x6a, 0xd4, 0xaa, 0x43, 0x8d,
+	0x97, 0xa0, 0x9b, 0x10, 0x9a, 0x1c, 0xd8, 0xce, 0x88, 0x92, 0x44, 0xba, 0xf0, 0x08, 0xda, 0x62,
+	0x10, 0x93, 0xc2, 0xda, 0x4e, 0x18, 0xcf, 0x28, 0x0a, 0x83, 0xdb, 0xd3, 0xaa, 0xd8, 0xd7, 0x26,
+	0x34, 0x51, 0x96, 0x72, 0xab, 0x82, 0x05, 0x35, 0xa0, 0x5e, 0x2f, 0x06, 0xd4, 0x2f, 0x00, 0xc4,
+	0x4e, 0x92, 0x12, 0x7b, 0x1a, 0x79, 0x32, 0x1e, 0xa2, 0x23, 0xe4, 0x6e, 0xe4, 0x11, 0xf3, 0x2b,
+	0x35, 0xf5, 0xb3, 0x3c, 0xfa, 0xb1, 0xfa, 0x67, 0x37, 0xe5, 0xce, 0x54, 0x1e, 0xf0, 0xe2, 0x26,
+	0x54, 0x21, 0xa6, 0xb1, 0x8c, 0x98, 0x66, 0x89, 0x98, 0x3c, 0x0e, 0xd1, 0xaa, 0x8e, 0x43, 0xb4,
+	0x17, 0xc6, 0x21, 0x3a, 0xa5, 0x2d, 0xf3, 0x4b, 0x60, 0xa4, 0xb3, 0x38, 0x8e, 0x12, 0x9a, 0xda,
+	0x29, 0x4d, 0x88, 0x33, 0xf5, 0xc3, 0xb1, 0x34, 0x7e, 0xb2, 0x66, 0x4f, 0x56, 0x98, 0xff, 0xa0,
+	0xc1, 0x89, 0x9c, 0x0b, 0x79, 0xc4, 0xe4, 0x7f, 0x3f, 0x27, 0xcc, 0x7f, 0xd2, 0x54, 0x01, 0xf3,
+	0xf0, 0xe2, 0x8f, 0x6c, 0x58, 0x2a, 0xa1, 0xad, 0x65, 0xe1, 0xcb, 0xf6, 0xc2, 0xf0, 0x65, 0x47,
+	0xd9, 0xa1, 0x9b, 0x5f, 0xd3, 0xc0, 0xc8, 0x07, 0x97, 0xc5, 0x18, 0x7f, 0x54, 0xe3, 0x33, 0xbb,
+	0xa0, 0x23, 0x39, 0xcc, 0x97, 0x31, 0xbf, 0xa1, 0xc1, 0x09, 0x27, 0x4c, 0x1f, 0x91, 0xa4, 0xe8,
+	0x6d, 0xa2, 0x09, 0x57, 0xf3, 0x81, 0x72, 0x4f, 0x69, 0xad, 0x90, 0xf9, 0xb3, 0xe3, 0x65, 0xbb,
+	0x90, 0x9a, 0xb2, 0x0b, 0xb9, 0x00, 0x90, 0x4e, 0xa2, 0x47, 0xb6, 0x13, 0x90, 0x84, 0x0a, 0xdb,
+	0xac, 0x33, 0xc8, 0x16, 0x03, 0x54, 0x04, 0xbb, 0x2f, 0x00, 0xb8, 0x8e, 0x3b, 0xe1, 0x1b, 0x4d,
+	0x11, 0x15, 0xd2, 0x11, 0xc2, 0x76, 0x98, 0xe6, 0x37, 0x6b, 0xd0, 0x16, 0x67, 0x84, 0x4f, 0x2a,
+	0x44, 0x78, 0x09, 0xba, 0x7e, 0x6a, 0xf3, 0xd3, 0xce, 0xcc, 0xb1, 0x02, 0x3f, 0xdd, 0x12, 0x90,
+	0xa3, 0xc4, 0x09, 0x37, 0xa1, 0x49, 0xa6, 0xd1, 0xcf, 0xfa, 0xc2, 0xd7, 0xe5, 0x05, 0xe3, 0x0c,
+	0x74, 0xb2, 0xfc, 0x07, 0xae, 0x2c, 0xed, 0x54, 0x24, 0x3e, 0xbc, 0x09, 0xfd, 0xa9, 0x93, 0x3e,
+	0x60, 0x4e, 0x9b, 0x9f, 0x4d, 0x89, 0xc2, 0x2e, 0xe6, 0xae, 0x93, 0x3e, 0xd8, 0x15, 0xb5, 0x56,
+	0x6f, 0xaa, 0x94, 0x8a, 0x31, 0x04, 0xbd, 0x14, 0x40, 0xfb, 0x03, 0x0d, 0x20, 0x4f, 0x99, 0x60,
+	0xc2, 0xc1, 0xef, 0x0b, 0x35, 0xc3, 0xed, 0x48, 0x75, 0x24, 0xa9, 0xc4, 0x8f, 0xfa, 0x1c, 0x3f,
+	0x9e, 0x85, 0x01, 0xee, 0xc8, 0xfd, 0x30, 0xb5, 0x19, 0x3d, 0x72, 0x11, 0xed, 0x4b, 0x28, 0x23,
+	0x39, 0x35, 0x5e, 0x82, 0x8e, 0x38, 0xc4, 0x65, 0x8b, 0x65, 0xbd, 0xfa, 0x9c, 0x37, 0x43, 0x31,
+	0x03, 0xe8, 0xa9, 0x43, 0x65, 0xc4, 0xc5, 0x91, 0x1f, 0xca, 0x4d, 0x2d, 0x2f, 0x30, 0x99, 0x3f,
+	0xb6, 0xd3, 0x89, 0x3f, 0xa2, 0x22, 0xa2, 0xd6, 0x7a, 0xbc, 0xc7, 0x4a, 0xac, 0xe2, 0x40, 0x54,
+	0xd4, 0x79, 0xc5, 0x01, 0xaf, 0xd8, 0x84, 0x66, 0xea, 0x3a, 0xe2, 0x2c, 0xa1, 0x6e, 0xf1, 0x82,
+	0xf9, 0x1d, 0x0d, 0xd6, 0x1c, 0xcf, 0x13, 0x64, 0xdc, 0x8b, 0x18, 0x8b, 0x94, 0x38, 0xa0, 0x56,
+	0x88, 0x03, 0x4a, 0xde, 0xd5, 0x14, 0xde, 0x5d, 0x82, 0x6e, 0x1c, 0x8e, 0x65, 0xb6, 0x8a, 0x98,
+	0x92, 0x10, 0x87, 0x63, 0xa9, 0x9d, 0xa7, 0xa0, 0x85, 0xd2, 0x4f, 0x85, 0x76, 0x8b, 0xd2, 0xbc,
+	0xc4, 0x9b, 0xab, 0x4b, 0xdc, 0xfc, 0x1d, 0x0d, 0xba, 0xea, 0x66, 0xfa, 0x38, 0x9b, 0x41, 0x35,
+	0xde, 0x58, 0x5f, 0x2d, 0xde, 0xc8, 0xb7, 0xf4, 0xe2, 0x30, 0x06, 0x0b, 0xca, 0xb1, 0x16, 0x37,
+	0x2c, 0xa2, 0x64, 0x7e, 0xab, 0x06, 0x1b, 0xdc, 0x90, 0xa8, 0x74, 0x3e, 0x97, 0x85, 0x40, 0x4a,
+	0x46, 0xa4, 0xaf, 0x24, 0x33, 0xee, 0x78, 0xc6, 0xeb, 0xd0, 0xe6, 0x09, 0x8c, 0x32, 0xc8, 0x76,
+	0xae, 0x3a, 0x07, 0x92, 0x27, 0x30, 0x4a, 0xdc, 0x92, 0xd1, 0xa8, 0x97, 0x8c, 0x86, 0xd0, 0xe8,
+	0x98, 0x24, 0x69, 0x14, 0x3a, 0x41, 0x3e, 0xc3, 0x77, 0x05, 0x84, 0x21, 0x84, 0xe4, 0x31, 0xb5,
+	0x0b, 0x23, 0x02, 0x06, 0x7a, 0x97, 0x1f, 0xd6, 0x3d, 0x03, 0x03, 0x11, 0xb4, 0x88, 0xa7, 0x3c,
+	0x00, 0x20, 0xf2, 0xcd, 0x38, 0x74, 0x77, 0x8a, 0x11, 0x80, 0x3c, 0x14, 0x12, 0x4f, 0xed, 0x58,
+	0xfa, 0x5e, 0x62, 0xca, 0x6f, 0x48, 0xd4, 0xcc, 0x29, 0x33, 0x4f, 0xc0, 0xc6, 0xdc, 0xa0, 0xcc,
+	0xdf, 0xaa, 0xc3, 0x70, 0x0e, 0xba, 0x95, 0x50, 0xdf, 0x0d, 0x48, 0xe5, 0x62, 0xc1, 0x75, 0xa0,
+	0x96, 0xe9, 0x40, 0x75, 0x22, 0xdb, 0x7b, 0x70, 0xd2, 0x67, 0xd6, 0x3e, 0xdb, 0xd4, 0xb3, 0xc9,
+	0x4a, 0x42, 0x99, 0xe0, 0x74, 0x41, 0xe5, 0x33, 0xae, 0x51, 0x88, 0xb5, 0xcd, 0x91, 0xac, 0x13,
+	0xfe, 0x3c, 0x70, 0xee, 0x08, 0xb5, 0x79, 0xe4, 0x23, 0x54, 0x69, 0xff, 0x5b, 0xb9, 0xfd, 0x3f,
+	0x03, 0x9d, 0x89, 0xef, 0x11, 0x8c, 0x51, 0x71, 0x4f, 0xb8, 0xcd, 0xca, 0xf7, 0x93, 0x60, 0x85,
+	0x44, 0xb8, 0x73, 0xa0, 0xa3, 0x1d, 0xc6, 0xd6, 0x3c, 0x67, 0xa9, 0x83, 0x00, 0xd6, 0xfc, 0x12,
+	0x74, 0x79, 0x25, 0x5f, 0x1b, 0x40, 0x04, 0x78, 0x19, 0xe8, 0x7d, 0x5c, 0x20, 0xae, 0x40, 0x8f,
+	0x23, 0x88, 0x65, 0xa2, 0xcb, 0x73, 0x99, 0x10, 0x76, 0x07, 0x41, 0xe6, 0xf7, 0xea, 0x70, 0x6a,
+	0x4e, 0x38, 0x8b, 0xfd, 0xdf, 0xb2, 0x68, 0xce, 0x81, 0x8e, 0xf1, 0xe1, 0x2c, 0x02, 0xa7, 0x5b,
+	0x1d, 0x04, 0x30, 0xfa, 0x0a, 0xc4, 0x37, 0xe6, 0x89, 0xe7, 0x2d, 0x39, 0xf1, 0x7c, 0x5d, 0x04,
+	0x04, 0x65, 0xc4, 0x73, 0x04, 0x41, 0x3c, 0xf7, 0x58, 0x78, 0x23, 0x4e, 0x7c, 0xae, 0x18, 0x6d,
+	0x55, 0x31, 0x0e, 0xe7, 0xaa, 0xe2, 0x61, 0xe8, 0xcb, 0x3c, 0x0c, 0x28, 0x7b, 0x50, 0x65, 0x05,
+	0xe9, 0x1e, 0x5d, 0x41, 0x16, 0xaa, 0x6d, 0xef, 0xb8, 0x6a, 0x6b, 0x7e, 0xa7, 0x2e, 0xa3, 0xa8,
+	0x8a, 0x0c, 0xdf, 0xf2, 0x47, 0x2b, 0x49, 0xf0, 0x34, 0xb4, 0xc7, 0xfe, 0x48, 0x91, 0x5f, 0x6b,
+	0xec, 0x8f, 0x84, 0xf4, 0x58, 0x05, 0x17, 0x8f, 0x38, 0x6f, 0x1b, 0xfb, 0x23, 0x2e, 0x9c, 0x0b,
+	0x00, 0xac, 0x52, 0x88, 0x46, 0x38, 0x35, 0x63, 0x7f, 0x24, 0x04, 0x73, 0x05, 0x7a, 0xac, 0xba,
+	0xe4, 0x6d, 0x76, 0xc7, 0xfe, 0xe8, 0xa6, 0x72, 0xd6, 0x97, 0x2b, 0x47, 0xbb, 0xa4, 0x1c, 0x95,
+	0xfe, 0xe6, 0xff, 0x35, 0xb1, 0xfd, 0x45, 0x1d, 0xce, 0xcc, 0x89, 0xed, 0x6e, 0x4c, 0xc6, 0xaf,
+	0xad, 0x2a, 0xbb, 0x73, 0xa0, 0x4f, 0x19, 0xbe, 0x3a, 0xfb, 0x10, 0x20, 0x26, 0x18, 0xaf, 0x54,
+	0x25, 0x08, 0x08, 0xca, 0x26, 0x18, 0x47, 0x28, 0x48, 0x91, 0x37, 0x12, 0x72, 0x7c, 0x16, 0x06,
+	0x1c, 0xa5, 0x24, 0xc9, 0x3e, 0x42, 0x7f, 0x2c, 0xcb, 0x4c, 0x96, 0xbf, 0xd8, 0xa8, 0x30, 0xa3,
+	0x8b, 0xf7, 0xf3, 0x15, 0x82, 0xe4, 0x59, 0x7c, 0x8a, 0x20, 0x11, 0x20, 0x26, 0xe2, 0xd2, 0x94,
+	0x8a, 0x9c, 0xf5, 0xcd, 0x45, 0xac, 0x6f, 0x2d, 0x60, 0x7d, 0x7b, 0x19, 0xeb, 0x3b, 0x65, 0xd6,
+	0x5f, 0x82, 0x2e, 0xa7, 0x92, 0x6b, 0x94, 0x2e, 0xce, 0x41, 0x19, 0x28, 0xd3, 0x28, 0x8e, 0x20,
+	0x34, 0x4a, 0xe4, 0xce, 0x22, 0x2c, 0xd7, 0x28, 0x8e, 0x92, 0x69, 0x14, 0x5f, 0x94, 0xfa, 0x08,
+	0xcd, 0x34, 0xaa, 0x64, 0xc3, 0x7b, 0xf3, 0x36, 0xbc, 0xac, 0x07, 0xfd, 0x27, 0xa8, 0x07, 0x83,
+	0x63, 0xeb, 0xc1, 0x57, 0xaa, 0x96, 0xd3, 0xc5, 0xdb, 0xfe, 0x0a, 0x3d, 0xc0, 0x1c, 0x58, 0x55,
+	0x0f, 0x10, 0x50, 0x90, 0x66, 0x63, 0x81, 0x34, 0x9b, 0xcb, 0xa4, 0xd9, 0x2a, 0x4b, 0x73, 0xf9,
+	0x8e, 0xff, 0x59, 0x18, 0x70, 0x4a, 0x4a, 0xa1, 0x8d, 0x3e, 0x42, 0x33, 0x39, 0x95, 0xa5, 0xa0,
+	0x3f, 0x41, 0x29, 0xc0, 0xb1, 0xa5, 0xf0, 0x2f, 0xb5, 0xaa, 0xd9, 0x88, 0x79, 0x29, 0xab, 0xce,
+	0x46, 0x86, 0x5c, 0x98, 0x8d, 0x0c, 0xf0, 0x01, 0x48, 0x81, 0xcd, 0x07, 0xfc, 0x56, 0xc6, 0xe7,
+	0xb6, 0x98, 0x0f, 0x0c, 0xba, 0x90, 0xcf, 0x9d, 0x27, 0xc8, 0x67, 0xfd, 0xd8, 0x7c, 0xfe, 0xd7,
+	0xaa, 0x15, 0x6c, 0x69, 0x1c, 0x68, 0x35, 0xd7, 0xfe, 0xd8, 0x11, 0xae, 0x2b, 0xd0, 0x93, 0x69,
+	0xe1, 0x76, 0xee, 0x86, 0x77, 0x25, 0x6c, 0xce, 0x9a, 0x96, 0x73, 0x9b, 0x0e, 0x77, 0x1d, 0x3f,
+	0x92, 0x0a, 0x5f, 0x5c, 0x05, 0xba, 0xcb, 0xb7, 0x09, 0xbd, 0x43, 0xb7, 0x09, 0xfd, 0xf9, 0x6d,
+	0xc2, 0x37, 0xab, 0x24, 0x9d, 0x25, 0x0d, 0xad, 0x22, 0x69, 0x35, 0x75, 0xa8, 0x5e, 0x4c, 0x1d,
+	0x2a, 0x26, 0x1d, 0x35, 0xca, 0x49, 0x47, 0x99, 0x8e, 0x34, 0x4b, 0x41, 0x9d, 0xc0, 0x7f, 0x48,
+	0xd8, 0x26, 0xd8, 0x8f, 0x3c, 0xe1, 0x97, 0x00, 0x03, 0xed, 0x22, 0x64, 0x4e, 0x52, 0xed, 0x27,
+	0x28, 0xa9, 0xce, 0x93, 0x91, 0xd4, 0x07, 0xb1, 0xa1, 0xfb, 0xb7, 0xaa, 0x15, 0x88, 0xe7, 0x65,
+	0xfd, 0x28, 0xc4, 0xa4, 0x64, 0x71, 0xb5, 0x0e, 0xc9, 0xe2, 0x6a, 0xaf, 0x96, 0xc5, 0xd5, 0xa9,
+	0xca, 0xe2, 0xfa, 0xb8, 0xce, 0xcb, 0x6f, 0x57, 0xc5, 0x56, 0x64, 0x1e, 0xd1, 0x2a, 0xf2, 0x2e,
+	0x67, 0x22, 0xd6, 0x0f, 0xcb, 0x44, 0x6c, 0x2c, 0xcd, 0x44, 0x6c, 0x96, 0x32, 0x11, 0xb3, 0x84,
+	0xc3, 0x96, 0x92, 0x70, 0xf8, 0x71, 0x9d, 0x9a, 0xbf, 0xaf, 0xc1, 0xc9, 0xf9, 0x7d, 0x3a, 0x63,
+	0xd3, 0x2a, 0x92, 0xaa, 0x48, 0x30, 0xa9, 0x57, 0x24, 0x98, 0xcc, 0x31, 0xb7, 0x71, 0xf4, 0x7b,
+	0x00, 0xff, 0x5e, 0x83, 0xf3, 0xf3, 0x5a, 0xe5, 0xb8, 0x13, 0xe2, 0xad, 0x1e, 0x1a, 0x32, 0xa1,
+	0xcf, 0xe3, 0x37, 0xf2, 0x48, 0x23, 0x57, 0x2d, 0x1a, 0xdd, 0xce, 0xce, 0x35, 0x2a, 0x9c, 0xa9,
+	0xd2, 0x2a, 0xdc, 0x5c, 0x1a, 0xc0, 0x69, 0x2d, 0x73, 0x10, 0xda, 0x87, 0xed, 0x1e, 0x3f, 0x1a,
+	0x7e, 0xd4, 0x9f, 0xd6, 0xe0, 0xec, 0x02, 0x7e, 0xaf, 0x1a, 0x0a, 0xb8, 0x08, 0xdd, 0xb1, 0x3f,
+	0x2a, 0xf1, 0x5a, 0x1f, 0xfb, 0xa3, 0xa5, 0x9c, 0x3e, 0xb6, 0xdb, 0xfa, 0x91, 0x9c, 0xc1, 0xe6,
+	0x5f, 0xd5, 0xe0, 0xd2, 0x02, 0x3e, 0x1e, 0x29, 0xae, 0x62, 0x02, 0x0f, 0x70, 0x94, 0x55, 0x17,
+	0x81, 0x1f, 0x27, 0x86, 0x7e, 0xb9, 0x06, 0x17, 0x17, 0x30, 0x54, 0x9e, 0x0a, 0xad, 0x68, 0xba,
+	0xe4, 0x25, 0xe8, 0x22, 0x47, 0xfb, 0x02, 0x2c, 0x78, 0xfa, 0x3f, 0x37, 0x5d, 0x8b, 0x99, 0xd0,
+	0x3c, 0x36, 0x13, 0xfe, 0x6b, 0xb1, 0x56, 0x3d, 0x81, 0xbd, 0xce, 0x55, 0x58, 0xcf, 0xb6, 0x2c,
+	0x92, 0x39, 0x5c, 0xa5, 0x06, 0x12, 0x2e, 0xb8, 0xf3, 0xb1, 0x33, 0x8b, 0x4b, 0x96, 0xa1, 0xd5,
+	0x43, 0x6b, 0x26, 0xf0, 0xd0, 0x52, 0x79, 0x2e, 0x23, 0xf0, 0xc7, 0xcb, 0x90, 0xca, 0xef, 0xbf,
+	0x5c, 0xc2, 0xef, 0x95, 0x83, 0x27, 0x8c, 0xdf, 0x18, 0xd0, 0x28, 0xf3, 0x9b, 0x01, 0x3f, 0x4e,
+	0xb6, 0xf3, 0xbb, 0x8b, 0xb9, 0xb9, 0x7a, 0x40, 0xd0, 0x04, 0x1e, 0x70, 0x2b, 0x73, 0x13, 0x81,
+	0x82, 0x9b, 0xc7, 0x8e, 0x96, 0x94, 0xf9, 0xd6, 0x7a, 0x82, 0x7c, 0x6b, 0x1f, 0x9b, 0x6f, 0x27,
+	0xb3, 0x64, 0xb0, 0x02, 0xf8, 0xeb, 0x1a, 0x9c, 0x46, 0xf8, 0x3d, 0xf2, 0xb8, 0xec, 0xb9, 0x5f,
+	0x81, 0x9e, 0xfc, 0xbe, 0x72, 0x6b, 0xa0, 0x2b, 0x60, 0xf7, 0x44, 0xda, 0x8e, 0xc2, 0x8a, 0x5a,
+	0x99, 0x15, 0xff, 0x0f, 0x86, 0x9e, 0x9f, 0x3a, 0xfb, 0x01, 0x99, 0x4b, 0x8c, 0x14, 0xf9, 0x22,
+	0x27, 0x45, 0x7d, 0x31, 0x31, 0xd2, 0x7c, 0x0c, 0xe7, 0x90, 0x2a, 0x19, 0x0b, 0x29, 0x51, 0xa6,
+	0x6e, 0xa7, 0xb5, 0x65, 0xdb, 0xe9, 0x5a, 0x79, 0x3b, 0x5d, 0x8a, 0x6f, 0xd4, 0xcb, 0xf1, 0x0d,
+	0xf3, 0x6f, 0x34, 0xb6, 0xf5, 0x8b, 0x67, 0x7c, 0x73, 0xff, 0xc4, 0xbe, 0xbb, 0x30, 0x22, 0x27,
+	0xb7, 0xf1, 0x8d, 0x43, 0xb6, 0xf1, 0xcd, 0xd5, 0xb6, 0xf1, 0xad, 0xca, 0xcb, 0x58, 0xbf, 0xa6,
+	0x31, 0x4f, 0x38, 0x9e, 0xc9, 0x3d, 0xec, 0xbc, 0xa0, 0x3f, 0xc8, 0x7b, 0x73, 0xd9, 0x6e, 0xb5,
+	0xa1, 0x5e, 0x8f, 0xfb, 0x33, 0x0d, 0x8c, 0xf9, 0xc7, 0xa6, 0x58, 0x4f, 0x3c, 0x5b, 0x23, 0xcf,
+	0xfd, 0xe8, 0x70, 0xc0, 0xce, 0x07, 0x93, 0xb6, 0x72, 0x94, 0x6b, 0x0c, 0x59, 0x8a, 0x4b, 0x53,
+	0x49, 0x71, 0x31, 0xff, 0x38, 0xcb, 0x89, 0x2b, 0x3c, 0x59, 0xc5, 0x7a, 0x2e, 0xbe, 0x71, 0xa5,
+	0xe4, 0xc4, 0x15, 0x5e, 0xb3, 0xda, 0xf1, 0x98, 0x85, 0x8a, 0x1e, 0x88, 0x0c, 0xe6, 0x5a, 0xf4,
+	0xc0, 0xd8, 0x86, 0xf5, 0xac, 0x6d, 0xf1, 0x42, 0xdb, 0x70, 0xfe, 0x85, 0x2c, 0x71, 0xa9, 0x2d,
+	0xeb, 0xf4, 0x5d, 0x71, 0xb9, 0xed, 0x69, 0xe8, 0x17, 0xdf, 0x7f, 0x12, 0xf7, 0x72, 0x88, 0xf2,
+	0xf6, 0x93, 0xf9, 0xf3, 0x1a, 0x9c, 0xe2, 0xd4, 0x97, 0x1f, 0xcb, 0x32, 0x5e, 0x81, 0x93, 0xf3,
+	0x8f, 0x6c, 0xe5, 0x83, 0x30, 0xca, 0x6f, 0x69, 0x55, 0x8c, 0x63, 0x8e, 0x84, 0x7a, 0x05, 0x09,
+	0x9f, 0x85, 0xde, 0xdb, 0xce, 0x3e, 0x09, 0x88, 0xb7, 0x9b, 0xb0, 0x05, 0x71, 0x13, 0x9a, 0x01,
+	0x2b, 0xcb, 0x94, 0x2e, 0x2c, 0x18, 0xa7, 0xa0, 0xe5, 0x4c, 0x95, 0xab, 0x82, 0xa2, 0x64, 0x7e,
+	0x4b, 0x83, 0xb6, 0x78, 0x6c, 0x20, 0x9f, 0x66, 0xda, 0x12, 0x97, 0xa3, 0x36, 0xef, 0x72, 0x3c,
+	0xcf, 0x5c, 0x69, 0x27, 0xa1, 0x4a, 0x36, 0x4e, 0x5d, 0x3e, 0x40, 0xe4, 0x24, 0x34, 0x4b, 0xc5,
+	0x61, 0x16, 0x80, 0xdf, 0x40, 0x72, 0x65, 0x9e, 0x53, 0x56, 0xc6, 0x58, 0x05, 0xde, 0x0c, 0x14,
+	0x64, 0x8a, 0x93, 0x5f, 0x84, 0x6d, 0x71, 0x5a, 0xbf, 0xa7, 0xc1, 0x9a, 0x94, 0xda, 0x96, 0x98,
+	0xea, 0x57, 0xa0, 0x87, 0x57, 0x09, 0x93, 0x03, 0xfe, 0x42, 0x95, 0x98, 0x7d, 0x02, 0xb6, 0x2d,
+	0x32, 0x67, 0x53, 0x2a, 0x1f, 0x13, 0xd3, 0x2d, 0x5e, 0x60, 0x2b, 0x9d, 0xeb, 0xd3, 0x03, 0x41,
+	0x29, 0xfe, 0x67, 0x9d, 0xa5, 0x34, 0x21, 0x84, 0xda, 0x4c, 0x73, 0x5f, 0x11, 0x34, 0x76, 0x39,
+	0xec, 0x6d, 0x06, 0x2a, 0xa1, 0xbc, 0x2a, 0x3d, 0xb0, 0x1c, 0xe5, 0x55, 0xcc, 0x3f, 0x89, 0xf0,
+	0x42, 0x5d, 0xe6, 0x18, 0x74, 0x18, 0x00, 0x5f, 0xcb, 0xfa, 0x6d, 0x0d, 0xf4, 0x77, 0x13, 0x8f,
+	0x24, 0x98, 0x99, 0x5e, 0x95, 0x2f, 0x58, 0xb6, 0x27, 0xb5, 0x79, 0x7b, 0x82, 0x09, 0x90, 0x8e,
+	0x2f, 0x0f, 0x82, 0x78, 0xc1, 0xb8, 0xa9, 0x68, 0xbd, 0x6a, 0x18, 0x0b, 0x4f, 0x49, 0x95, 0xf8,
+	0x97, 0xab, 0xbd, 0x00, 0x98, 0x23, 0x18, 0x14, 0x67, 0xc6, 0x5c, 0xfa, 0x5b, 0x75, 0x42, 0xe3,
+	0x75, 0x68, 0xc5, 0x4c, 0xff, 0xe4, 0x4c, 0x53, 0x52, 0xed, 0x54, 0xf5, 0xb4, 0x04, 0x96, 0xf9,
+	0xf7, 0x35, 0xd8, 0x98, 0x7b, 0xad, 0xa2, 0xa0, 0x21, 0xda, 0x21, 0x1a, 0x52, 0x9b, 0xd3, 0x10,
+	0xa6, 0x89, 0xe2, 0xc1, 0x0c, 0x3b, 0x76, 0x0e, 0x82, 0xc8, 0x91, 0xce, 0xc9, 0x40, 0x80, 0x77,
+	0x39, 0xd4, 0x78, 0x11, 0x8c, 0x92, 0x85, 0xc8, 0x0d, 0xd7, 0x7a, 0xd1, 0x12, 0xec, 0x78, 0xc6,
+	0xab, 0x00, 0x11, 0x93, 0x19, 0xbf, 0x63, 0x30, 0x97, 0xa0, 0x9a, 0xc9, 0xd3, 0xd2, 0xa3, 0x4c,
+	0xb4, 0x6f, 0xc2, 0x59, 0x4a, 0x02, 0x32, 0x4e, 0x9c, 0xa9, 0x7c, 0xae, 0xc3, 0x76, 0x27, 0x4e,
+	0xc2, 0x4d, 0x24, 0x57, 0x8b, 0xd3, 0x12, 0x43, 0x0c, 0x7f, 0x1b, 0xeb, 0x77, 0x3c, 0xd6, 0x38,
+	0x4e, 0x22, 0xb6, 0x1d, 0x48, 0x2a, 0x1a, 0x73, 0xd7, 0xfd, 0xb4, 0xc4, 0x28, 0x35, 0x36, 0xff,
+	0x48, 0x83, 0x7e, 0xd1, 0x96, 0x1e, 0x27, 0x81, 0x71, 0x65, 0x56, 0x3e, 0x19, 0xb5, 0xfb, 0xd5,
+	0x1a, 0xac, 0xcf, 0x99, 0xd0, 0xe3, 0xd0, 0xad, 0x6a, 0x50, 0xfd, 0x10, 0x0d, 0x6a, 0xac, 0xa4,
+	0x41, 0xcd, 0x23, 0x68, 0x50, 0x6b, 0x25, 0x0d, 0x6a, 0xaf, 0xa2, 0x41, 0xe6, 0x57, 0x35, 0xe8,
+	0xa9, 0x6f, 0xab, 0x18, 0x9f, 0x16, 0x57, 0xfc, 0xf8, 0xbd, 0x56, 0x33, 0x6f, 0x7e, 0x2b, 0x74,
+	0x93, 0x83, 0x98, 0x12, 0x4f, 0xa2, 0xdf, 0x0a, 0x08, 0x3e, 0xfe, 0xc2, 0xaf, 0x01, 0xfe, 0x24,
+	0x74, 0xdd, 0x84, 0x78, 0x24, 0xa4, 0xbe, 0x13, 0xa4, 0x82, 0x7b, 0x17, 0x2b, 0x9a, 0x6f, 0xe7,
+	0x58, 0x96, 0xda, 0xc4, 0x74, 0x72, 0x4a, 0x9e, 0xc0, 0x85, 0x6b, 0xe5, 0xf2, 0x1d, 0x56, 0xde,
+	0x74, 0x28, 0x31, 0x7f, 0xb3, 0x0e, 0xc3, 0x45, 0xe3, 0xa8, 0xdc, 0x96, 0xc8, 0x0b, 0x8f, 0x35,
+	0xe5, 0xc2, 0xe3, 0x0a, 0x27, 0x07, 0x99, 0xed, 0x6c, 0xa8, 0xb6, 0xf3, 0x45, 0x68, 0x32, 0x4a,
+	0x64, 0x0e, 0x75, 0xc5, 0xeb, 0x36, 0x6c, 0xdc, 0x16, 0x47, 0x32, 0x5e, 0x07, 0x18, 0x25, 0x51,
+	0x48, 0xed, 0xd4, 0x17, 0x26, 0x7e, 0x71, 0x13, 0x1d, 0x31, 0xf7, 0x7c, 0x8f, 0x18, 0x9f, 0x61,
+	0x7b, 0x9b, 0x87, 0x84, 0x79, 0xfc, 0xd8, 0xb0, 0xbd, 0xb4, 0x61, 0x57, 0xe0, 0x62, 0xd3, 0xeb,
+	0xd0, 0x4a, 0x49, 0x30, 0xf2, 0xc9, 0x7c, 0xea, 0x7a, 0xa1, 0x91, 0xc0, 0x32, 0xde, 0x80, 0x2e,
+	0x4d, 0x9c, 0x30, 0x0d, 0x1c, 0x91, 0xce, 0xb4, 0x6c, 0x54, 0x2a, 0x2a, 0x63, 0xeb, 0xc4, 0x49,
+	0x27, 0x22, 0xc9, 0x09, 0xff, 0x9b, 0x9f, 0x87, 0xcd, 0x2a, 0x1d, 0xc9, 0x44, 0xa0, 0x29, 0x22,
+	0x90, 0xed, 0x6b, 0x79, 0x7b, 0xbc, 0x8e, 0x49, 0xdc, 0x84, 0x50, 0x99, 0xce, 0xc7, 0x4b, 0xe6,
+	0x29, 0xd8, 0x2c, 0x49, 0x1a, 0x1f, 0xd6, 0x34, 0x7f, 0x4f, 0x83, 0x0b, 0x55, 0x15, 0x6c, 0x16,
+	0xdc, 0xf6, 0x49, 0x80, 0x8f, 0x66, 0xa4, 0xd1, 0x2c, 0x71, 0xa5, 0x4a, 0x88, 0x52, 0xe5, 0x9b,
+	0x93, 0xe8, 0x7d, 0x93, 0xc0, 0x2b, 0xbd, 0x8e, 0x49, 0x02, 0x4f, 0x7a, 0xdf, 0x8c, 0x70, 0x1b,
+	0xa9, 0x16, 0x5e, 0x09, 0x03, 0xdc, 0x61, 0x94, 0x0f, 0xf3, 0x3b, 0xbd, 0x62, 0xff, 0x2f, 0x8a,
+	0xe6, 0x97, 0x17, 0xd0, 0x78, 0x3b, 0x13, 0xf7, 0x51, 0x68, 0x94, 0x53, 0x03, 0x89, 0x50, 0xde,
+	0x22, 0x28, 0x13, 0xd1, 0x28, 0x12, 0xf1, 0x0b, 0x1a, 0x5c, 0xaa, 0x22, 0xc2, 0x52, 0x54, 0xe7,
+	0x43, 0x20, 0xe3, 0x4b, 0x70, 0xb6, 0x8a, 0x8a, 0x3d, 0xae, 0x8b, 0x1f, 0x02, 0x01, 0x3f, 0x07,
+	0xc3, 0x4a, 0x59, 0x30, 0x5b, 0xf5, 0x21, 0x7c, 0xfe, 0xcb, 0x1a, 0x9c, 0x59, 0xf4, 0xfd, 0xf4,
+	0x48, 0x04, 0x5c, 0x82, 0x6e, 0x46, 0x80, 0x70, 0xa5, 0x74, 0x0b, 0x24, 0x09, 0x24, 0x5d, 0x42,
+	0xc4, 0x57, 0x35, 0x78, 0xba, 0x8a, 0x88, 0x7b, 0xf9, 0xe4, 0xfe, 0xb0, 0xf8, 0xf1, 0x35, 0x0d,
+	0x9e, 0x59, 0x81, 0x94, 0x0f, 0x8d, 0x35, 0xbf, 0xb2, 0x60, 0x9a, 0xdc, 0x0f, 0xd3, 0x98, 0xb8,
+	0xfe, 0xc8, 0x27, 0x47, 0xb3, 0x28, 0x57, 0xa0, 0x47, 0x78, 0x37, 0x2a, 0x67, 0xba, 0x02, 0x76,
+	0x08, 0x73, 0xfe, 0x43, 0x83, 0xc6, 0x5b, 0x85, 0x8b, 0x41, 0x47, 0xdc, 0x6e, 0x65, 0x8f, 0x40,
+	0xd6, 0x0f, 0x7d, 0x04, 0x52, 0x5e, 0x16, 0x6b, 0x28, 0x97, 0xc5, 0x3e, 0x0b, 0x7d, 0xf6, 0x9b,
+	0x3f, 0x99, 0xd9, 0x5c, 0xfe, 0x64, 0x66, 0x8f, 0x61, 0x67, 0xef, 0x65, 0x16, 0x1e, 0xb6, 0x6c,
+	0xad, 0xf2, 0xb0, 0xa5, 0x39, 0x80, 0x9e, 0xfa, 0x48, 0x84, 0x49, 0xa0, 0xcf, 0x7e, 0xef, 0xf8,
+	0xe3, 0xc9, 0x9e, 0x1b, 0x25, 0x78, 0x07, 0x30, 0xbb, 0xa7, 0x23, 0x1e, 0x25, 0x97, 0xe5, 0xec,
+	0xb6, 0x7f, 0x6d, 0xc9, 0x6d, 0x7f, 0xbc, 0x7c, 0x14, 0x25, 0xd2, 0xa7, 0xe0, 0x05, 0xf3, 0xfb,
+	0x35, 0xe8, 0x5a, 0x4a, 0x58, 0xf0, 0x5e, 0xf5, 0xc3, 0x21, 0xe2, 0x1d, 0x81, 0x43, 0x22, 0x8c,
+	0x77, 0x9e, 0xb2, 0xaa, 0x9f, 0x1d, 0x79, 0xaf, 0xf2, 0x99, 0x18, 0x41, 0xae, 0x12, 0x6a, 0xac,
+	0x40, 0xba, 0xf3, 0x94, 0x55, 0xf9, 0xc4, 0xcc, 0x7b, 0x95, 0xef, 0xa7, 0x88, 0x70, 0xcc, 0xa2,
+	0x2e, 0x39, 0xd2, 0x5c, 0x97, 0xe2, 0xed, 0x95, 0x4f, 0xab, 0x0f, 0x3c, 0x08, 0xef, 0x5c, 0x79,
+	0xdb, 0x27, 0xaf, 0xbb, 0xf3, 0x94, 0xa5, 0x60, 0xde, 0xe8, 0x17, 0x58, 0x68, 0xfe, 0x7a, 0x1d,
+	0x20, 0xbf, 0x5c, 0xc9, 0x08, 0xad, 0xb8, 0x22, 0x2b, 0x18, 0x3a, 0x1f, 0x66, 0x55, 0x91, 0x18,
+	0xa1, 0x55, 0xd7, 0x6b, 0xdf, 0xa9, 0xba, 0xbd, 0x29, 0xb8, 0x79, 0xbe, 0xaa, 0x47, 0x89, 0x73,
+	0xe7, 0x29, 0xab, 0xea, 0xde, 0xe7, 0xad, 0xb9, 0xab, 0xae, 0x82, 0x8f, 0x67, 0x2a, 0xc9, 0x63,
+	0x08, 0x77, 0x9e, 0xb2, 0xe6, 0xae, 0xc7, 0xde, 0x9a, 0xbb, 0x89, 0x3d, 0xbf, 0xc5, 0x29, 0x21,
+	0x14, 0xbb, 0xe1, 0x29, 0x0a, 0xb7, 0xe6, 0x6e, 0x56, 0x8b, 0xcd, 0x64, 0x65, 0x37, 0x88, 0x50,
+	0xec, 0x06, 0x41, 0x37, 0x7a, 0xaa, 0x14, 0x6e, 0xf4, 0xfe, 0xfc, 0x07, 0x17, 0xb5, 0xef, 0xff,
+	0xe0, 0xa2, 0xf6, 0xcf, 0x3f, 0xb8, 0xa8, 0xed, 0xb7, 0xb0, 0x97, 0x4f, 0xfd, 0x77, 0x00, 0x00,
+	0x00, 0xff, 0xff, 0xf2, 0xd7, 0x11, 0x3a, 0x0f, 0x60, 0x00, 0x00,
 }

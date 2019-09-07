@@ -8,6 +8,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+
+	"github.com/Jasonzz-he/tgbotapi/botproto"
 )
 
 /*
@@ -64,17 +66,22 @@ func (b *Bot) Post(methodName string, param interface{}, rst interface{}) error 
 		return err
 	}
 	defer resp.Body.Close()
-	return getBotResponse(resp.Body, rst)
+	return b.getBotResponse(resp.Body, rst)
 
 }
 
-func getBotResponse(r io.Reader, result interface{}) error {
+func (b *Bot) getBotResponse(r io.Reader, result interface{}) error {
 	var resp = newBotResponse(result)
 	respbs, err := ioutil.ReadAll(r)
 	if nil != err {
 		return err
 	}
-
+	if b.showUrl {
+		var bf = new(bytes.Buffer)
+		json.Indent(bf, respbs, "", "\t")
+		fmt.Println("===================== result =====================")
+		fmt.Println(bf.String())
+	}
 	err = json.Unmarshal(respbs, resp)
 	if nil != err {
 		return err
@@ -94,10 +101,11 @@ const (
 )
 
 type botResponse struct {
-	Ok          bool        `json:"ok"`
-	ErrorCode   int32       `json:"error_code"`
-	Result      interface{} `json:"result"`
-	Description string      `json:"description"`
+	Ok          bool                        `json:"ok"`
+	ErrorCode   int32                       `json:"error_code"`
+	Result      interface{}                 `json:"result"`
+	Parameters  botproto.ResponseParameters `json:"parameters"`
+	Description string                      `json:"description"`
 }
 
 func newBotResponse(result interface{}) *botResponse {

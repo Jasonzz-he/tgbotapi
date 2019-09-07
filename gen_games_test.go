@@ -15,8 +15,10 @@ func TestBot_SendGame(t *testing.T) {
 		ReplyToMessageId:    0,     // int32
 		ReplyMarkup:         nil,   // InlineKeyboardMarkup
 	})
-	assertions.ShouldBeNil(err)
-	log.Printf("%#v", rst)
+	log.Println(assertions.ShouldBeNil(err))
+	if nil == err {
+		log.Printf("%#v", rst)
+	}
 }
 
 func TestBot_SetGameScore(t *testing.T) {
@@ -29,7 +31,7 @@ func TestBot_SetGameScore(t *testing.T) {
 		MessageId:          0,     // int32
 		InlineMessageId:    "",    // string
 	})
-	assertions.ShouldBeNil(err)
+	log.Println(assertions.ShouldBeNil(err))
 }
 
 func TestBot_GetGameHighScores(t *testing.T) {
@@ -39,6 +41,8 @@ func TestBot_GetGameHighScores(t *testing.T) {
 		MessageId:       0,  // int32
 		InlineMessageId: "", // string
 	})
-	assertions.ShouldBeNil(err)
-	log.Printf("%#v", rst)
+	log.Println(assertions.ShouldBeNil(err))
+	if nil == err {
+		log.Printf("%#v", rst)
+	}
 }

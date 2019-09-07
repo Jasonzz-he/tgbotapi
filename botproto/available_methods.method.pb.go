@@ -7,10 +7,12 @@
 	It is generated from these files:
 		available_methods.method.proto
 		games.method.proto
+		getting_updates.method.proto
 		payments.method.proto
 		stickers.method.proto
 		telegram_passport.method.proto
 		tgbotapi.proto
+		updating_messages.method.proto
 
 	It has these top-level messages:
 		GetMe
@@ -55,6 +57,10 @@
 		SendGame
 		SetGameScore
 		GetGameHighScores
+		GetUpdates
+		SetWebhook
+		DeleteWebhook
+		GetWebhookInfo
 		SendInvoice
 		SendSticker
 		GetStickerSet
@@ -63,6 +69,8 @@
 		SetStickerPositionInSet
 		DeleteStickerFromSet
 		SetPassportDataErrors
+		Update
+		WebhookInfo
 		User
 		Chat
 		Message
@@ -93,7 +101,6 @@
 		ChatMember
 		ChatPermissions
 		ResponseParameters
-		InputMedia
 		InputMediaPhoto
 		InputMediaVideo
 		InputMediaAnimation
@@ -105,6 +112,35 @@
 		StickerSet
 		MaskPosition
 		AddStickerToSet
+		InlineQuery
+		AnswerInlineQuery
+		InlineQueryResult
+		InlineQueryResultArticle
+		InlineQueryResultPhoto
+		InlineQueryResultGif
+		InlineQueryResultMpeg4Gif
+		InlineQueryResultVideo
+		InlineQueryResultAudio
+		InlineQueryResultVoice
+		InlineQueryResultDocument
+		InlineQueryResultLocation
+		InlineQueryResultVenue
+		InlineQueryResultContact
+		InlineQueryResultGame
+		InlineQueryResultCachedPhoto
+		InlineQueryResultCachedGif
+		InlineQueryResultCachedMpeg4Gif
+		InlineQueryResultCachedSticker
+		InlineQueryResultCachedDocument
+		InlineQueryResultCachedVideo
+		InlineQueryResultCachedVoice
+		InlineQueryResultCachedAudio
+		InputMessageContent
+		InputTextMessageContent
+		InputLocationMessageContent
+		InputVenueMessageContent
+		InputContactMessageContent
+		ChosenInlineResult
 		AnswerShippingQuery
 		AnswerPreCheckoutQuery
 		LabeledPrice
@@ -133,6 +169,13 @@
 		CallbackGame
 		GameHighScore
 		ReplyMarkup
+		InputMedia
+		EditMessageText
+		EditMessageCaption
+		EditMessageMedia
+		EditMessageReplyMarkup
+		StopPoll
+		DeleteMessage
 */
 package botproto
 
@@ -172,7 +215,7 @@ func (*GetMe) Descriptor() ([]byte, []int) { return fileDescriptorAvailableMetho
 // To use this mode, pass HTML in the parse_mode field when using sendMessage. The following tags are currently supported:
 // Please note:
 type SendMessage struct {
-	ChatId                int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId                string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Text                  string       `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
 	ParseMode             string       `protobuf:"bytes,3,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
 	DisableWebPagePreview bool         `protobuf:"varint,4,opt,name=disable_web_page_preview,json=disableWebPagePreview,proto3" json:"disable_web_page_preview,omitempty"`
@@ -188,11 +231,11 @@ func (*SendMessage) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{1}
 }
 
-func (m *SendMessage) GetChatId() int32 {
+func (m *SendMessage) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendMessage) GetText() string {
@@ -240,10 +283,10 @@ func (m *SendMessage) GetReplyMarkup() *ReplyMarkup {
 // return Message
 // Use this method to forward messages of any kind. On success, the sent Message is returned.
 type ForwardMessage struct {
-	ChatId              int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
-	FromChatId          int32 `protobuf:"varint,2,opt,name=from_chat_id,json=fromChatId,proto3" json:"from_chat_id,omitempty"`
-	DisableNotification bool  `protobuf:"varint,3,opt,name=disable_notification,json=disableNotification,proto3" json:"disable_notification,omitempty"`
-	MessageId           int32 `protobuf:"varint,4,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
+	ChatId              string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	FromChatId          string `protobuf:"bytes,2,opt,name=from_chat_id,json=fromChatId,proto3" json:"from_chat_id,omitempty"`
+	DisableNotification bool   `protobuf:"varint,3,opt,name=disable_notification,json=disableNotification,proto3" json:"disable_notification,omitempty"`
+	MessageId           int32  `protobuf:"varint,4,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
 }
 
 func (m *ForwardMessage) Reset()         { *m = ForwardMessage{} }
@@ -253,18 +296,18 @@ func (*ForwardMessage) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{2}
 }
 
-func (m *ForwardMessage) GetChatId() int32 {
+func (m *ForwardMessage) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
-func (m *ForwardMessage) GetFromChatId() int32 {
+func (m *ForwardMessage) GetFromChatId() string {
 	if m != nil {
 		return m.FromChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *ForwardMessage) GetDisableNotification() bool {
@@ -284,7 +327,7 @@ func (m *ForwardMessage) GetMessageId() int32 {
 // return Message
 // Use this method to send photos. On success, the sent Message is returned.
 type SendPhoto struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Photo               string       `protobuf:"bytes,2,opt,name=photo,proto3" json:"photo,omitempty"`
 	Caption             string       `protobuf:"bytes,3,opt,name=caption,proto3" json:"caption,omitempty"`
 	ParseMode           string       `protobuf:"bytes,4,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
@@ -298,11 +341,11 @@ func (m *SendPhoto) String() string            { return proto.CompactTextString(
 func (*SendPhoto) ProtoMessage()               {}
 func (*SendPhoto) Descriptor() ([]byte, []int) { return fileDescriptorAvailableMethodsMethod, []int{3} }
 
-func (m *SendPhoto) GetChatId() int32 {
+func (m *SendPhoto) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendPhoto) GetPhoto() string {
@@ -351,7 +394,7 @@ func (m *SendPhoto) GetReplyMarkup() *ReplyMarkup {
 // Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .mp3 format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future.
 // For sending voice messages, use the sendVoice method instead.
 type SendAudio struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Audio               string       `protobuf:"bytes,2,opt,name=audio,proto3" json:"audio,omitempty"`
 	Caption             string       `protobuf:"bytes,3,opt,name=caption,proto3" json:"caption,omitempty"`
 	ParseMode           string       `protobuf:"bytes,4,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
@@ -369,11 +412,11 @@ func (m *SendAudio) String() string            { return proto.CompactTextString(
 func (*SendAudio) ProtoMessage()               {}
 func (*SendAudio) Descriptor() ([]byte, []int) { return fileDescriptorAvailableMethodsMethod, []int{4} }
 
-func (m *SendAudio) GetChatId() int32 {
+func (m *SendAudio) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendAudio) GetAudio() string {
@@ -449,7 +492,7 @@ func (m *SendAudio) GetReplyMarkup() *ReplyMarkup {
 // return Message
 // Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
 type SendDocument struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Document            string       `protobuf:"bytes,2,opt,name=document,proto3" json:"document,omitempty"`
 	Thumb               string       `protobuf:"bytes,3,opt,name=thumb,proto3" json:"thumb,omitempty"`
 	Caption             string       `protobuf:"bytes,4,opt,name=caption,proto3" json:"caption,omitempty"`
@@ -466,11 +509,11 @@ func (*SendDocument) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{5}
 }
 
-func (m *SendDocument) GetChatId() int32 {
+func (m *SendDocument) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendDocument) GetDocument() string {
@@ -525,7 +568,7 @@ func (m *SendDocument) GetReplyMarkup() *ReplyMarkup {
 // return Message
 // Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
 type SendVideo struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Video               string       `protobuf:"bytes,2,opt,name=video,proto3" json:"video,omitempty"`
 	Duration            int32        `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
 	Width               int32        `protobuf:"varint,4,opt,name=width,proto3" json:"width,omitempty"`
@@ -544,11 +587,11 @@ func (m *SendVideo) String() string            { return proto.CompactTextString(
 func (*SendVideo) ProtoMessage()               {}
 func (*SendVideo) Descriptor() ([]byte, []int) { return fileDescriptorAvailableMethodsMethod, []int{6} }
 
-func (m *SendVideo) GetChatId() int32 {
+func (m *SendVideo) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendVideo) GetVideo() string {
@@ -631,7 +674,7 @@ func (m *SendVideo) GetReplyMarkup() *ReplyMarkup {
 // return Message
 // Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
 type SendAnimation struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Animation           string       `protobuf:"bytes,2,opt,name=animation,proto3" json:"animation,omitempty"`
 	Duration            int32        `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
 	Width               int32        `protobuf:"varint,4,opt,name=width,proto3" json:"width,omitempty"`
@@ -651,11 +694,11 @@ func (*SendAnimation) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{7}
 }
 
-func (m *SendAnimation) GetChatId() int32 {
+func (m *SendAnimation) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendAnimation) GetAnimation() string {
@@ -731,7 +774,7 @@ func (m *SendAnimation) GetReplyMarkup() *ReplyMarkup {
 // return Message
 // Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .ogg file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
 type SendVoice struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Voice               string       `protobuf:"bytes,2,opt,name=voice,proto3" json:"voice,omitempty"`
 	Caption             string       `protobuf:"bytes,3,opt,name=caption,proto3" json:"caption,omitempty"`
 	ParseMode           string       `protobuf:"bytes,4,opt,name=parse_mode,json=parseMode,proto3" json:"parse_mode,omitempty"`
@@ -746,11 +789,11 @@ func (m *SendVoice) String() string            { return proto.CompactTextString(
 func (*SendVoice) ProtoMessage()               {}
 func (*SendVoice) Descriptor() ([]byte, []int) { return fileDescriptorAvailableMethodsMethod, []int{8} }
 
-func (m *SendVoice) GetChatId() int32 {
+func (m *SendVoice) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendVoice) GetVoice() string {
@@ -805,7 +848,7 @@ func (m *SendVoice) GetReplyMarkup() *ReplyMarkup {
 // return Message
 // As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
 type SendVideoNote struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	VideoNote           string       `protobuf:"bytes,2,opt,name=video_note,json=videoNote,proto3" json:"video_note,omitempty"`
 	Duration            int32        `protobuf:"varint,3,opt,name=duration,proto3" json:"duration,omitempty"`
 	Length              int32        `protobuf:"varint,4,opt,name=length,proto3" json:"length,omitempty"`
@@ -822,11 +865,11 @@ func (*SendVideoNote) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{9}
 }
 
-func (m *SendVideoNote) GetChatId() int32 {
+func (m *SendVideoNote) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendVideoNote) GetVideoNote() string {
@@ -881,7 +924,7 @@ func (m *SendVideoNote) GetReplyMarkup() *ReplyMarkup {
 // return array of the sent Messages
 // Use this method to send a group of photos or videos as an album. On success, an array of the sent Messages is returned.
 type SendMediaGroup struct {
-	ChatId              int32         `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string        `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Media               []*InputMedia `protobuf:"bytes,2,rep,name=media" json:"media,omitempty"`
 	DisableNotification bool          `protobuf:"varint,3,opt,name=disable_notification,json=disableNotification,proto3" json:"disable_notification,omitempty"`
 	ReplyToMessageId    int32         `protobuf:"varint,4,opt,name=reply_to_message_id,json=replyToMessageId,proto3" json:"reply_to_message_id,omitempty"`
@@ -894,11 +937,11 @@ func (*SendMediaGroup) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{10}
 }
 
-func (m *SendMediaGroup) GetChatId() int32 {
+func (m *SendMediaGroup) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendMediaGroup) GetMedia() []*InputMedia {
@@ -925,7 +968,7 @@ func (m *SendMediaGroup) GetReplyToMessageId() int32 {
 // return Message
 // Use this method to send point on the map. On success, the sent Message is returned.
 type SendLocation struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Latitude            int64        `protobuf:"varint,2,opt,name=latitude,proto3" json:"latitude,omitempty"`
 	Longitude           int64        `protobuf:"varint,3,opt,name=longitude,proto3" json:"longitude,omitempty"`
 	LivePeriod          int32        `protobuf:"varint,4,opt,name=live_period,json=livePeriod,proto3" json:"live_period,omitempty"`
@@ -941,11 +984,11 @@ func (*SendLocation) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{11}
 }
 
-func (m *SendLocation) GetChatId() int32 {
+func (m *SendLocation) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendLocation) GetLatitude() int64 {
@@ -993,7 +1036,7 @@ func (m *SendLocation) GetReplyMarkup() *ReplyMarkup {
 // return
 // Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
 type EditMessageLiveLocation struct {
-	ChatId          int32                 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId          string                `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	MessageId       int32                 `protobuf:"varint,2,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
 	InlineMessageId string                `protobuf:"bytes,3,opt,name=inline_message_id,json=inlineMessageId,proto3" json:"inline_message_id,omitempty"`
 	Latitude        int64                 `protobuf:"varint,4,opt,name=latitude,proto3" json:"latitude,omitempty"`
@@ -1008,11 +1051,11 @@ func (*EditMessageLiveLocation) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{12}
 }
 
-func (m *EditMessageLiveLocation) GetChatId() int32 {
+func (m *EditMessageLiveLocation) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *EditMessageLiveLocation) GetMessageId() int32 {
@@ -1053,7 +1096,7 @@ func (m *EditMessageLiveLocation) GetReplyMarkup() *InlineKeyboardMarkup {
 // return
 // Use this method to stop updating a live location message before live_period expires. On success, if the message was sent by the bot, the sent Message is returned, otherwise True is returned.
 type StopMessageLiveLocation struct {
-	ChatId          int32                 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId          string                `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	MessageId       int32                 `protobuf:"varint,2,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
 	InlineMessageId string                `protobuf:"bytes,3,opt,name=inline_message_id,json=inlineMessageId,proto3" json:"inline_message_id,omitempty"`
 	ReplyMarkup     *InlineKeyboardMarkup `protobuf:"bytes,4,opt,name=reply_markup,json=replyMarkup" json:"reply_markup,omitempty"`
@@ -1066,11 +1109,11 @@ func (*StopMessageLiveLocation) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{13}
 }
 
-func (m *StopMessageLiveLocation) GetChatId() int32 {
+func (m *StopMessageLiveLocation) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *StopMessageLiveLocation) GetMessageId() int32 {
@@ -1097,7 +1140,7 @@ func (m *StopMessageLiveLocation) GetReplyMarkup() *InlineKeyboardMarkup {
 // return Message
 // Use this method to send information about a venue. On success, the sent Message is returned.
 type SendVenue struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Latitude            int64        `protobuf:"varint,2,opt,name=latitude,proto3" json:"latitude,omitempty"`
 	Longitude           int64        `protobuf:"varint,3,opt,name=longitude,proto3" json:"longitude,omitempty"`
 	Title               string       `protobuf:"bytes,4,opt,name=title,proto3" json:"title,omitempty"`
@@ -1114,11 +1157,11 @@ func (m *SendVenue) String() string            { return proto.CompactTextString(
 func (*SendVenue) ProtoMessage()               {}
 func (*SendVenue) Descriptor() ([]byte, []int) { return fileDescriptorAvailableMethodsMethod, []int{14} }
 
-func (m *SendVenue) GetChatId() int32 {
+func (m *SendVenue) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendVenue) GetLatitude() int64 {
@@ -1187,7 +1230,7 @@ func (m *SendVenue) GetReplyMarkup() *ReplyMarkup {
 // return Message
 // Use this method to send phone contacts. On success, the sent Message is returned.
 type SendContact struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	PhoneNumber         string       `protobuf:"bytes,2,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
 	FirstName           string       `protobuf:"bytes,3,opt,name=first_name,json=firstName,proto3" json:"first_name,omitempty"`
 	LastName            string       `protobuf:"bytes,4,opt,name=last_name,json=lastName,proto3" json:"last_name,omitempty"`
@@ -1204,11 +1247,11 @@ func (*SendContact) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{15}
 }
 
-func (m *SendContact) GetChatId() int32 {
+func (m *SendContact) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendContact) GetPhoneNumber() string {
@@ -1263,7 +1306,7 @@ func (m *SendContact) GetReplyMarkup() *ReplyMarkup {
 // return Message
 // Use this method to send a native poll. A native poll can't be sent to a private chat. On success, the sent Message is returned.
 type SendPoll struct {
-	ChatId              int32        `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId              string       `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Question            string       `protobuf:"bytes,2,opt,name=question,proto3" json:"question,omitempty"`
 	Options             []string     `protobuf:"bytes,3,rep,name=options" json:"options,omitempty"`
 	DisableNotification bool         `protobuf:"varint,4,opt,name=disable_notification,json=disableNotification,proto3" json:"disable_notification,omitempty"`
@@ -1276,11 +1319,11 @@ func (m *SendPoll) String() string            { return proto.CompactTextString(m
 func (*SendPoll) ProtoMessage()               {}
 func (*SendPoll) Descriptor() ([]byte, []int) { return fileDescriptorAvailableMethodsMethod, []int{16} }
 
-func (m *SendPoll) GetChatId() int32 {
+func (m *SendPoll) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendPoll) GetQuestion() string {
@@ -1324,7 +1367,7 @@ func (m *SendPoll) GetReplyMarkup() *ReplyMarkup {
 //
 // We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
 type SendChatAction struct {
-	ChatId int32  `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Action string `protobuf:"bytes,2,opt,name=action,proto3" json:"action,omitempty"`
 }
 
@@ -1335,11 +1378,11 @@ func (*SendChatAction) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{17}
 }
 
-func (m *SendChatAction) GetChatId() int32 {
+func (m *SendChatAction) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SendChatAction) GetAction() string {
@@ -1409,9 +1452,9 @@ func (m *GetFile) GetFileId() string {
 // Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group. Otherwise members may only be removed by the group's creator or by the member that added them.
 //
 type KickChatMember struct {
-	ChatId    int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
-	UserId    int32 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	UntilDate int32 `protobuf:"varint,3,opt,name=until_date,json=untilDate,proto3" json:"until_date,omitempty"`
+	ChatId    string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	UserId    int32  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	UntilDate int32  `protobuf:"varint,3,opt,name=until_date,json=untilDate,proto3" json:"until_date,omitempty"`
 }
 
 func (m *KickChatMember) Reset()         { *m = KickChatMember{} }
@@ -1421,11 +1464,11 @@ func (*KickChatMember) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{20}
 }
 
-func (m *KickChatMember) GetChatId() int32 {
+func (m *KickChatMember) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *KickChatMember) GetUserId() int32 {
@@ -1445,8 +1488,8 @@ func (m *KickChatMember) GetUntilDate() int32 {
 // return True
 // Use this method to unban a previously kicked user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. Returns True on success.
 type UnbanChatMember struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
-	UserId int32 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	UserId int32  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 }
 
 func (m *UnbanChatMember) Reset()         { *m = UnbanChatMember{} }
@@ -1456,11 +1499,11 @@ func (*UnbanChatMember) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{21}
 }
 
-func (m *UnbanChatMember) GetChatId() int32 {
+func (m *UnbanChatMember) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *UnbanChatMember) GetUserId() int32 {
@@ -1473,7 +1516,7 @@ func (m *UnbanChatMember) GetUserId() int32 {
 // return True
 // Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.
 type RestrictChatMember struct {
-	ChatId      int32            `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId      string           `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	UserId      int32            `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	Permissions *ChatPermissions `protobuf:"bytes,3,opt,name=permissions" json:"permissions,omitempty"`
 	UntilDate   int32            `protobuf:"varint,4,opt,name=until_date,json=untilDate,proto3" json:"until_date,omitempty"`
@@ -1486,11 +1529,11 @@ func (*RestrictChatMember) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{22}
 }
 
-func (m *RestrictChatMember) GetChatId() int32 {
+func (m *RestrictChatMember) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *RestrictChatMember) GetUserId() int32 {
@@ -1517,16 +1560,16 @@ func (m *RestrictChatMember) GetUntilDate() int32 {
 // return True
 // Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. Returns True on success.
 type PromoteChatMember struct {
-	ChatId             int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
-	UserId             int32 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	CanChangeInfo      bool  `protobuf:"varint,3,opt,name=can_change_info,json=canChangeInfo,proto3" json:"can_change_info,omitempty"`
-	CanPostMessages    bool  `protobuf:"varint,4,opt,name=can_post_messages,json=canPostMessages,proto3" json:"can_post_messages,omitempty"`
-	CanEditMessages    bool  `protobuf:"varint,5,opt,name=can_edit_messages,json=canEditMessages,proto3" json:"can_edit_messages,omitempty"`
-	CanDeleteMessages  bool  `protobuf:"varint,6,opt,name=can_delete_messages,json=canDeleteMessages,proto3" json:"can_delete_messages,omitempty"`
-	CanInviteUsers     bool  `protobuf:"varint,7,opt,name=can_invite_users,json=canInviteUsers,proto3" json:"can_invite_users,omitempty"`
-	CanRestrictMembers bool  `protobuf:"varint,8,opt,name=can_restrict_members,json=canRestrictMembers,proto3" json:"can_restrict_members,omitempty"`
-	CanPinMessages     bool  `protobuf:"varint,9,opt,name=can_pin_messages,json=canPinMessages,proto3" json:"can_pin_messages,omitempty"`
-	CanPromoteMembers  bool  `protobuf:"varint,10,opt,name=can_promote_members,json=canPromoteMembers,proto3" json:"can_promote_members,omitempty"`
+	ChatId             string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	UserId             int32  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	CanChangeInfo      bool   `protobuf:"varint,3,opt,name=can_change_info,json=canChangeInfo,proto3" json:"can_change_info,omitempty"`
+	CanPostMessages    bool   `protobuf:"varint,4,opt,name=can_post_messages,json=canPostMessages,proto3" json:"can_post_messages,omitempty"`
+	CanEditMessages    bool   `protobuf:"varint,5,opt,name=can_edit_messages,json=canEditMessages,proto3" json:"can_edit_messages,omitempty"`
+	CanDeleteMessages  bool   `protobuf:"varint,6,opt,name=can_delete_messages,json=canDeleteMessages,proto3" json:"can_delete_messages,omitempty"`
+	CanInviteUsers     bool   `protobuf:"varint,7,opt,name=can_invite_users,json=canInviteUsers,proto3" json:"can_invite_users,omitempty"`
+	CanRestrictMembers bool   `protobuf:"varint,8,opt,name=can_restrict_members,json=canRestrictMembers,proto3" json:"can_restrict_members,omitempty"`
+	CanPinMessages     bool   `protobuf:"varint,9,opt,name=can_pin_messages,json=canPinMessages,proto3" json:"can_pin_messages,omitempty"`
+	CanPromoteMembers  bool   `protobuf:"varint,10,opt,name=can_promote_members,json=canPromoteMembers,proto3" json:"can_promote_members,omitempty"`
 }
 
 func (m *PromoteChatMember) Reset()         { *m = PromoteChatMember{} }
@@ -1536,11 +1579,11 @@ func (*PromoteChatMember) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{23}
 }
 
-func (m *PromoteChatMember) GetChatId() int32 {
+func (m *PromoteChatMember) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *PromoteChatMember) GetUserId() int32 {
@@ -1609,7 +1652,7 @@ func (m *PromoteChatMember) GetCanPromoteMembers() bool {
 // return True
 // Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members admin rights. Returns True on success.
 type SetChatPermissions struct {
-	ChatId      int32            `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId      string           `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Permissions *ChatPermissions `protobuf:"bytes,2,opt,name=permissions" json:"permissions,omitempty"`
 }
 
@@ -1620,11 +1663,11 @@ func (*SetChatPermissions) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{24}
 }
 
-func (m *SetChatPermissions) GetChatId() int32 {
+func (m *SetChatPermissions) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SetChatPermissions) GetPermissions() *ChatPermissions {
@@ -1639,7 +1682,7 @@ func (m *SetChatPermissions) GetPermissions() *ChatPermissions {
 // Note: Each administrator in a chat generates their own invite links. Bots can't use invite links generated by other administrators. If you want your bot to work with invite links, it will need to generate its own link using exportChatInviteLink – after this the link will become available to the bot via the getChat method. If your bot needs to generate a new invite link replacing its previous one, use exportChatInviteLink again.
 //
 type ExportChatInviteLink struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 }
 
 func (m *ExportChatInviteLink) Reset()         { *m = ExportChatInviteLink{} }
@@ -1649,11 +1692,11 @@ func (*ExportChatInviteLink) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{25}
 }
 
-func (m *ExportChatInviteLink) GetChatId() int32 {
+func (m *ExportChatInviteLink) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 // return True
@@ -1661,7 +1704,7 @@ func (m *ExportChatInviteLink) GetChatId() int32 {
 // Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
 //
 type SetChatPhoto struct {
-	ChatId int32      `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string     `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Photo  *InputFile `protobuf:"bytes,2,opt,name=photo" json:"photo,omitempty"`
 }
 
@@ -1672,11 +1715,11 @@ func (*SetChatPhoto) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{26}
 }
 
-func (m *SetChatPhoto) GetChatId() int32 {
+func (m *SetChatPhoto) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SetChatPhoto) GetPhoto() *InputFile {
@@ -1691,7 +1734,7 @@ func (m *SetChatPhoto) GetPhoto() *InputFile {
 // Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
 //
 type DeleteChatPhoto struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 }
 
 func (m *DeleteChatPhoto) Reset()         { *m = DeleteChatPhoto{} }
@@ -1701,11 +1744,11 @@ func (*DeleteChatPhoto) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{27}
 }
 
-func (m *DeleteChatPhoto) GetChatId() int32 {
+func (m *DeleteChatPhoto) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 // return True
@@ -1713,7 +1756,7 @@ func (m *DeleteChatPhoto) GetChatId() int32 {
 // Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
 //
 type SetChatTitle struct {
-	ChatId int32  `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Title  string `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
 }
 
@@ -1724,11 +1767,11 @@ func (*SetChatTitle) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{28}
 }
 
-func (m *SetChatTitle) GetChatId() int32 {
+func (m *SetChatTitle) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SetChatTitle) GetTitle() string {
@@ -1741,7 +1784,7 @@ func (m *SetChatTitle) GetTitle() string {
 // return True
 // Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
 type SetChatDescription struct {
-	ChatId      int32  `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId      string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Description string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
 }
 
@@ -1752,11 +1795,11 @@ func (*SetChatDescription) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{29}
 }
 
-func (m *SetChatDescription) GetChatId() int32 {
+func (m *SetChatDescription) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SetChatDescription) GetDescription() string {
@@ -1769,9 +1812,9 @@ func (m *SetChatDescription) GetDescription() string {
 // return True
 // Use this method to pin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success.
 type PinChatMessage struct {
-	ChatId              int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
-	MessageId           int32 `protobuf:"varint,2,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
-	DisableNotification bool  `protobuf:"varint,3,opt,name=disable_notification,json=disableNotification,proto3" json:"disable_notification,omitempty"`
+	ChatId              string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	MessageId           int32  `protobuf:"varint,2,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
+	DisableNotification bool   `protobuf:"varint,3,opt,name=disable_notification,json=disableNotification,proto3" json:"disable_notification,omitempty"`
 }
 
 func (m *PinChatMessage) Reset()         { *m = PinChatMessage{} }
@@ -1781,11 +1824,11 @@ func (*PinChatMessage) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{30}
 }
 
-func (m *PinChatMessage) GetChatId() int32 {
+func (m *PinChatMessage) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *PinChatMessage) GetMessageId() int32 {
@@ -1805,7 +1848,7 @@ func (m *PinChatMessage) GetDisableNotification() bool {
 // return True
 // Use this method to unpin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success.
 type UnpinChatMessage struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 }
 
 func (m *UnpinChatMessage) Reset()         { *m = UnpinChatMessage{} }
@@ -1815,17 +1858,17 @@ func (*UnpinChatMessage) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{31}
 }
 
-func (m *UnpinChatMessage) GetChatId() int32 {
+func (m *UnpinChatMessage) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 // return True
 // Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
 type LeaveChat struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 }
 
 func (m *LeaveChat) Reset()                    { *m = LeaveChat{} }
@@ -1833,17 +1876,17 @@ func (m *LeaveChat) String() string            { return proto.CompactTextString(
 func (*LeaveChat) ProtoMessage()               {}
 func (*LeaveChat) Descriptor() ([]byte, []int) { return fileDescriptorAvailableMethodsMethod, []int{32} }
 
-func (m *LeaveChat) GetChatId() int32 {
+func (m *LeaveChat) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 // return Chat
 // Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a Chat object on success.
 type GetChat struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 }
 
 func (m *GetChat) Reset()                    { *m = GetChat{} }
@@ -1851,17 +1894,17 @@ func (m *GetChat) String() string            { return proto.CompactTextString(m)
 func (*GetChat) ProtoMessage()               {}
 func (*GetChat) Descriptor() ([]byte, []int) { return fileDescriptorAvailableMethodsMethod, []int{33} }
 
-func (m *GetChat) GetChatId() int32 {
+func (m *GetChat) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 // return Array of ChatMember
 // Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
 type GetChatAdministrators struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 }
 
 func (m *GetChatAdministrators) Reset()         { *m = GetChatAdministrators{} }
@@ -1871,17 +1914,17 @@ func (*GetChatAdministrators) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{34}
 }
 
-func (m *GetChatAdministrators) GetChatId() int32 {
+func (m *GetChatAdministrators) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 // return Int
 // Use this method to get the number of members in a chat. Returns Int on success.
 type GetChatMembersCount struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 }
 
 func (m *GetChatMembersCount) Reset()         { *m = GetChatMembersCount{} }
@@ -1891,18 +1934,18 @@ func (*GetChatMembersCount) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{35}
 }
 
-func (m *GetChatMembersCount) GetChatId() int32 {
+func (m *GetChatMembersCount) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 // return ChatMember
 // Use this method to get information about a member of a chat. Returns a ChatMember object on success.
 type GetChatMember struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
-	UserId int32 `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	UserId int32  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 }
 
 func (m *GetChatMember) Reset()         { *m = GetChatMember{} }
@@ -1912,11 +1955,11 @@ func (*GetChatMember) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{36}
 }
 
-func (m *GetChatMember) GetChatId() int32 {
+func (m *GetChatMember) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *GetChatMember) GetUserId() int32 {
@@ -1929,7 +1972,7 @@ func (m *GetChatMember) GetUserId() int32 {
 // return True
 // Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
 type SetChatStickerSet struct {
-	ChatId         int32  `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId         string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	StickerSetName string `protobuf:"bytes,2,opt,name=sticker_set_name,json=stickerSetName,proto3" json:"sticker_set_name,omitempty"`
 }
 
@@ -1940,11 +1983,11 @@ func (*SetChatStickerSet) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{37}
 }
 
-func (m *SetChatStickerSet) GetChatId() int32 {
+func (m *SetChatStickerSet) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func (m *SetChatStickerSet) GetStickerSetName() string {
@@ -1957,7 +2000,7 @@ func (m *SetChatStickerSet) GetStickerSetName() string {
 // return True
 // Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
 type DeleteChatStickerSet struct {
-	ChatId int32 `protobuf:"varint,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatId string `protobuf:"bytes,1,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 }
 
 func (m *DeleteChatStickerSet) Reset()         { *m = DeleteChatStickerSet{} }
@@ -1967,11 +2010,11 @@ func (*DeleteChatStickerSet) Descriptor() ([]byte, []int) {
 	return fileDescriptorAvailableMethodsMethod, []int{38}
 }
 
-func (m *DeleteChatStickerSet) GetChatId() int32 {
+func (m *DeleteChatStickerSet) GetChatId() string {
 	if m != nil {
 		return m.ChatId
 	}
-	return 0
+	return ""
 }
 
 func init() {
@@ -2048,10 +2091,11 @@ func (m *SendMessage) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Text) > 0 {
 		dAtA[i] = 0x12
@@ -2118,15 +2162,17 @@ func (m *ForwardMessage) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
-	if m.FromChatId != 0 {
-		dAtA[i] = 0x10
+	if len(m.FromChatId) > 0 {
+		dAtA[i] = 0x12
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.FromChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.FromChatId)))
+		i += copy(dAtA[i:], m.FromChatId)
 	}
 	if m.DisableNotification {
 		dAtA[i] = 0x18
@@ -2161,10 +2207,11 @@ func (m *SendPhoto) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Photo) > 0 {
 		dAtA[i] = 0x12
@@ -2227,10 +2274,11 @@ func (m *SendAudio) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Audio) > 0 {
 		dAtA[i] = 0x12
@@ -2316,10 +2364,11 @@ func (m *SendDocument) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Document) > 0 {
 		dAtA[i] = 0x12
@@ -2388,10 +2437,11 @@ func (m *SendVideo) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Video) > 0 {
 		dAtA[i] = 0x12
@@ -2485,10 +2535,11 @@ func (m *SendAnimation) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Animation) > 0 {
 		dAtA[i] = 0x12
@@ -2572,10 +2623,11 @@ func (m *SendVoice) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Voice) > 0 {
 		dAtA[i] = 0x12
@@ -2643,10 +2695,11 @@ func (m *SendVideoNote) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.VideoNote) > 0 {
 		dAtA[i] = 0x12
@@ -2713,10 +2766,11 @@ func (m *SendMediaGroup) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Media) > 0 {
 		for _, msg := range m.Media {
@@ -2763,10 +2817,11 @@ func (m *SendLocation) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.Latitude != 0 {
 		dAtA[i] = 0x10
@@ -2826,10 +2881,11 @@ func (m *EditMessageLiveLocation) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.MessageId != 0 {
 		dAtA[i] = 0x10
@@ -2880,10 +2936,11 @@ func (m *StopMessageLiveLocation) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.MessageId != 0 {
 		dAtA[i] = 0x10
@@ -2924,10 +2981,11 @@ func (m *SendVenue) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.Latitude != 0 {
 		dAtA[i] = 0x10
@@ -3006,10 +3064,11 @@ func (m *SendContact) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.PhoneNumber) > 0 {
 		dAtA[i] = 0x12
@@ -3078,10 +3137,11 @@ func (m *SendPoll) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Question) > 0 {
 		dAtA[i] = 0x12
@@ -3147,10 +3207,11 @@ func (m *SendChatAction) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Action) > 0 {
 		dAtA[i] = 0x12
@@ -3233,10 +3294,11 @@ func (m *KickChatMember) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.UserId != 0 {
 		dAtA[i] = 0x10
@@ -3266,10 +3328,11 @@ func (m *UnbanChatMember) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.UserId != 0 {
 		dAtA[i] = 0x10
@@ -3294,10 +3357,11 @@ func (m *RestrictChatMember) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.UserId != 0 {
 		dAtA[i] = 0x10
@@ -3337,10 +3401,11 @@ func (m *PromoteChatMember) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.UserId != 0 {
 		dAtA[i] = 0x10
@@ -3445,10 +3510,11 @@ func (m *SetChatPermissions) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.Permissions != nil {
 		dAtA[i] = 0x12
@@ -3478,10 +3544,11 @@ func (m *ExportChatInviteLink) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	return i, nil
 }
@@ -3501,10 +3568,11 @@ func (m *SetChatPhoto) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.Photo != nil {
 		dAtA[i] = 0x12
@@ -3534,10 +3602,11 @@ func (m *DeleteChatPhoto) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	return i, nil
 }
@@ -3557,10 +3626,11 @@ func (m *SetChatTitle) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Title) > 0 {
 		dAtA[i] = 0x12
@@ -3586,10 +3656,11 @@ func (m *SetChatDescription) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.Description) > 0 {
 		dAtA[i] = 0x12
@@ -3615,10 +3686,11 @@ func (m *PinChatMessage) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.MessageId != 0 {
 		dAtA[i] = 0x10
@@ -3653,10 +3725,11 @@ func (m *UnpinChatMessage) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	return i, nil
 }
@@ -3676,10 +3749,11 @@ func (m *LeaveChat) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	return i, nil
 }
@@ -3699,10 +3773,11 @@ func (m *GetChat) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	return i, nil
 }
@@ -3722,10 +3797,11 @@ func (m *GetChatAdministrators) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	return i, nil
 }
@@ -3745,10 +3821,11 @@ func (m *GetChatMembersCount) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	return i, nil
 }
@@ -3768,10 +3845,11 @@ func (m *GetChatMember) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if m.UserId != 0 {
 		dAtA[i] = 0x10
@@ -3796,10 +3874,11 @@ func (m *SetChatStickerSet) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	if len(m.StickerSetName) > 0 {
 		dAtA[i] = 0x12
@@ -3825,10 +3904,11 @@ func (m *DeleteChatStickerSet) MarshalTo(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		dAtA[i] = 0x8
+	if len(m.ChatId) > 0 {
+		dAtA[i] = 0xa
 		i++
-		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(m.ChatId))
+		i = encodeVarintAvailableMethodsMethod(dAtA, i, uint64(len(m.ChatId)))
+		i += copy(dAtA[i:], m.ChatId)
 	}
 	return i, nil
 }
@@ -3869,8 +3949,9 @@ func (m *GetMe) Size() (n int) {
 func (m *SendMessage) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Text)
 	if l > 0 {
@@ -3899,11 +3980,13 @@ func (m *SendMessage) Size() (n int) {
 func (m *ForwardMessage) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
-	if m.FromChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.FromChatId))
+	l = len(m.FromChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.DisableNotification {
 		n += 2
@@ -3917,8 +4000,9 @@ func (m *ForwardMessage) Size() (n int) {
 func (m *SendPhoto) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Photo)
 	if l > 0 {
@@ -3948,8 +4032,9 @@ func (m *SendPhoto) Size() (n int) {
 func (m *SendAudio) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Audio)
 	if l > 0 {
@@ -3994,8 +4079,9 @@ func (m *SendAudio) Size() (n int) {
 func (m *SendDocument) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Document)
 	if l > 0 {
@@ -4029,8 +4115,9 @@ func (m *SendDocument) Size() (n int) {
 func (m *SendVideo) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Video)
 	if l > 0 {
@@ -4076,8 +4163,9 @@ func (m *SendVideo) Size() (n int) {
 func (m *SendAnimation) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Animation)
 	if l > 0 {
@@ -4120,8 +4208,9 @@ func (m *SendAnimation) Size() (n int) {
 func (m *SendVoice) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Voice)
 	if l > 0 {
@@ -4154,8 +4243,9 @@ func (m *SendVoice) Size() (n int) {
 func (m *SendVideoNote) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.VideoNote)
 	if l > 0 {
@@ -4187,8 +4277,9 @@ func (m *SendVideoNote) Size() (n int) {
 func (m *SendMediaGroup) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if len(m.Media) > 0 {
 		for _, e := range m.Media {
@@ -4208,8 +4299,9 @@ func (m *SendMediaGroup) Size() (n int) {
 func (m *SendLocation) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.Latitude != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.Latitude))
@@ -4236,8 +4328,9 @@ func (m *SendLocation) Size() (n int) {
 func (m *EditMessageLiveLocation) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.MessageId != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.MessageId))
@@ -4262,8 +4355,9 @@ func (m *EditMessageLiveLocation) Size() (n int) {
 func (m *StopMessageLiveLocation) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.MessageId != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.MessageId))
@@ -4282,8 +4376,9 @@ func (m *StopMessageLiveLocation) Size() (n int) {
 func (m *SendVenue) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.Latitude != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.Latitude))
@@ -4323,8 +4418,9 @@ func (m *SendVenue) Size() (n int) {
 func (m *SendContact) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.PhoneNumber)
 	if l > 0 {
@@ -4358,8 +4454,9 @@ func (m *SendContact) Size() (n int) {
 func (m *SendPoll) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Question)
 	if l > 0 {
@@ -4387,8 +4484,9 @@ func (m *SendPoll) Size() (n int) {
 func (m *SendChatAction) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Action)
 	if l > 0 {
@@ -4425,8 +4523,9 @@ func (m *GetFile) Size() (n int) {
 func (m *KickChatMember) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.UserId != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.UserId))
@@ -4440,8 +4539,9 @@ func (m *KickChatMember) Size() (n int) {
 func (m *UnbanChatMember) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.UserId != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.UserId))
@@ -4452,8 +4552,9 @@ func (m *UnbanChatMember) Size() (n int) {
 func (m *RestrictChatMember) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.UserId != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.UserId))
@@ -4471,8 +4572,9 @@ func (m *RestrictChatMember) Size() (n int) {
 func (m *PromoteChatMember) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.UserId != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.UserId))
@@ -4507,8 +4609,9 @@ func (m *PromoteChatMember) Size() (n int) {
 func (m *SetChatPermissions) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.Permissions != nil {
 		l = m.Permissions.Size()
@@ -4520,8 +4623,9 @@ func (m *SetChatPermissions) Size() (n int) {
 func (m *ExportChatInviteLink) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	return n
 }
@@ -4529,8 +4633,9 @@ func (m *ExportChatInviteLink) Size() (n int) {
 func (m *SetChatPhoto) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.Photo != nil {
 		l = m.Photo.Size()
@@ -4542,8 +4647,9 @@ func (m *SetChatPhoto) Size() (n int) {
 func (m *DeleteChatPhoto) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	return n
 }
@@ -4551,8 +4657,9 @@ func (m *DeleteChatPhoto) Size() (n int) {
 func (m *SetChatTitle) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Title)
 	if l > 0 {
@@ -4564,8 +4671,9 @@ func (m *SetChatTitle) Size() (n int) {
 func (m *SetChatDescription) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.Description)
 	if l > 0 {
@@ -4577,8 +4685,9 @@ func (m *SetChatDescription) Size() (n int) {
 func (m *PinChatMessage) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.MessageId != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.MessageId))
@@ -4592,8 +4701,9 @@ func (m *PinChatMessage) Size() (n int) {
 func (m *UnpinChatMessage) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	return n
 }
@@ -4601,8 +4711,9 @@ func (m *UnpinChatMessage) Size() (n int) {
 func (m *LeaveChat) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	return n
 }
@@ -4610,8 +4721,9 @@ func (m *LeaveChat) Size() (n int) {
 func (m *GetChat) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	return n
 }
@@ -4619,8 +4731,9 @@ func (m *GetChat) Size() (n int) {
 func (m *GetChatAdministrators) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	return n
 }
@@ -4628,8 +4741,9 @@ func (m *GetChatAdministrators) Size() (n int) {
 func (m *GetChatMembersCount) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	return n
 }
@@ -4637,8 +4751,9 @@ func (m *GetChatMembersCount) Size() (n int) {
 func (m *GetChatMember) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	if m.UserId != 0 {
 		n += 1 + sovAvailableMethodsMethod(uint64(m.UserId))
@@ -4649,8 +4764,9 @@ func (m *GetChatMember) Size() (n int) {
 func (m *SetChatStickerSet) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	l = len(m.StickerSetName)
 	if l > 0 {
@@ -4662,8 +4778,9 @@ func (m *SetChatStickerSet) Size() (n int) {
 func (m *DeleteChatStickerSet) Size() (n int) {
 	var l int
 	_ = l
-	if m.ChatId != 0 {
-		n += 1 + sovAvailableMethodsMethod(uint64(m.ChatId))
+	l = len(m.ChatId)
+	if l > 0 {
+		n += 1 + l + sovAvailableMethodsMethod(uint64(l))
 	}
 	return n
 }
@@ -4761,10 +4878,10 @@ func (m *SendMessage) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -4774,11 +4891,21 @@ func (m *SendMessage) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
@@ -4980,10 +5107,10 @@ func (m *ForwardMessage) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -4993,16 +5120,26 @@ func (m *ForwardMessage) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field FromChatId", wireType)
 			}
-			m.FromChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -5012,11 +5149,21 @@ func (m *ForwardMessage) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.FromChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FromChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DisableNotification", wireType)
@@ -5107,10 +5254,10 @@ func (m *SendPhoto) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -5120,11 +5267,21 @@ func (m *SendPhoto) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Photo", wireType)
@@ -5335,10 +5492,10 @@ func (m *SendAudio) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -5348,11 +5505,21 @@ func (m *SendAudio) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Audio", wireType)
@@ -5669,10 +5836,10 @@ func (m *SendDocument) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -5682,11 +5849,21 @@ func (m *SendDocument) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Document", wireType)
@@ -5926,10 +6103,10 @@ func (m *SendVideo) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -5939,11 +6116,21 @@ func (m *SendVideo) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Video", wireType)
@@ -6260,10 +6447,10 @@ func (m *SendAnimation) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -6273,11 +6460,21 @@ func (m *SendAnimation) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Animation", wireType)
@@ -6574,10 +6771,10 @@ func (m *SendVoice) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -6587,11 +6784,21 @@ func (m *SendVoice) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Voice", wireType)
@@ -6821,10 +7028,10 @@ func (m *SendVideoNote) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -6834,11 +7041,21 @@ func (m *SendVideoNote) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field VideoNote", wireType)
@@ -7058,10 +7275,10 @@ func (m *SendMediaGroup) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -7071,11 +7288,21 @@ func (m *SendMediaGroup) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Media", wireType)
@@ -7197,10 +7424,10 @@ func (m *SendLocation) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -7210,11 +7437,21 @@ func (m *SendLocation) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Latitude", wireType)
@@ -7395,10 +7632,10 @@ func (m *EditMessageLiveLocation) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -7408,11 +7645,21 @@ func (m *EditMessageLiveLocation) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field MessageId", wireType)
@@ -7583,10 +7830,10 @@ func (m *StopMessageLiveLocation) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -7596,11 +7843,21 @@ func (m *StopMessageLiveLocation) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field MessageId", wireType)
@@ -7733,10 +7990,10 @@ func (m *SendVenue) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -7746,11 +8003,21 @@ func (m *SendVenue) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Latitude", wireType)
@@ -8028,10 +8295,10 @@ func (m *SendContact) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -8041,11 +8308,21 @@ func (m *SendContact) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field PhoneNumber", wireType)
@@ -8285,10 +8562,10 @@ func (m *SendPoll) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -8298,11 +8575,21 @@ func (m *SendPoll) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Question", wireType)
@@ -8484,10 +8771,10 @@ func (m *SendChatAction) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -8497,11 +8784,21 @@ func (m *SendChatAction) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Action", wireType)
@@ -8768,10 +9065,10 @@ func (m *KickChatMember) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -8781,11 +9078,21 @@ func (m *KickChatMember) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
@@ -8875,10 +9182,10 @@ func (m *UnbanChatMember) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -8888,11 +9195,21 @@ func (m *UnbanChatMember) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
@@ -8963,10 +9280,10 @@ func (m *RestrictChatMember) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -8976,11 +9293,21 @@ func (m *RestrictChatMember) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
@@ -9103,10 +9430,10 @@ func (m *PromoteChatMember) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -9116,11 +9443,21 @@ func (m *PromoteChatMember) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
@@ -9351,10 +9688,10 @@ func (m *SetChatPermissions) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -9364,11 +9701,21 @@ func (m *SetChatPermissions) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Permissions", wireType)
@@ -9453,10 +9800,10 @@ func (m *ExportChatInviteLink) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -9466,11 +9813,21 @@ func (m *ExportChatInviteLink) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAvailableMethodsMethod(dAtA[iNdEx:])
@@ -9522,10 +9879,10 @@ func (m *SetChatPhoto) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -9535,11 +9892,21 @@ func (m *SetChatPhoto) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Photo", wireType)
@@ -9624,10 +9991,10 @@ func (m *DeleteChatPhoto) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -9637,11 +10004,21 @@ func (m *DeleteChatPhoto) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAvailableMethodsMethod(dAtA[iNdEx:])
@@ -9693,10 +10070,10 @@ func (m *SetChatTitle) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -9706,11 +10083,21 @@ func (m *SetChatTitle) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
@@ -9791,10 +10178,10 @@ func (m *SetChatDescription) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -9804,11 +10191,21 @@ func (m *SetChatDescription) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
@@ -9889,10 +10286,10 @@ func (m *PinChatMessage) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -9902,11 +10299,21 @@ func (m *PinChatMessage) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field MessageId", wireType)
@@ -9997,10 +10404,10 @@ func (m *UnpinChatMessage) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -10010,11 +10417,21 @@ func (m *UnpinChatMessage) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAvailableMethodsMethod(dAtA[iNdEx:])
@@ -10066,10 +10483,10 @@ func (m *LeaveChat) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -10079,11 +10496,21 @@ func (m *LeaveChat) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAvailableMethodsMethod(dAtA[iNdEx:])
@@ -10135,10 +10562,10 @@ func (m *GetChat) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -10148,11 +10575,21 @@ func (m *GetChat) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAvailableMethodsMethod(dAtA[iNdEx:])
@@ -10204,10 +10641,10 @@ func (m *GetChatAdministrators) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -10217,11 +10654,21 @@ func (m *GetChatAdministrators) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAvailableMethodsMethod(dAtA[iNdEx:])
@@ -10273,10 +10720,10 @@ func (m *GetChatMembersCount) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -10286,11 +10733,21 @@ func (m *GetChatMembersCount) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAvailableMethodsMethod(dAtA[iNdEx:])
@@ -10342,10 +10799,10 @@ func (m *GetChatMember) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -10355,11 +10812,21 @@ func (m *GetChatMember) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field UserId", wireType)
@@ -10430,10 +10897,10 @@ func (m *SetChatStickerSet) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -10443,11 +10910,21 @@ func (m *SetChatStickerSet) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field StickerSetName", wireType)
@@ -10528,10 +11005,10 @@ func (m *DeleteChatStickerSet) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChatId", wireType)
 			}
-			m.ChatId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowAvailableMethodsMethod
@@ -10541,11 +11018,21 @@ func (m *DeleteChatStickerSet) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.ChatId |= (int32(b) & 0x7F) << shift
+				stringLen |= (uint64(b) & 0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthAvailableMethodsMethod
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChatId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipAvailableMethodsMethod(dAtA[iNdEx:])
@@ -10677,108 +11164,108 @@ func init() {
 }
 
 var fileDescriptorAvailableMethodsMethod = []byte{
-	// 1638 bytes of a gzipped FileDescriptorProto
+	// 1637 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x58, 0x4f, 0x6f, 0x1c, 0x49,
-	0x15, 0xd7, 0xfc, 0xf5, 0xf4, 0x1b, 0xc7, 0x4e, 0xda, 0x4e, 0x32, 0x84, 0x8d, 0x31, 0x0d, 0x02,
+	0x15, 0xd7, 0xfc, 0xf5, 0xcc, 0x1b, 0xc7, 0x4e, 0xda, 0x4e, 0x32, 0x84, 0x8d, 0x31, 0x0d, 0x02,
 	0x13, 0xb4, 0x66, 0x09, 0x07, 0x90, 0x10, 0x07, 0xe3, 0x00, 0xb2, 0x88, 0xc3, 0xa8, 0x13, 0xc2,
-	0x09, 0xb5, 0x6a, 0xba, 0xdf, 0xcc, 0x14, 0xee, 0xae, 0xea, 0xad, 0xaa, 0x9e, 0x6c, 0xc4, 0x87,
-	0xe0, 0x13, 0xb0, 0x07, 0xae, 0x2b, 0xf6, 0xca, 0x95, 0x23, 0x47, 0x3e, 0x02, 0xca, 0x77, 0x58,
-	0x09, 0xc1, 0x05, 0x55, 0x75, 0xf5, 0x9f, 0x8c, 0xb6, 0xdb, 0x33, 0x89, 0x56, 0xf8, 0x64, 0xbf,
-	0x3f, 0xfd, 0xfa, 0xbd, 0xdf, 0xfb, 0xf5, 0xab, 0x37, 0x05, 0x47, 0x64, 0x45, 0x68, 0x4c, 0x66,
-	0x31, 0x06, 0x09, 0xaa, 0x25, 0x8f, 0xe4, 0x69, 0xfe, 0xf7, 0x34, 0x15, 0x5c, 0x71, 0x77, 0x34,
-	0xe3, 0xca, 0xfc, 0xf7, 0x60, 0x4f, 0x2d, 0x66, 0x5c, 0x91, 0x94, 0xe6, 0x16, 0x6f, 0x07, 0x06,
-	0x0b, 0x54, 0x97, 0xe8, 0x7d, 0xde, 0x85, 0xb1, 0x44, 0x16, 0x5d, 0xa2, 0x94, 0x64, 0x81, 0xee,
-	0x7d, 0xd8, 0x09, 0x97, 0x44, 0x05, 0x34, 0x9a, 0x74, 0x8e, 0x3b, 0x27, 0x03, 0x7f, 0xa8, 0xc5,
-	0x8b, 0xc8, 0x75, 0xa1, 0xaf, 0xf0, 0x13, 0x35, 0xe9, 0x1e, 0x77, 0x4e, 0x1c, 0xdf, 0xfc, 0xef,
-	0x3e, 0x04, 0x48, 0x89, 0x90, 0x18, 0x24, 0x3c, 0xc2, 0x49, 0xcf, 0x58, 0x1c, 0xa3, 0xb9, 0xe4,
-	0x11, 0xba, 0x3f, 0x86, 0x49, 0x44, 0xa5, 0x49, 0xef, 0x15, 0xce, 0x82, 0x94, 0x2c, 0x30, 0x48,
-	0x05, 0xae, 0x28, 0xbe, 0x9a, 0xf4, 0x8f, 0x3b, 0x27, 0x23, 0xff, 0xae, 0xb5, 0xff, 0x0e, 0x67,
-	0x53, 0xb2, 0xc0, 0x69, 0x6e, 0x74, 0x7f, 0x08, 0x87, 0xc5, 0x83, 0x8c, 0x2b, 0x3a, 0xa7, 0x21,
-	0x51, 0x94, 0xb3, 0xc9, 0xc0, 0x3c, 0x74, 0x60, 0x6d, 0xcf, 0x6a, 0x26, 0xf7, 0x43, 0x38, 0x10,
-	0x98, 0xc6, 0xaf, 0x03, 0xc5, 0x83, 0x24, 0xaf, 0x45, 0xd7, 0x30, 0x34, 0x35, 0xdc, 0x36, 0xa6,
-	0x17, 0xdc, 0x16, 0x79, 0x11, 0xb9, 0x3f, 0x81, 0xdd, 0xdc, 0x3d, 0x21, 0xe2, 0x2a, 0x4b, 0x27,
-	0x3b, 0xc7, 0x9d, 0x93, 0xf1, 0xe3, 0xbb, 0xa7, 0x05, 0x60, 0xa7, 0xbe, 0xb6, 0x5e, 0x1a, 0xa3,
-	0x3f, 0x16, 0x95, 0xe0, 0xfd, 0xb9, 0x03, 0x7b, 0x73, 0x2e, 0x5e, 0x11, 0x71, 0x3d, 0x66, 0xc7,
-	0xb0, 0x3b, 0x17, 0x3c, 0x09, 0x0a, 0x6b, 0xd7, 0x58, 0x41, 0xeb, 0xce, 0x73, 0x8f, 0xa6, 0x4a,
-	0x7b, 0xcd, 0x95, 0x3e, 0x04, 0xa8, 0x15, 0xd8, 0x37, 0x21, 0x9d, 0xa4, 0xa8, 0xcc, 0xfb, 0x53,
-	0x17, 0x1c, 0xdd, 0xd0, 0xe9, 0x52, 0x33, 0xa0, 0x31, 0xb5, 0x43, 0x18, 0xa4, 0xda, 0xc3, 0xf6,
-	0x33, 0x17, 0xdc, 0x09, 0xec, 0x84, 0x24, 0x2d, 0x33, 0x70, 0xfc, 0x42, 0x5c, 0x6b, 0x75, 0x7f,
-	0xbd, 0xd5, 0x37, 0xb9, 0x63, 0x5f, 0x58, 0x44, 0xce, 0xb2, 0x88, 0xb6, 0x23, 0x42, 0xb4, 0x47,
-	0x81, 0x88, 0x11, 0xde, 0x1d, 0x91, 0x07, 0x30, 0x8a, 0x32, 0x51, 0xa1, 0x30, 0xf0, 0x4b, 0xd9,
-	0xfd, 0x00, 0x9c, 0x14, 0xc5, 0x9c, 0x8b, 0x04, 0x85, 0x29, 0x58, 0x3f, 0x59, 0x28, 0x74, 0x22,
-	0x8a, 0xaa, 0x18, 0x4d, 0x89, 0x8e, 0x9f, 0x0b, 0x46, 0xbb, 0xcc, 0x92, 0xd9, 0x64, 0x64, 0xb5,
-	0x5a, 0x68, 0xc4, 0xdd, 0xd9, 0x1a, 0x77, 0xd8, 0x10, 0xf7, 0xf1, 0xc6, 0xb8, 0x7f, 0xde, 0x85,
-	0x5d, 0x8d, 0xfb, 0x13, 0x1e, 0x66, 0x09, 0x32, 0xd5, 0x0c, 0xbd, 0xc6, 0xca, 0x3a, 0x59, 0xf4,
-	0x4b, 0xb9, 0xaa, 0xbb, 0x57, 0xaf, 0xbb, 0xd6, 0x96, 0x7e, 0x5b, 0x5b, 0x06, 0x9b, 0x12, 0x75,
-	0xb8, 0x35, 0x60, 0x3b, 0x1b, 0x02, 0x36, 0xda, 0x18, 0xb0, 0x4f, 0x7b, 0x39, 0x51, 0x5f, 0xd2,
-	0x08, 0xdb, 0x89, 0xba, 0xd2, 0x1e, 0x05, 0x51, 0x8d, 0xf0, 0x16, 0xdf, 0x7a, 0x6b, 0x7c, 0x3b,
-	0x84, 0xc1, 0x2b, 0x1a, 0xa9, 0xa5, 0x9d, 0x16, 0xb9, 0xe0, 0xde, 0x83, 0xe1, 0x12, 0xe9, 0x62,
-	0xa9, 0x2c, 0x3f, 0xad, 0x54, 0x21, 0x3e, 0x6c, 0x40, 0x7c, 0xa7, 0x0d, 0xf1, 0xd1, 0x3a, 0xe2,
-	0x1f, 0x82, 0x2b, 0xb3, 0x34, 0xe5, 0x42, 0xc9, 0x40, 0x2a, 0x81, 0x24, 0xa1, 0x6c, 0x61, 0x09,
-	0x7a, 0xa7, 0xb0, 0x3c, 0x2f, 0x0c, 0x8d, 0x0d, 0x82, 0xad, 0x1b, 0x34, 0xde, 0xb0, 0x41, 0xbb,
-	0x1b, 0x37, 0xe8, 0xbf, 0x5d, 0xb8, 0x65, 0x26, 0x09, 0xa3, 0x49, 0xfe, 0xea, 0xc6, 0x26, 0x7d,
-	0x00, 0x0e, 0x29, 0xbc, 0x6c, 0xa3, 0x2a, 0xc5, 0xcd, 0x6d, 0xd6, 0x4d, 0x9e, 0x27, 0x9f, 0xd9,
-	0x39, 0xfe, 0x92, 0xd3, 0x10, 0xdb, 0x3f, 0x0f, 0xed, 0x51, 0x7e, 0x1e, 0xc6, 0xfd, 0x2b, 0x99,
-	0xe3, 0x37, 0x79, 0x98, 0xfc, 0xd5, 0x72, 0xd5, 0x0c, 0x93, 0x67, 0x5c, 0xb5, 0x20, 0xf6, 0x10,
-	0xc0, 0xcc, 0x10, 0x5d, 0x44, 0x01, 0x9b, 0xb3, 0x2a, 0x9f, 0x6b, 0x23, 0xeb, 0x3d, 0x18, 0xc6,
-	0xc8, 0x16, 0x25, 0x5b, 0xad, 0x54, 0xd1, 0x72, 0xb0, 0xc9, 0x69, 0x75, 0x13, 0xf0, 0xfa, 0x5b,
-	0x07, 0xf6, 0xf2, 0x45, 0x38, 0xa2, 0xe4, 0x57, 0x82, 0x67, 0x69, 0x33, 0x60, 0x8f, 0x60, 0x90,
-	0x68, 0xb7, 0x49, 0xf7, 0xb8, 0x77, 0x32, 0x7e, 0x7c, 0x58, 0x85, 0xbf, 0x60, 0x69, 0xa6, 0x4c,
-	0x08, 0x3f, 0x77, 0x79, 0x97, 0x0d, 0xaf, 0xa1, 0xe6, 0xfe, 0x97, 0xd7, 0xec, 0x7d, 0x6a, 0xcf,
-	0xd9, 0xa7, 0x3c, 0xbc, 0x66, 0x28, 0x3d, 0x80, 0x51, 0x4c, 0x14, 0x55, 0x59, 0x94, 0xb7, 0xb9,
-	0xe7, 0x97, 0xb2, 0x1e, 0x58, 0x31, 0x67, 0x8b, 0xdc, 0xd8, 0x33, 0xc6, 0x4a, 0xe1, 0x7e, 0x03,
-	0xc6, 0x31, 0x5d, 0x61, 0x90, 0xa2, 0xa0, 0xbc, 0x48, 0x05, 0xb4, 0x6a, 0x6a, 0x34, 0x37, 0x7a,
-	0x01, 0xfc, 0x4f, 0x07, 0xee, 0x63, 0x44, 0x95, 0x8d, 0xf5, 0x94, 0xae, 0xf0, 0x7a, 0xac, 0xde,
-	0x5e, 0xb3, 0xbb, 0x6b, 0x6b, 0xb6, 0xfb, 0x08, 0xee, 0x50, 0x16, 0x53, 0x86, 0xf5, 0xd4, 0xf3,
-	0xc9, 0xb2, 0x9f, 0x1b, 0xaa, 0xcc, 0xeb, 0xb0, 0xf7, 0xdb, 0x60, 0x1f, 0xac, 0xc3, 0x7e, 0xb6,
-	0x56, 0xf3, 0xd0, 0xd4, 0x7c, 0x54, 0xe7, 0x9b, 0x7e, 0xd5, 0xaf, 0xf1, 0xf5, 0x8c, 0xeb, 0x1f,
-	0x24, 0x5f, 0x52, 0xfc, 0xdf, 0x3b, 0x70, 0x5f, 0x2a, 0x9e, 0xfe, 0xbf, 0x8a, 0x5f, 0x2f, 0xa1,
-	0xbf, 0x7d, 0x09, 0xff, 0x2e, 0x06, 0x3f, 0xb2, 0x0c, 0xbf, 0x0a, 0x76, 0x97, 0x1b, 0x77, 0xbf,
-	0xbe, 0x71, 0x4f, 0x60, 0x87, 0x44, 0x91, 0x40, 0x29, 0xed, 0x14, 0x2b, 0x44, 0xf7, 0x5b, 0x70,
-	0x6b, 0xce, 0x33, 0x21, 0x3f, 0xce, 0x88, 0x28, 0x39, 0xeb, 0xf8, 0xbb, 0x95, 0xf2, 0x22, 0x72,
-	0xbf, 0x0b, 0xfb, 0x35, 0x27, 0xf5, 0x3a, 0x2d, 0x16, 0xfa, 0xbd, 0x4a, 0xfd, 0xe2, 0x75, 0xda,
-	0x7c, 0xe6, 0x8e, 0xb6, 0xfe, 0x74, 0x9c, 0x0d, 0x3f, 0x1d, 0xd8, 0x7c, 0x2a, 0xda, 0xeb, 0x81,
-	0x73, 0xce, 0x14, 0x09, 0x5b, 0x56, 0xf8, 0x6f, 0xc2, 0x6e, 0xba, 0xe4, 0x0c, 0x03, 0x96, 0x25,
-	0x33, 0x14, 0xf6, 0x14, 0x19, 0x1b, 0xdd, 0x33, 0xa3, 0xd2, 0xa4, 0x9a, 0x53, 0x21, 0x55, 0xc0,
-	0x48, 0x52, 0xde, 0x16, 0x18, 0xcd, 0x33, 0x92, 0xa0, 0xfb, 0x75, 0x70, 0x62, 0x52, 0x58, 0xf3,
-	0x46, 0x8c, 0xb4, 0xc2, 0x18, 0xf5, 0xa1, 0x1e, 0x12, 0x11, 0x15, 0xe7, 0x89, 0x11, 0x6e, 0xf4,
-	0x79, 0xf2, 0x45, 0x07, 0x46, 0xe6, 0x77, 0x38, 0x8f, 0xe3, 0x56, 0xce, 0x7e, 0x9c, 0xa1, 0xac,
-	0x6d, 0x89, 0xa5, 0xac, 0xf9, 0xc7, 0xcd, 0x8a, 0x22, 0x27, 0xbd, 0xe3, 0x9e, 0xe6, 0x9f, 0x15,
-	0x1b, 0xeb, 0xee, 0x6f, 0x5d, 0xf7, 0x60, 0xc3, 0xba, 0x87, 0x1b, 0xd7, 0x7d, 0x96, 0x1f, 0xa3,
-	0xe7, 0x4b, 0xa2, 0xce, 0xc2, 0xf6, 0x29, 0x73, 0x0f, 0x86, 0x24, 0xac, 0x95, 0x6e, 0x25, 0xef,
-	0xf7, 0x70, 0xb8, 0x40, 0xf5, 0x5b, 0x89, 0x62, 0x2a, 0xf8, 0x9c, 0xc6, 0x68, 0xee, 0x32, 0xa4,
-	0x0e, 0x94, 0x49, 0x14, 0xb5, 0x40, 0x5a, 0xcc, 0x03, 0xf1, 0xf9, 0x5c, 0xa2, 0xb2, 0xa3, 0xca,
-	0x4a, 0x9a, 0x35, 0x31, 0x4d, 0xa8, 0xb2, 0x6b, 0x4b, 0x2e, 0x78, 0x1e, 0xec, 0x2c, 0x50, 0xfd,
-	0x92, 0xc6, 0x66, 0x96, 0xe8, 0xf8, 0x45, 0x44, 0xc7, 0x1f, 0x6a, 0xf1, 0x22, 0xf2, 0x08, 0xec,
-	0x5d, 0xd1, 0xf0, 0x4a, 0x57, 0x71, 0x89, 0x86, 0xbd, 0x8d, 0x55, 0xd4, 0xb2, 0xea, 0xbe, 0x95,
-	0xd5, 0x43, 0x80, 0x8c, 0x29, 0x1a, 0x07, 0x11, 0x51, 0x68, 0x53, 0x70, 0x8c, 0xe6, 0x09, 0x51,
-	0xe8, 0x9d, 0xc3, 0x7e, 0xc6, 0x66, 0x84, 0xbd, 0xcf, 0x3b, 0xbc, 0xbf, 0x74, 0xc0, 0x15, 0x28,
-	0x95, 0xa0, 0xa1, 0x7a, 0xaf, 0x64, 0x7f, 0x0a, 0xe3, 0x14, 0x45, 0x42, 0xa5, 0xb4, 0x84, 0xd3,
-	0xfd, 0xfe, 0x5a, 0xd5, 0x6f, 0x1d, 0x7c, 0x5a, 0x39, 0xf8, 0x75, 0xef, 0xb5, 0x4a, 0xfb, 0xeb,
-	0x95, 0x7e, 0xd6, 0x83, 0x3b, 0xa9, 0xe0, 0x09, 0x57, 0xf8, 0x5e, 0x39, 0x7e, 0x07, 0xf6, 0x43,
-	0xc2, 0x82, 0x70, 0x49, 0x98, 0x66, 0x2f, 0x9b, 0x73, 0xbb, 0x45, 0xdd, 0x0a, 0x0d, 0x8c, 0x6c,
-	0x81, 0x17, 0x6c, 0xce, 0xf5, 0xf1, 0xa4, 0xfd, 0x52, 0x2e, 0x55, 0xc1, 0x75, 0x69, 0xbf, 0x0d,
-	0x1d, 0x60, 0xca, 0x65, 0xb1, 0x0a, 0xc8, 0xc2, 0x57, 0xaf, 0x07, 0x95, 0xef, 0xa0, 0xf4, 0xfd,
-	0x45, 0xb5, 0x36, 0x48, 0xf7, 0x14, 0x0e, 0xb4, 0x6f, 0x84, 0x31, 0x2a, 0xac, 0xbc, 0xf3, 0x69,
-	0xa3, 0xc3, 0x3c, 0x31, 0x96, 0xd2, 0xff, 0x04, 0x6e, 0x6b, 0x7f, 0xca, 0x56, 0x54, 0x61, 0xa0,
-	0x8b, 0x90, 0x66, 0xd0, 0x8c, 0xfc, 0xbd, 0x90, 0xb0, 0x0b, 0xa3, 0xd6, 0x2c, 0x97, 0xee, 0x47,
-	0x70, 0xa8, 0x3d, 0x8b, 0x4e, 0x06, 0x89, 0x81, 0x48, 0xda, 0x23, 0xc0, 0x0d, 0x09, 0xf3, 0xad,
-	0x29, 0x07, 0xaf, 0x8c, 0x9d, 0x52, 0x56, 0x25, 0xe2, 0x94, 0xb1, 0xa7, 0x94, 0xad, 0x67, 0x6d,
-	0x1b, 0x50, 0x86, 0x86, 0x32, 0xeb, 0x69, 0x6e, 0xb1, 0x91, 0xbd, 0x3f, 0x80, 0x2b, 0x51, 0xad,
-	0xf5, 0xbb, 0xb9, 0x5b, 0x6b, 0xc4, 0xe9, 0x6e, 0x43, 0x1c, 0xef, 0x07, 0x70, 0x88, 0x9f, 0xa4,
-	0x5c, 0x98, 0xd7, 0xe5, 0x80, 0x3c, 0xa5, 0xec, 0xaa, 0xf1, 0x6d, 0x9e, 0xaf, 0x57, 0xdd, 0x3c,
-	0xb9, 0xf6, 0xfb, 0xcd, 0xef, 0xd5, 0xef, 0x37, 0xc7, 0x8f, 0x0f, 0xd6, 0x56, 0x74, 0xfd, 0xf5,
-	0xdb, 0x4b, 0x4f, 0xef, 0x11, 0xec, 0xe7, 0x2d, 0xbd, 0x3e, 0xac, 0xf7, 0xb3, 0xf2, 0xfd, 0x2f,
-	0xcc, 0x8e, 0xd0, 0xf6, 0x2b, 0x34, 0x5f, 0x29, 0xba, 0xb5, 0x95, 0xc2, 0xfb, 0x4d, 0x89, 0xed,
-	0x13, 0x94, 0xa1, 0xa0, 0x69, 0xfb, 0x80, 0x3c, 0x86, 0x71, 0x54, 0xf9, 0x15, 0x67, 0x6a, 0x4d,
-	0xe5, 0xfd, 0x11, 0xf6, 0x52, 0x6a, 0x47, 0xc8, 0x35, 0x97, 0xd1, 0xd7, 0xec, 0x74, 0xdb, 0xff,
-	0x4e, 0xf1, 0xbe, 0x0f, 0xb7, 0x33, 0xb6, 0xe1, 0xeb, 0xbd, 0x6f, 0x83, 0x13, 0x23, 0x59, 0x19,
-	0x90, 0x9b, 0xbd, 0xf2, 0xd9, 0xdc, 0xee, 0xf3, 0x11, 0xdc, 0xb5, 0x3e, 0x67, 0x51, 0x42, 0x19,
-	0x95, 0x4a, 0x10, 0xc5, 0x45, 0x33, 0x47, 0xbd, 0x53, 0x38, 0xb0, 0x4f, 0x58, 0x92, 0x9f, 0xf3,
-	0xac, 0xe5, 0x3e, 0xd2, 0x3b, 0x83, 0x5b, 0x6f, 0xf9, 0xbf, 0xc3, 0x60, 0x7e, 0x09, 0x77, 0x6c,
-	0xa7, 0x9f, 0x2b, 0x1a, 0x5e, 0xa1, 0x78, 0x8e, 0x2d, 0xdb, 0xd3, 0x09, 0xdc, 0x96, 0xb9, 0x5b,
-	0x20, 0xd1, 0xae, 0x40, 0x79, 0xb7, 0xf7, 0x64, 0xf9, 0xb8, 0x5e, 0x84, 0xf4, 0x17, 0x53, 0x91,
-	0x75, 0x83, 0xd0, 0x3f, 0xdf, 0xfd, 0xc7, 0x9b, 0xa3, 0xce, 0x3f, 0xdf, 0x1c, 0x75, 0xfe, 0xf5,
-	0xe6, 0xa8, 0x33, 0x1b, 0x9a, 0x6f, 0xe0, 0x47, 0xff, 0x0b, 0x00, 0x00, 0xff, 0xff, 0xbf, 0xdd,
-	0x5c, 0x4f, 0x3a, 0x1a, 0x00, 0x00,
+	0x09, 0xb5, 0x6a, 0xba, 0xdf, 0xcc, 0x14, 0xee, 0xae, 0xea, 0xad, 0xaa, 0x76, 0x36, 0xe2, 0x43,
+	0xf0, 0x09, 0xd8, 0x03, 0xd7, 0x15, 0x7b, 0xe5, 0xca, 0x91, 0x23, 0x1f, 0x01, 0xe5, 0x3b, 0xac,
+	0x84, 0xe0, 0x82, 0xea, 0x4f, 0xff, 0xc9, 0x68, 0xbb, 0x3d, 0x4e, 0xb4, 0xc2, 0x27, 0xfb, 0xfd,
+	0xe9, 0xd7, 0xef, 0xfd, 0xde, 0xaf, 0x5f, 0xbd, 0x29, 0x38, 0x20, 0x97, 0x84, 0x26, 0x64, 0x9e,
+	0x60, 0x98, 0xa2, 0x5a, 0xf1, 0x58, 0x1e, 0xdb, 0xbf, 0xc7, 0x99, 0xe0, 0x8a, 0x7b, 0xa3, 0x39,
+	0x57, 0xe6, 0xbf, 0x07, 0x3b, 0x6a, 0x39, 0xe7, 0x8a, 0x64, 0xd4, 0x5a, 0xfc, 0x2d, 0x18, 0x2c,
+	0x51, 0x9d, 0xa3, 0xff, 0x79, 0x17, 0x26, 0x12, 0x59, 0x7c, 0x8e, 0x52, 0x92, 0x25, 0x7a, 0xf7,
+	0x61, 0x2b, 0x5a, 0x11, 0x15, 0xd2, 0x78, 0xda, 0x39, 0xec, 0x1c, 0x8d, 0x83, 0xa1, 0x16, 0xcf,
+	0x62, 0xcf, 0x83, 0xbe, 0xc2, 0x4f, 0xd4, 0xb4, 0x6b, 0xb4, 0xe6, 0x7f, 0xef, 0x21, 0x40, 0x46,
+	0x84, 0xc4, 0x30, 0xe5, 0x31, 0x4e, 0x7b, 0xc6, 0x32, 0x36, 0x9a, 0x73, 0x1e, 0xa3, 0xf7, 0x63,
+	0x98, 0xc6, 0x54, 0x9a, 0xf4, 0x5e, 0xe1, 0x3c, 0xcc, 0xc8, 0x12, 0xc3, 0x4c, 0xe0, 0x25, 0xc5,
+	0x57, 0xd3, 0xfe, 0x61, 0xe7, 0x68, 0x14, 0xdc, 0x75, 0xf6, 0xdf, 0xe1, 0x7c, 0x46, 0x96, 0x38,
+	0xb3, 0x46, 0xef, 0x87, 0xb0, 0x5f, 0x3c, 0xc8, 0xb8, 0xa2, 0x0b, 0x1a, 0x11, 0x45, 0x39, 0x9b,
+	0x0e, 0xcc, 0x43, 0x7b, 0xce, 0xf6, 0xac, 0x66, 0xf2, 0x3e, 0x84, 0x3d, 0x81, 0x59, 0xf2, 0x3a,
+	0x54, 0x3c, 0x4c, 0x6d, 0x2d, 0xba, 0x86, 0xe1, 0x61, 0xe7, 0x68, 0x10, 0xdc, 0x36, 0xa6, 0x17,
+	0xdc, 0x15, 0x79, 0x16, 0x7b, 0x3f, 0x81, 0x6d, 0xeb, 0x9e, 0x12, 0x71, 0x91, 0x67, 0xd3, 0xad,
+	0xc3, 0xce, 0xd1, 0xe4, 0xf1, 0xdd, 0xe3, 0x02, 0xb0, 0xe3, 0x40, 0x5b, 0xcf, 0x8d, 0x31, 0x98,
+	0x88, 0x4a, 0xf0, 0xff, 0xdc, 0x81, 0x9d, 0x05, 0x17, 0xaf, 0x88, 0xb8, 0x1a, 0xb3, 0x43, 0xd8,
+	0x5e, 0x08, 0x9e, 0x86, 0x85, 0xd5, 0x62, 0x07, 0x5a, 0x77, 0x6a, 0x3d, 0x9a, 0x2a, 0xed, 0x35,
+	0x57, 0xfa, 0x10, 0xa0, 0x56, 0x60, 0xdf, 0x14, 0x38, 0x4e, 0x8b, 0xca, 0xfc, 0x3f, 0x75, 0x61,
+	0xac, 0x1b, 0x3a, 0x5b, 0x69, 0x06, 0x34, 0xa6, 0xb6, 0x0f, 0x83, 0x4c, 0x7b, 0xb8, 0x9c, 0xac,
+	0xe0, 0x4d, 0x61, 0x2b, 0x22, 0x59, 0x99, 0xc1, 0x38, 0x28, 0xc4, 0xb5, 0x56, 0xf7, 0xd7, 0x5b,
+	0x7d, 0x93, 0x3b, 0xf6, 0x85, 0x43, 0xe4, 0x24, 0x8f, 0x69, 0x3b, 0x22, 0x44, 0x7b, 0x14, 0x88,
+	0x18, 0xe1, 0xdd, 0x11, 0x79, 0x00, 0xa3, 0x38, 0x17, 0x15, 0x0a, 0x83, 0xa0, 0x94, 0xbd, 0x0f,
+	0x60, 0x9c, 0xa1, 0x58, 0x70, 0x91, 0xa2, 0x30, 0x05, 0xeb, 0x27, 0x0b, 0x85, 0x4e, 0x44, 0x51,
+	0x95, 0xa0, 0x29, 0x71, 0x1c, 0x58, 0xc1, 0x68, 0x57, 0x79, 0x3a, 0x9f, 0x8e, 0x9c, 0x56, 0x0b,
+	0x8d, 0xb8, 0x8f, 0xaf, 0x8d, 0x3b, 0x6c, 0x88, 0xfb, 0x64, 0x63, 0xdc, 0x3f, 0xef, 0xc2, 0xb6,
+	0xc6, 0xfd, 0x09, 0x8f, 0xf2, 0x14, 0x99, 0x6a, 0x86, 0x5e, 0x63, 0xe5, 0x9c, 0x1c, 0xfa, 0xa5,
+	0x5c, 0xd5, 0xdd, 0xab, 0xd7, 0x5d, 0x6b, 0x4b, 0xbf, 0xad, 0x2d, 0x83, 0x4d, 0x89, 0x3a, 0xbc,
+	0x36, 0x60, 0x5b, 0x1b, 0x02, 0x36, 0xda, 0x18, 0xb0, 0x4f, 0x7b, 0x96, 0xa8, 0x2f, 0x69, 0x8c,
+	0xed, 0x44, 0xbd, 0xd4, 0x1e, 0x05, 0x51, 0x8d, 0xf0, 0x16, 0xdf, 0x7a, 0x6b, 0x7c, 0xdb, 0x87,
+	0xc1, 0x2b, 0x1a, 0xab, 0x95, 0x9b, 0x16, 0x56, 0xf0, 0xee, 0xc1, 0x70, 0x85, 0x74, 0xb9, 0x52,
+	0x8e, 0x9f, 0x4e, 0xaa, 0x10, 0x1f, 0x36, 0x20, 0xbe, 0xd5, 0x86, 0xf8, 0x68, 0x1d, 0xf1, 0x0f,
+	0xc1, 0x93, 0x79, 0x96, 0x71, 0xa1, 0x64, 0x28, 0x95, 0x40, 0x92, 0x52, 0xb6, 0x74, 0x04, 0xbd,
+	0x53, 0x58, 0x9e, 0x17, 0x86, 0xc6, 0x06, 0xc1, 0xb5, 0x1b, 0x34, 0xd9, 0xb0, 0x41, 0xdb, 0x1b,
+	0x37, 0xe8, 0xbf, 0x5d, 0xb8, 0x65, 0x26, 0x09, 0xa3, 0xa9, 0x7d, 0x75, 0x63, 0x93, 0x3e, 0x80,
+	0x31, 0x29, 0xbc, 0x5c, 0xa3, 0x2a, 0xc5, 0xcd, 0x6d, 0xd6, 0x4d, 0x9e, 0x27, 0x9f, 0xb9, 0x39,
+	0xfe, 0x92, 0xd3, 0x08, 0xdb, 0x3f, 0x0f, 0xed, 0x51, 0x7e, 0x1e, 0xc6, 0xfd, 0x2b, 0x99, 0xe3,
+	0x37, 0x79, 0x98, 0xfc, 0xd5, 0x71, 0xd5, 0x0c, 0x93, 0x67, 0x5c, 0xb5, 0x20, 0xf6, 0x10, 0xc0,
+	0xcc, 0x10, 0x5d, 0x44, 0x01, 0xdb, 0xf8, 0xb2, 0x7c, 0xae, 0x8d, 0xac, 0xf7, 0x60, 0x98, 0x20,
+	0x5b, 0x96, 0x6c, 0x75, 0x52, 0x45, 0xcb, 0xc1, 0x26, 0xa7, 0xd5, 0x4d, 0xc0, 0xeb, 0x6f, 0x1d,
+	0xd8, 0xb1, 0x8b, 0x70, 0x4c, 0xc9, 0xaf, 0x04, 0xcf, 0xb3, 0x66, 0xc0, 0x1e, 0xc1, 0x20, 0xd5,
+	0x6e, 0xd3, 0xee, 0x61, 0xef, 0x68, 0xf2, 0x78, 0xbf, 0x0a, 0x7f, 0xc6, 0xb2, 0x5c, 0x99, 0x10,
+	0x81, 0x75, 0x79, 0x97, 0x0d, 0xaf, 0xa1, 0xe6, 0xfe, 0x97, 0xd7, 0xec, 0x7f, 0xea, 0xce, 0xd9,
+	0xa7, 0x3c, 0xba, 0x62, 0x28, 0x3d, 0x80, 0x51, 0x42, 0x14, 0x55, 0x79, 0x6c, 0xdb, 0xdc, 0x0b,
+	0x4a, 0x59, 0x0f, 0xac, 0x84, 0xb3, 0xa5, 0x35, 0xf6, 0x8c, 0xb1, 0x52, 0x78, 0xdf, 0x80, 0x49,
+	0x42, 0x2f, 0x31, 0xcc, 0x50, 0x50, 0x5e, 0xa4, 0x02, 0x5a, 0x35, 0x33, 0x9a, 0x1b, 0xbd, 0x00,
+	0xfe, 0xa7, 0x03, 0xf7, 0x31, 0xa6, 0xca, 0xc5, 0x7a, 0x4a, 0x2f, 0xf1, 0x6a, 0xac, 0xde, 0x5e,
+	0xb3, 0xbb, 0x6b, 0x6b, 0xb6, 0xf7, 0x08, 0xee, 0x50, 0x96, 0x50, 0x86, 0xf5, 0xd4, 0xed, 0x64,
+	0xd9, 0xb5, 0x86, 0x2a, 0xf3, 0x3a, 0xec, 0xfd, 0x36, 0xd8, 0x07, 0xeb, 0xb0, 0x9f, 0xac, 0xd5,
+	0x3c, 0x34, 0x35, 0x1f, 0xd4, 0xf9, 0xa6, 0x5f, 0xf5, 0x6b, 0x7c, 0x3d, 0xe7, 0xfa, 0x07, 0xc9,
+	0x97, 0x14, 0xff, 0xf7, 0x0e, 0xdc, 0x97, 0x8a, 0x67, 0xff, 0xaf, 0xe2, 0xd7, 0x4b, 0xe8, 0x5f,
+	0xbf, 0x84, 0x7f, 0x17, 0x83, 0x1f, 0x59, 0x8e, 0x5f, 0x05, 0xbb, 0xcb, 0x8d, 0xbb, 0x5f, 0xdf,
+	0xb8, 0xa7, 0xb0, 0x45, 0xe2, 0x58, 0xa0, 0x94, 0x6e, 0x8a, 0x15, 0xa2, 0xf7, 0x2d, 0xb8, 0xb5,
+	0xe0, 0xb9, 0x90, 0x1f, 0xe7, 0x44, 0x94, 0x9c, 0x1d, 0x07, 0xdb, 0x95, 0xf2, 0x2c, 0xf6, 0xbe,
+	0x0b, 0xbb, 0x35, 0x27, 0xf5, 0x3a, 0x2b, 0x16, 0xfa, 0x9d, 0x4a, 0xfd, 0xe2, 0x75, 0xd6, 0x7c,
+	0xe6, 0x8e, 0xae, 0xfd, 0xe9, 0x8c, 0x37, 0xfc, 0x74, 0x60, 0xf3, 0xa9, 0xe8, 0xae, 0x07, 0x4e,
+	0x39, 0x53, 0x24, 0x6a, 0x59, 0xe1, 0xbf, 0x09, 0xdb, 0xd9, 0x8a, 0x33, 0x0c, 0x59, 0x9e, 0xce,
+	0x51, 0xb8, 0x53, 0x64, 0x62, 0x74, 0xcf, 0x8c, 0x4a, 0x93, 0x6a, 0x41, 0x85, 0x54, 0x21, 0x23,
+	0x69, 0x79, 0x5b, 0x60, 0x34, 0xcf, 0x48, 0x8a, 0xde, 0xd7, 0x61, 0x9c, 0x90, 0xc2, 0x6a, 0x1b,
+	0x31, 0xd2, 0x0a, 0x63, 0xd4, 0x87, 0x7a, 0x44, 0x44, 0x5c, 0x9c, 0x27, 0x46, 0xb8, 0xd1, 0xe7,
+	0xc9, 0x17, 0x1d, 0x18, 0x99, 0xdf, 0xe1, 0x3c, 0x49, 0x5a, 0x39, 0xfb, 0x71, 0x8e, 0xb2, 0xb6,
+	0x25, 0x96, 0xb2, 0xe6, 0x1f, 0x37, 0x2b, 0x8a, 0x9c, 0xf6, 0x0e, 0x7b, 0x9a, 0x7f, 0x4e, 0x6c,
+	0xac, 0xbb, 0x7f, 0xed, 0xba, 0x07, 0x1b, 0xd6, 0x3d, 0xdc, 0xb8, 0xee, 0x13, 0x7b, 0x8c, 0x9e,
+	0xae, 0x88, 0x3a, 0x89, 0xda, 0xa7, 0xcc, 0x3d, 0x18, 0x92, 0xa8, 0x56, 0xba, 0x93, 0xfc, 0xdf,
+	0xc3, 0xfe, 0x12, 0xd5, 0x6f, 0x25, 0x8a, 0x99, 0xe0, 0x0b, 0x9a, 0xa0, 0xb9, 0xcb, 0x90, 0x3a,
+	0x50, 0x2e, 0x51, 0x14, 0x81, 0x06, 0xc1, 0x50, 0x8b, 0x36, 0x10, 0x5f, 0x2c, 0x24, 0x2a, 0x37,
+	0xaa, 0x9c, 0xa4, 0x59, 0x93, 0xd0, 0x94, 0x2a, 0xb7, 0xb6, 0x58, 0xc1, 0xf7, 0x61, 0x6b, 0x89,
+	0xea, 0x97, 0x34, 0x31, 0xb3, 0x44, 0xc7, 0xaf, 0xa5, 0xa6, 0xc5, 0xb3, 0xd8, 0x27, 0xb0, 0x73,
+	0x41, 0xa3, 0x0b, 0x5d, 0xc5, 0x39, 0x1a, 0xf6, 0x36, 0x56, 0x51, 0xcb, 0xaa, 0xfb, 0x56, 0x56,
+	0x0f, 0x01, 0x72, 0xa6, 0x68, 0x12, 0xc6, 0x44, 0xa1, 0x4b, 0x61, 0x6c, 0x34, 0x4f, 0x88, 0x42,
+	0xff, 0x14, 0x76, 0x73, 0x36, 0x27, 0xec, 0x7d, 0xde, 0xe1, 0xff, 0xa5, 0x03, 0x9e, 0x40, 0xa9,
+	0x04, 0x8d, 0xd4, 0x7b, 0x25, 0xfb, 0x53, 0x98, 0x64, 0x28, 0x52, 0x2a, 0xa5, 0x23, 0x9c, 0xee,
+	0xf7, 0xd7, 0xaa, 0x7e, 0xeb, 0xe0, 0xb3, 0xca, 0x21, 0xa8, 0x7b, 0xaf, 0x55, 0xda, 0x5f, 0xaf,
+	0xf4, 0xb3, 0x1e, 0xdc, 0xc9, 0x04, 0x4f, 0xb9, 0xc2, 0xf7, 0xca, 0xf1, 0x3b, 0xb0, 0x1b, 0x11,
+	0x16, 0x46, 0x2b, 0xc2, 0x34, 0x7b, 0xd9, 0x82, 0xbb, 0x2d, 0xea, 0x56, 0x64, 0x60, 0x64, 0x4b,
+	0x3c, 0x63, 0x0b, 0xae, 0x8f, 0x27, 0xed, 0x97, 0x71, 0xa9, 0x0a, 0xae, 0x4b, 0xf7, 0x6d, 0xe8,
+	0x00, 0x33, 0x2e, 0x8b, 0x55, 0x40, 0x16, 0xbe, 0x7a, 0x3d, 0xa8, 0x7c, 0x07, 0xa5, 0xef, 0x2f,
+	0xaa, 0xb5, 0x41, 0x7a, 0xc7, 0xb0, 0xa7, 0x7d, 0x63, 0x4c, 0x50, 0x61, 0xe5, 0x6d, 0xa7, 0x8d,
+	0x0e, 0xf3, 0xc4, 0x58, 0x4a, 0xff, 0x23, 0xb8, 0xad, 0xfd, 0x29, 0xbb, 0xa4, 0x0a, 0x43, 0x5d,
+	0x84, 0x34, 0x83, 0x66, 0x14, 0xec, 0x44, 0x84, 0x9d, 0x19, 0xb5, 0x66, 0xb9, 0xf4, 0x3e, 0x82,
+	0x7d, 0xed, 0x59, 0x74, 0x32, 0x4c, 0x0d, 0x44, 0xd2, 0x1d, 0x01, 0x5e, 0x44, 0x58, 0xe0, 0x4c,
+	0x16, 0xbc, 0x32, 0x76, 0x46, 0x59, 0x95, 0xc8, 0xb8, 0x8c, 0x3d, 0xa3, 0x6c, 0x3d, 0x6b, 0xd7,
+	0x80, 0x32, 0x34, 0x94, 0x59, 0xcf, 0xac, 0xc5, 0x45, 0xf6, 0xff, 0x00, 0x9e, 0x44, 0xb5, 0xd6,
+	0xef, 0xe6, 0x6e, 0xad, 0x11, 0xa7, 0x7b, 0x1d, 0xe2, 0xf8, 0x3f, 0x80, 0x7d, 0xfc, 0x24, 0xe3,
+	0xc2, 0xbc, 0xce, 0x02, 0xf2, 0x94, 0xb2, 0x8b, 0xc6, 0xb7, 0xf9, 0x81, 0x5e, 0x75, 0x6d, 0x72,
+	0xed, 0xf7, 0x9b, 0xdf, 0xab, 0xdf, 0x6f, 0x4e, 0x1e, 0xef, 0xad, 0xad, 0xe8, 0xfa, 0xeb, 0x77,
+	0x97, 0x9e, 0xfe, 0x23, 0xd8, 0xb5, 0x2d, 0xbd, 0x3a, 0xac, 0xff, 0xb3, 0xf2, 0xfd, 0x2f, 0xcc,
+	0x8e, 0xd0, 0xf6, 0x2b, 0xd4, 0xae, 0x14, 0xdd, 0xda, 0x4a, 0xe1, 0xff, 0xa6, 0xc4, 0xf6, 0x09,
+	0xca, 0x48, 0xd0, 0xac, 0x7d, 0x40, 0x1e, 0xc2, 0x24, 0xae, 0xfc, 0x8a, 0x33, 0xb5, 0xa6, 0xf2,
+	0xff, 0x08, 0x3b, 0x19, 0x75, 0x23, 0xe4, 0x8a, 0xcb, 0xe8, 0x2b, 0x76, 0xba, 0xeb, 0xff, 0x4e,
+	0xf1, 0xbf, 0x0f, 0xb7, 0x73, 0xb6, 0xe1, 0xeb, 0xfd, 0x6f, 0xc3, 0x38, 0x41, 0x72, 0x69, 0x40,
+	0x6e, 0xf6, 0xb2, 0xb3, 0xb9, 0xdd, 0xe7, 0x23, 0xb8, 0xeb, 0x7c, 0x4e, 0xe2, 0x94, 0x32, 0x2a,
+	0x95, 0x20, 0x8a, 0x8b, 0x66, 0x8e, 0xfa, 0xc7, 0xb0, 0xe7, 0x9e, 0x70, 0x24, 0x3f, 0xe5, 0x79,
+	0xcb, 0x7d, 0xa4, 0x7f, 0x02, 0xb7, 0xde, 0xf2, 0x7f, 0x87, 0xc1, 0xfc, 0x12, 0xee, 0xb8, 0x4e,
+	0x3f, 0x57, 0x34, 0xba, 0x40, 0xf1, 0x1c, 0x5b, 0xb6, 0xa7, 0x23, 0xb8, 0x2d, 0xad, 0x5b, 0x28,
+	0xd1, 0xad, 0x40, 0xb6, 0xdb, 0x3b, 0xb2, 0x7c, 0x5c, 0x2f, 0x42, 0xfa, 0x8b, 0xa9, 0xc8, 0xba,
+	0x41, 0xe8, 0x9f, 0x6f, 0xff, 0xe3, 0xcd, 0x41, 0xe7, 0x9f, 0x6f, 0x0e, 0x3a, 0xff, 0x7a, 0x73,
+	0xd0, 0x99, 0x0f, 0xcd, 0x37, 0xf0, 0xa3, 0xff, 0x05, 0x00, 0x00, 0xff, 0xff, 0x61, 0x23, 0x69,
+	0x23, 0x3a, 0x1a, 0x00, 0x00,
 }

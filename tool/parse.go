@@ -24,7 +24,7 @@ func H3HTMLCallback(e *colly.HTMLElement) {
 		isMehtod bool
 	)
 	switch e.Text {
-	case "Available types", "Games", "Stickers", "Payments", "Telegram Passport", "Available methods":
+	case "Available types", "Games", "Stickers", "Payments", "Telegram Passport", "Available methods", "Getting updates", "Updating messages", "Inline mode":
 		se := e.DOM.Next()
 	FORLOOP:
 		for len(se.Nodes) > 0 {
@@ -37,13 +37,13 @@ func H3HTMLCallback(e *colly.HTMLElement) {
 				p.AddMessageComment(isMehtod, strings.TrimLeft(se.First().Text(), "\n"))
 			case atom.H4:
 				switch se.Text() {
-				case "Inline mode objects", "Sending files", "Inline mode methods", "Formatting options":
+				case "Inline mode objects", "Sending files", "Inline mode methods", "Formatting options", "InputMedia":
 					// don`t parse
 				default:
 					isMehtod = p.IsMethod(se.Text())
 					p.AddMessage(isMehtod, se.Text())
 				}
-			case atom.Table:
+			case atom.Table, atom.Ul: // Ul: InputMedia 记录文字
 				se.Each(func(i int, selection *goquery.Selection) {
 					if selection.Nodes[0].FirstChild != nil {
 						for c := selection.Nodes[0].FirstChild; c != nil; c = c.NextSibling {
@@ -64,12 +64,16 @@ func H3HTMLCallback(e *colly.HTMLElement) {
 													switch c.DataAtom {
 													case 0:
 														val += c.Data
-													case atom.Em:
+													case atom.A, atom.Code, atom.Em, atom.Strong:
 														val += c.FirstChild.Data
-													case atom.A:
-														val += c.FirstChild.Data
+													case atom.Br: // 换行不需要
+
 													default:
-														log.Println("00000000", c.Data, c.DataAtom.String())
+														if isMehtod {
+															log.Println("00000000", index, isMehtod, p.curRPC.Name, c.Data, c.DataAtom.String())
+														} else {
+															log.Println("00000000", index, isMehtod, p.curMessage.Name, len(p.curMessage.ProtoFieldList), p.curMessage.ProtoFieldList[len(p.curMessage.ProtoFieldList)-1], c.Data, c.DataAtom.String())
+														}
 													}
 												}
 												p.AddFieldByIndex(isMehtod, index, val)
@@ -84,6 +88,16 @@ func H3HTMLCallback(e *colly.HTMLElement) {
 										log.Println("-----", c.DataAtom.String())
 									}
 								}
+							case atom.Li:
+								switch c.FirstChild.DataAtom {
+								case atom.A, atom.Strong:
+									p.AddMessageComment(isMehtod, c.FirstChild.FirstChild.Data)
+								case 0:
+
+								default:
+									log.Println("-------=========", c.FirstChild.DataAtom.String(), isMehtod)
+								}
+
 							case atom.Atom(0):
 							default:
 								log.Printf("----------- %T", c.DataAtom)
@@ -91,8 +105,17 @@ func H3HTMLCallback(e *colly.HTMLElement) {
 						}
 					}
 				})
+			case atom.H6, atom.Pre:
+				// H6: Markdown style 忽略
+			case atom.Div:
+				// LoginUrl 图片 忽略
+
 			default:
-				log.Printf("----- %d %#v", len(se.Nodes), se.Nodes[0])
+				if isMehtod {
+					log.Printf("-----%s %v %d %#v", se.Nodes[0].DataAtom.String(), p.curRPC.Name, len(se.Nodes), se.Nodes[0])
+				} else {
+					log.Println("-----", se.Nodes[0].DataAtom.String())
+				}
 			}
 			se = se.Next()
 		}
@@ -213,7 +236,9 @@ func genMethodFile(outFilePath string, ps []*ProtoFile) {
 					}
 					testG.P("log.Println(assertions.ShouldBeNil(err))")
 					if protoRPC.RPCReturned != "" {
-						testG.P("log.Printf(\"%#v\", rst)")
+						testG.P("if nil == err {").InFunc("}", func() {
+							testG.P("log.Printf(\"%#v\", rst)")
+						})
 					}
 				}).P()
 			}
@@ -243,6 +268,9 @@ func genTestGoParam(g *generate.Generate, fieldList []*ProtoField) {
 func genProtoMessage(outFilePath string, ps []*ProtoFile) {
 	g := getTGBotApiGenerate("", "tgbotapi.proto")
 	for _, p := range ps {
+		for _, comment := range p.Comment {
+			g.P("// ", comment)
+		}
 		for _, protoMessage := range p.ProtoMessageList {
 			genFieldList(g, protoMessage)
 		}
@@ -255,7 +283,24 @@ message ReplyMarkup {
 		ReplyKeyboardRemove  ReplyKeyboardRemove  = 3;
 		ForceReply			 ForceReply			  = 4;
 	}
-}`
+}
+
+// This object represents the content of a media message to be sent. It should be one of
+// InputMediaAnimation
+// InputMediaDocument
+// InputMediaAudio
+// InputMediaPhoto
+// InputMediaVideo
+message InputMedia {
+	oneof InputMedia {
+		InputMediaAnimation InputMediaAnimation = 1;
+		InputMediaDocument  InputMediaDocument  = 2;
+		InputMediaAudio     InputMediaAudio     = 3;
+		InputMediaPhoto     InputMediaPhoto     = 4;
+		InputMediaVideo     InputMediaVideo     = 5;
+	}
+}
+`
 	g.P(extra)
 	g.WriteFile(outFilePath)
 }

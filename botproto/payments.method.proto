@@ -29,6 +29,6 @@ message sendInvoice {
 	bool                  is_flexible                   = 20; // Optional Pass True, if the final price depends on the shipping method
 	bool                  disable_notification          = 21; // Optional Sends the message silently. Users will receive a notification with no sound.
 	int32                 reply_to_message_id           = 22; // Optional If the message is a reply, ID of the original message
-	InlineKeyboardMarkup  reply_markup                  = 23; // Optional A JSON-serialized object for an inline keyboard. If empty, one 'Pay ' button will be shown. If not empty, the first button must be a Pay button.
+	InlineKeyboardMarkup  reply_markup                  = 23; // Optional A JSON-serialized object for an inline keyboard. If empty, one 'Pay total price' button will be shown. If not empty, the first button must be a Pay button.
 }
 

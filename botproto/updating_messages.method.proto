@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package botproto;
+
+import "tgbotapi.proto";
+
+// return 
+// Use this method to edit text and game messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
+message editMessageText {
+	string               chat_id                  = 1; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+	int32                message_id               = 2; // Optional Required if inline_message_id is not specified. Identifier of the message to edit
+	string               inline_message_id        = 3; // Optional Required if chat_id and message_id are not specified. Identifier of the inline message
+	string               text                     = 4; // Yes New text of the message
+	string               parse_mode               = 5; // Optional Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
+	bool                 disable_web_page_preview = 6; // Optional Disables link previews for links in this message
+	InlineKeyboardMarkup reply_markup             = 7; // Optional A JSON-serialized object for an inline keyboard.
+}
+
+// return 
+// Use this method to edit captions of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
+message editMessageCaption {
+	string               chat_id           = 1; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+	int32                message_id        = 2; // Optional Required if inline_message_id is not specified. Identifier of the message to edit
+	string               inline_message_id = 3; // Optional Required if chat_id and message_id are not specified. Identifier of the inline message
+	string               caption           = 4; // Optional New caption of the message
+	string               parse_mode        = 5; // Optional Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup      = 6; // Optional A JSON-serialized object for an inline keyboard.
+}
+
+// return 
+// Use this method to edit animation, audio, document, photo, or video messages. If a message is a part of a message album, then it can be edited only to a photo or a video. Otherwise, message type can be changed arbitrarily. When inline message is edited, new file can't be uploaded. Use previously uploaded file via its file_id or specify a URL. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
+message editMessageMedia {
+	string               chat_id           = 1; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+	int32                message_id        = 2; // Optional Required if inline_message_id is not specified. Identifier of the message to edit
+	string               inline_message_id = 3; // Optional Required if chat_id and message_id are not specified. Identifier of the inline message
+	InputMedia           media             = 4; // Yes A JSON-serialized object for a new media content of the message
+	InlineKeyboardMarkup reply_markup      = 5; // Optional A JSON-serialized object for a new inline keyboard.
+}
+
+// return 
+// Use this method to edit only the reply markup of messages. On success, if edited message is sent by the bot, the edited Message is returned, otherwise True is returned.
+message editMessageReplyMarkup {
+	string               chat_id           = 1; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+	int32                message_id        = 2; // Optional Required if inline_message_id is not specified. Identifier of the message to edit
+	string               inline_message_id = 3; // Optional Required if chat_id and message_id are not specified. Identifier of the inline message
+	InlineKeyboardMarkup reply_markup      = 4; // Optional A JSON-serialized object for an inline keyboard.
+}
+
+// return 
+// Use this method to stop a poll which was sent by the bot. On success, the stopped Poll with the final results is returned.
+message stopPoll {
+	string               chat_id      = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+	int32                message_id   = 2; // Yes Identifier of the original message with the poll
+	InlineKeyboardMarkup reply_markup = 3; // Optional A JSON-serialized object for a new message inline keyboard.
+}
+
+// return True
+// Use this method to delete a message, including service messages, with the following limitations:- A message can only be deleted if it was sent less than 48 hours ago.- Bots can delete outgoing messages in private chats, groups, and supergroups.- Bots can delete incoming messages in private chats.- Bots granted can_post_messages permissions can delete outgoing messages in channels.- If the bot is an administrator of a group, it can delete any message there.- If the bot has can_delete_messages permission in a supergroup or a channel, it can delete any message there.Returns True on success.
+message deleteMessage {
+	string chat_id    = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+	int32  message_id = 2; // Yes Identifier of the message to delete
+}
+

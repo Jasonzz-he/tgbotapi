@@ -33,6 +33,8 @@ func TestBot_SendInvoice(t *testing.T) {
 		ReplyToMessageId:          0,     // int32
 		ReplyMarkup:               nil,   // InlineKeyboardMarkup
 	})
-	assertions.ShouldBeNil(err)
-	log.Printf("%#v", rst)
+	log.Println(assertions.ShouldBeNil(err))
+	if nil == err {
+		log.Printf("%#v", rst)
+	}
 }

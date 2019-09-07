@@ -18,7 +18,7 @@ message getMe {
 // To use this mode, pass HTML in the parse_mode field when using sendMessage. The following tags are currently supported:
 // Please note:
 message sendMessage {
-	int32       chat_id                  = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id                  = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string      text                     = 2; // Yes Text of the message to be sent
 	string      parse_mode               = 3; // Optional Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
 	bool        disable_web_page_preview = 4; // Optional Disables link previews for links in this message
@@ -30,16 +30,16 @@ message sendMessage {
 // return Message
 // Use this method to forward messages of any kind. On success, the sent Message is returned.
 message forwardMessage {
-	int32 chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
-	int32 from_chat_id         = 2; // Yes Unique identifier for the chat where the original message was sent (or channel username in the format )
-	bool  disable_notification = 3; // Optional Sends the message silently. Users will receive a notification with no sound.
-	int32 message_id           = 4; // Yes Message identifier in the chat specified in from_chat_id
+	string chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+	string from_chat_id         = 2; // Yes Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)
+	bool   disable_notification = 3; // Optional Sends the message silently. Users will receive a notification with no sound.
+	int32  message_id           = 4; // Yes Message identifier in the chat specified in from_chat_id
 }
 
 // return Message
 // Use this method to send photos. On success, the sent Message is returned.
 message sendPhoto {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string      photo                = 2; // Yes Photo to send. Pass a file_id as String to send a photo that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a photo from the Internet, or upload a new photo using multipart/form-data. More info on Sending Files »
 	string      caption              = 3; // Optional Photo caption (may also be used when resending photos by file_id), 0-1024 characters
 	string      parse_mode           = 4; // Optional Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
@@ -52,7 +52,7 @@ message sendPhoto {
 // Use this method to send audio files, if you want Telegram clients to display them in the music player. Your audio must be in the .mp3 format. On success, the sent Message is returned. Bots can currently send audio files of up to 50 MB in size, this limit may be changed in the future.
 // For sending voice messages, use the sendVoice method instead.
 message sendAudio {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string      audio                = 2; // Yes Audio file to send. Pass a file_id as String to send an audio file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an audio file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
 	string      caption              = 3; // Optional Audio caption, 0-1024 characters
 	string      parse_mode           = 4; // Optional Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
@@ -68,7 +68,7 @@ message sendAudio {
 // return Message
 // Use this method to send general files. On success, the sent Message is returned. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
 message sendDocument {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string      document             = 2; // Yes File to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
 	string      thumb                = 3; // Optional Thumbnail of the file sent; can be ignored if thumbnail generation for the file is supported server-side. The thumbnail should be in JPEG format and less than 200 kB in size. A thumbnail‘s width and height should not exceed 320. Ignored if the file is not uploaded using multipart/form-data. Thumbnails can’t be reused and can be only uploaded as a new file, so you can pass “attach://<file_attach_name>” if the thumbnail was uploaded using multipart/form-data under <file_attach_name>. More info on Sending Files »
 	string      caption              = 4; // Optional Document caption (may also be used when resending documents by file_id), 0-1024 characters
@@ -81,7 +81,7 @@ message sendDocument {
 // return Message
 // Use this method to send video files, Telegram clients support mp4 videos (other formats may be sent as Document). On success, the sent Message is returned. Bots can currently send video files of up to 50 MB in size, this limit may be changed in the future.
 message sendVideo {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string      video                = 2; // Yes Video to send. Pass a file_id as String to send a video that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a video from the Internet, or upload a new video using multipart/form-data. More info on Sending Files »
 	int32       duration             = 3; // Optional Duration of sent video in seconds
 	int32       width                = 4; // Optional Video width
@@ -98,7 +98,7 @@ message sendVideo {
 // return Message
 // Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound). On success, the sent Message is returned. Bots can currently send animation files of up to 50 MB in size, this limit may be changed in the future.
 message sendAnimation {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string      animation            = 2; // Yes Animation to send. Pass a file_id as String to send an animation that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get an animation from the Internet, or upload a new animation using multipart/form-data. More info on Sending Files »
 	int32       duration             = 3; // Optional Duration of sent animation in seconds
 	int32       width                = 4; // Optional Animation width
@@ -114,7 +114,7 @@ message sendAnimation {
 // return Message
 // Use this method to send audio files, if you want Telegram clients to display the file as a playable voice message. For this to work, your audio must be in an .ogg file encoded with OPUS (other formats may be sent as Audio or Document). On success, the sent Message is returned. Bots can currently send voice messages of up to 50 MB in size, this limit may be changed in the future.
 message sendVoice {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string      voice                = 2; // Yes Audio file to send. Pass a file_id as String to send a file that exists on the Telegram servers (recommended), pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
 	string      caption              = 3; // Optional Voice message caption, 0-1024 characters
 	string      parse_mode           = 4; // Optional Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
@@ -127,7 +127,7 @@ message sendVoice {
 // return Message
 // As of v.4.0, Telegram clients support rounded square mp4 videos of up to 1 minute long. Use this method to send video messages. On success, the sent Message is returned.
 message sendVideoNote {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string      video_note           = 2; // Yes Video note to send. Pass a file_id as String to send a video note that exists on the Telegram servers (recommended) or upload a new video using multipart/form-data. More info on Sending Files ». Sending video notes by a URL is currently unsupported
 	int32       duration             = 3; // Optional Duration of sent video in seconds
 	int32       length               = 4; // Optional Video width and height, i.e. diameter of the video message
@@ -140,7 +140,7 @@ message sendVideoNote {
 // return array of the sent Messages
 // Use this method to send a group of photos or videos as an album. On success, an array of the sent Messages is returned.
 message sendMediaGroup {
-	int32               chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string              chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	repeated InputMedia media                = 2; // Yes A JSON-serialized array describing photos and videos to be sent, must include 2–10 items
 	bool                disable_notification = 3; // Optional Sends the messages silently. Users will receive a notification with no sound.
 	int32               reply_to_message_id  = 4; // Optional If the messages are a reply, ID of the original message
@@ -149,7 +149,7 @@ message sendMediaGroup {
 // return Message
 // Use this method to send point on the map. On success, the sent Message is returned.
 message sendLocation {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	int64       latitude             = 2; // Yes Latitude of the location
 	int64       longitude            = 3; // Yes Longitude of the location
 	int32       live_period          = 4; // Optional Period in seconds for which the location will be updated (see Live Locations, should be between 60 and 86400.
@@ -161,7 +161,7 @@ message sendLocation {
 // return 
 // Use this method to edit live location messages. A location can be edited until its live_period expires or editing is explicitly disabled by a call to stopMessageLiveLocation. On success, if the edited message was sent by the bot, the edited Message is returned, otherwise True is returned.
 message editMessageLiveLocation {
-	int32                chat_id           = 1; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format )
+	string               chat_id           = 1; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	int32                message_id        = 2; // Optional Required if inline_message_id is not specified. Identifier of the message to edit
 	string               inline_message_id = 3; // Optional Required if chat_id and message_id are not specified. Identifier of the inline message
 	int64                latitude          = 4; // Yes Latitude of new location
@@ -172,7 +172,7 @@ message editMessageLiveLocation {
 // return 
 // Use this method to stop updating a live location message before live_period expires. On success, if the message was sent by the bot, the sent Message is returned, otherwise True is returned.
 message stopMessageLiveLocation {
-	int32                chat_id           = 1; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format )
+	string               chat_id           = 1; // Optional Required if inline_message_id is not specified. Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	int32                message_id        = 2; // Optional Required if inline_message_id is not specified. Identifier of the message with live location to stop
 	string               inline_message_id = 3; // Optional Required if chat_id and message_id are not specified. Identifier of the inline message
 	InlineKeyboardMarkup reply_markup      = 4; // Optional A JSON-serialized object for a new inline keyboard.
@@ -181,7 +181,7 @@ message stopMessageLiveLocation {
 // return Message
 // Use this method to send information about a venue. On success, the sent Message is returned.
 message sendVenue {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	int64       latitude             = 2; // Yes Latitude of the venue
 	int64       longitude            = 3; // Yes Longitude of the venue
 	string      title                = 4; // Yes Name of the venue
@@ -196,7 +196,7 @@ message sendVenue {
 // return Message
 // Use this method to send phone contacts. On success, the sent Message is returned.
 message sendContact {
-	int32       chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string      chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string      phone_number         = 2; // Yes Contact's phone number
 	string      first_name           = 3; // Yes Contact's first name
 	string      last_name            = 4; // Optional Contact's last name
@@ -209,7 +209,7 @@ message sendContact {
 // return Message
 // Use this method to send a native poll. A native poll can't be sent to a private chat. On success, the sent Message is returned.
 message sendPoll {
-	int32           chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format ). A native poll can't be sent to a private chat.
+	string          chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername). A native poll can't be sent to a private chat.
 	string          question             = 2; // Yes Poll question, 1-255 characters
 	repeated string options              = 3; // Yes List of answer options, 2-10 strings 1-100 characters each
 	bool            disable_notification = 4; // Optional Sends the message silently. Users will receive a notification with no sound.
@@ -223,7 +223,7 @@ message sendPoll {
 // 
 // We only recommend using this method when a response from the bot will take a noticeable amount of time to arrive.
 message sendChatAction {
-	int32  chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string action  = 2; // Yes Type of action to broadcast. Choose one, depending on what the user is about to receive: typing for text messages, upload_photo for photos, record_video or upload_video for videos, record_audio or upload_audio for audio files, upload_document for general files, find_location for location data, record_video_note or upload_video_note for video notes.
 }
 
@@ -247,22 +247,22 @@ message getFile {
 // Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group. Otherwise members may only be removed by the group's creator or by the member that added them.
 // 
 message kickChatMember {
-	int32 chat_id    = 1; // Yes Unique identifier for the target group or username of the target supergroup or channel (in the format )
-	int32 user_id    = 2; // Yes Unique identifier of the target user
-	int32 until_date = 3; // Optional Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever
+	string chat_id    = 1; // Yes Unique identifier for the target group or username of the target supergroup or channel (in the format @channelusername)
+	int32  user_id    = 2; // Yes Unique identifier of the target user
+	int32  until_date = 3; // Optional Date when the user will be unbanned, unix time. If user is banned for more than 366 days or less than 30 seconds from the current time they are considered to be banned forever
 }
 
 // return True
 // Use this method to unban a previously kicked user in a supergroup or channel. The user will not return to the group or channel automatically, but will be able to join via link, etc. The bot must be an administrator for this to work. Returns True on success.
 message unbanChatMember {
-	int32 chat_id = 1; // Yes Unique identifier for the target group or username of the target supergroup or channel (in the format )
-	int32 user_id = 2; // Yes Unique identifier of the target user
+	string chat_id = 1; // Yes Unique identifier for the target group or username of the target supergroup or channel (in the format @username)
+	int32  user_id = 2; // Yes Unique identifier of the target user
 }
 
 // return True
 // Use this method to restrict a user in a supergroup. The bot must be an administrator in the supergroup for this to work and must have the appropriate admin rights. Pass True for all permissions to lift restrictions from a user. Returns True on success.
 message restrictChatMember {
-	int32           chat_id     = 1; // Yes Unique identifier for the target chat or username of the target supergroup (in the format )
+	string          chat_id     = 1; // Yes Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
 	int32           user_id     = 2; // Yes Unique identifier of the target user
 	ChatPermissions permissions = 3; // Yes New user permissions
 	int32           until_date  = 4; // Optional Date when restrictions will be lifted for the user, unix time. If user is restricted for more than 366 days or less than 30 seconds from the current time, they are considered to be restricted forever
@@ -271,22 +271,22 @@ message restrictChatMember {
 // return True
 // Use this method to promote or demote a user in a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Pass False for all boolean parameters to demote a user. Returns True on success.
 message promoteChatMember {
-	int32 chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
-	int32 user_id              = 2; // Yes Unique identifier of the target user
-	bool  can_change_info      = 3; // Optional Pass True, if the administrator can change chat title, photo and other settings
-	bool  can_post_messages    = 4; // Optional Pass True, if the administrator can create channel posts, channels only
-	bool  can_edit_messages    = 5; // Optional Pass True, if the administrator can edit messages of other users and can pin messages, channels only
-	bool  can_delete_messages  = 6; // Optional Pass True, if the administrator can delete messages of other users
-	bool  can_invite_users     = 7; // Optional Pass True, if the administrator can invite new users to the chat
-	bool  can_restrict_members = 8; // Optional Pass True, if the administrator can restrict, ban or unban chat members
-	bool  can_pin_messages     = 9; // Optional Pass True, if the administrator can pin messages, supergroups only
-	bool  can_promote_members  = 10; // Optional Pass True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
+	string chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+	int32  user_id              = 2; // Yes Unique identifier of the target user
+	bool   can_change_info      = 3; // Optional Pass True, if the administrator can change chat title, photo and other settings
+	bool   can_post_messages    = 4; // Optional Pass True, if the administrator can create channel posts, channels only
+	bool   can_edit_messages    = 5; // Optional Pass True, if the administrator can edit messages of other users and can pin messages, channels only
+	bool   can_delete_messages  = 6; // Optional Pass True, if the administrator can delete messages of other users
+	bool   can_invite_users     = 7; // Optional Pass True, if the administrator can invite new users to the chat
+	bool   can_restrict_members = 8; // Optional Pass True, if the administrator can restrict, ban or unban chat members
+	bool   can_pin_messages     = 9; // Optional Pass True, if the administrator can pin messages, supergroups only
+	bool   can_promote_members  = 10; // Optional Pass True, if the administrator can add new administrators with a subset of his own privileges or demote administrators that he has promoted, directly or indirectly (promoted by administrators that were appointed by him)
 }
 
 // return True
 // Use this method to set default chat permissions for all members. The bot must be an administrator in the group or a supergroup for this to work and must have the can_restrict_members admin rights. Returns True on success.
 message setChatPermissions {
-	int32           chat_id     = 1; // Yes Unique identifier for the target chat or username of the target supergroup (in the format )
+	string          chat_id     = 1; // Yes Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
 	ChatPermissions permissions = 2; // Yes New default chat permissions
 }
 
@@ -295,7 +295,7 @@ message setChatPermissions {
 // Note: Each administrator in a chat generates their own invite links. Bots can't use invite links generated by other administrators. If you want your bot to work with invite links, it will need to generate its own link using exportChatInviteLink – after this the link will become available to the bot via the getChat method. If your bot needs to generate a new invite link replacing its previous one, use exportChatInviteLink again.
 // 
 message exportChatInviteLink {
-	int32 chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 }
 
 // return True
@@ -303,7 +303,7 @@ message exportChatInviteLink {
 // Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
 // 
 message setChatPhoto {
-	int32     chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string    chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	InputFile photo   = 2; // Yes New chat photo, uploaded using multipart/form-data
 }
 
@@ -312,7 +312,7 @@ message setChatPhoto {
 // Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
 // 
 message deleteChatPhoto {
-	int32 chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 }
 
 // return True
@@ -320,72 +320,72 @@ message deleteChatPhoto {
 // Note: In regular groups (non-supergroups), this method will only work if the ‘All Members Are Admins’ setting is off in the target group.
 // 
 message setChatTitle {
-	int32  chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string title   = 2; // Yes New chat title, 1-255 characters
 }
 
 // return True
 // Use this method to change the description of a group, a supergroup or a channel. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Returns True on success.
 message setChatDescription {
-	int32  chat_id     = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string chat_id     = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 	string description = 2; // Optional New chat description, 0-255 characters
 }
 
 // return True
 // Use this method to pin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success.
 message pinChatMessage {
-	int32 chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
-	int32 message_id           = 2; // Yes Identifier of a message to pin
-	bool  disable_notification = 3; // Optional Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels.
+	string chat_id              = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
+	int32  message_id           = 2; // Yes Identifier of a message to pin
+	bool   disable_notification = 3; // Optional Pass True, if it is not necessary to send a notification to all chat members about the new pinned message. Notifications are always disabled in channels.
 }
 
 // return True
 // Use this method to unpin a message in a group, a supergroup, or a channel. The bot must be an administrator in the chat for this to work and must have the ‘can_pin_messages’ admin right in the supergroup or ‘can_edit_messages’ admin right in the channel. Returns True on success.
 message unpinChatMessage {
-	int32 chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target channel (in the format @channelusername)
 }
 
 // return True
 // Use this method for your bot to leave a group, supergroup or channel. Returns True on success.
 message leaveChat {
-	int32 chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
 }
 
 // return Chat
 // Use this method to get up to date information about the chat (current name of the user for one-on-one conversations, current username of a user, group or channel, etc.). Returns a Chat object on success.
 message getChat {
-	int32 chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
 }
 
 // return Array of ChatMember
 // Use this method to get a list of administrators in a chat. On success, returns an Array of ChatMember objects that contains information about all chat administrators except other bots. If the chat is a group or a supergroup and no administrators were appointed, only the creator will be returned.
 message getChatAdministrators {
-	int32 chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
 }
 
 // return Int
 // Use this method to get the number of members in a chat. Returns Int on success.
 message getChatMembersCount {
-	int32 chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
 }
 
 // return ChatMember
 // Use this method to get information about a member of a chat. Returns a ChatMember object on success.
 message getChatMember {
-	int32 chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format )
-	int32 user_id = 2; // Yes Unique identifier of the target user
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup or channel (in the format @channelusername)
+	int32  user_id = 2; // Yes Unique identifier of the target user
 }
 
 // return True
 // Use this method to set a new group sticker set for a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
 message setChatStickerSet {
-	int32  chat_id          = 1; // Yes Unique identifier for the target chat or username of the target supergroup (in the format )
+	string chat_id          = 1; // Yes Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
 	string sticker_set_name = 2; // Yes Name of the sticker set to be set as the group sticker set
 }
 
 // return True
 // Use this method to delete a group sticker set from a supergroup. The bot must be an administrator in the chat for this to work and must have the appropriate admin rights. Use the field can_set_sticker_set optionally returned in getChat requests to check if the bot can use this method. Returns True on success.
 message deleteChatStickerSet {
-	int32 chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup (in the format )
+	string chat_id = 1; // Yes Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)
 }
 

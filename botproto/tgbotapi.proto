@@ -2,6 +2,38 @@ syntax = "proto3";
 
 package botproto;
 
+// There are two mutually exclusive ways of receiving updates for your bot — the getUpdates method on one hand and Webhooks on the other. Incoming updates are stored on the server until the bot receives them either way, but they will not be kept longer than 24 hours.
+// Regardless of which option you choose, you will receive JSON-serialized Update objects as a result.
+// This object represents an incoming update.At most one of the optional parameters can be present in any given update.
+message Update {
+	int32              update_id            = 1; //  The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially. This ID becomes especially handy if you’re using Webhooks, since it allows you to ignore repeated updates or to restore the correct update sequence, should they get out of order. If there are no new updates for at least a week, then identifier of the next update will be chosen randomly instead of sequentially.
+	Message            message              = 2; //  Optional. New incoming message of any kind — text, photo, sticker, etc.
+	Message            edited_message       = 3; //  Optional. New version of a message that is known to the bot and was edited
+	Message            channel_post         = 4; //  Optional. New incoming channel post of any kind — text, photo, sticker, etc.
+	Message            edited_channel_post  = 5; //  Optional. New version of a channel post that is known to the bot and was edited
+	InlineQuery        inline_query         = 6; //  Optional. New incoming inline query
+	ChosenInlineResult chosen_inline_result = 7; //  Optional. The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting for details on how to enable these updates for your bot.
+	CallbackQuery      callback_query       = 8; //  Optional. New incoming callback query
+	ShippingQuery      shipping_query       = 9; //  Optional. New incoming shipping query. Only for invoices with flexible price
+	PreCheckoutQuery   pre_checkout_query   = 10; //  Optional. New incoming pre-checkout query. Contains full information about checkout
+	Poll               poll                 = 11; //  Optional. New poll state. Bots receive only updates about stopped polls and polls, which are sent by the bot
+}
+
+// Contains information about the current status of a webhook.
+message WebhookInfo {
+	string          url                    = 1; //  Webhook URL, may be empty if webhook is not set up
+	bool            has_custom_certificate = 2; //  True, if a custom certificate was provided for webhook certificate checks
+	int32           pending_update_count   = 3; //  Number of updates awaiting delivery
+	int32           last_error_date        = 4; //  Optional. Unix time for the most recent error that happened when trying to deliver an update via webhook
+	string          last_error_message     = 5; //  Optional. Error message in human-readable format for the most recent error that happened when trying to deliver an update via webhook
+	int32           max_connections        = 6; //  Optional. Maximum allowed number of simultaneous HTTPS connections to the webhook for update delivery
+	repeated string allowed_updates        = 7; //  Optional. A list of update types the bot is subscribed to. Defaults to all update types
+}
+
+// All types used in the Bot API responses are represented as JSON-objects.
+// It is safe to use 32-bit signed integers for storing all Integer fields unless otherwise noted.
+// Optional fields may be not returned when irrelevant.
+
 // This object represents a Telegram user or bot.
 message User {
 	int32  id            = 1; //  Unique identifier for this user or bot
@@ -77,12 +109,12 @@ message Message {
 	SuccessfulPayment      successful_payment      = 44; //  Optional. Message is a service message about a successful payment, information about the payment. More about payments »
 	string                 connected_website       = 45; //  Optional. The domain name of the website on which the user has logged in. More about Telegram Login »
 	PassportData           passport_data           = 46; //  Optional. Telegram Passport data
-	InlineKeyboardMarkup   reply_markup            = 47; //  Optional. Inline keyboard attached to the message.  buttons are represented as ordinary  buttons.
+	InlineKeyboardMarkup   reply_markup            = 47; //  Optional. Inline keyboard attached to the message. login_url buttons are represented as ordinary url buttons.
 }
 
 // This object represents one special entity in a text message. For example, hashtags, usernames, URLs, etc.
 message MessageEntity {
-	string type   = 1; //  Type of the entity. Can be mention (), hashtag, cashtag, bot_command, url, email, phone_number, bold (bold text), italic (italic text), code (monowidth string), pre (monowidth block), text_link (for clickable text URLs), text_mention (for users without usernames)
+	string type   = 1; //  Type of the entity. Can be mention (@username), hashtag, cashtag, bot_command, url, email, phone_number, bold (bold text), italic (italic text), code (monowidth string), pre (monowidth block), text_link (for clickable text URLs), text_mention (for users without usernames)
 	int32  offset = 2; //  Offset in UTF-16 code units to the start of the entity
 	int32  length = 3; //  Length of the entity in UTF-16 code units
 	string url    = 4; //  Optional. For “text_link” only, url that will be opened after user taps on the text
@@ -207,7 +239,7 @@ message UserProfilePhotos {
 message File {
 	string file_id   = 1; //  Identifier for this file
 	int32  file_size = 2; //  Optional. File size, if known
-	string file_path = 3; //  Optional. File path. Use  to get the file.
+	string file_path = 3; //  Optional. File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.
 }
 
 // This object represents a custom keyboard with reply options (see Introduction to bots for details and examples).
@@ -244,10 +276,10 @@ message InlineKeyboardButton {
 	string       url                              = 2; //  Optional. HTTP or tg:// url to be opened when button is pressed
 	LoginUrl     login_url                        = 3; //  Optional. An HTTP URL used to automatically authorize the user. Can be used as a replacement for the Telegram Login Widget.
 	string       callback_data                    = 4; //  Optional. Data to be sent in a callback query to the bot when button is pressed, 1-64 bytes
-	string       switch_inline_query              = 5; //  Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot‘s username and the specified inline query in the input field. Can be empty, in which case just the bot’s username will be inserted. This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with em actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
+	string       switch_inline_query              = 5; //  Optional. If set, pressing the button will prompt the user to select one of their chats, open that chat and insert the bot‘s username and the specified inline query in the input field. Can be empty, in which case just the bot’s username will be inserted.Note: This offers an easy way for users to start using your bot in inline mode when they are currently in a private chat with it. Especially useful when combined with em actions – in this case the user will be automatically returned to the chat they switched from, skipping the chat selection screen.
 	string       switch_inline_query_current_chat = 6; //  Optional. If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat's input field. Can be empty, in which case only the bot’s username will be inserted.This offers a quick way for the user to open your bot in inline mode in the same chat – good for selecting something from multiple options.
-	CallbackGame callback_game                    = 7; //  Optional. Description of the game that will be launched when the user presses the button. This type of button  always be the first button in the first row.
-	bool         pay                              = 8; //  Optional. Specify True, to send a Pay button. This type of button  always be the first button in the first row.
+	CallbackGame callback_game                    = 7; //  Optional. Description of the game that will be launched when the user presses the button.NOTE: This type of button must always be the first button in the first row.
+	bool         pay                              = 8; //  Optional. Specify True, to send a Pay button.NOTE: This type of button must always be the first button in the first row.
 }
 
 // This object represents a parameter of the inline keyboard button used to automatically authorize a user. Serves as a great replacement for the Telegram Login Widget when the user is coming from Telegram. All the user needs to do is tap/click a button and confirm that they want to log in:
@@ -255,7 +287,7 @@ message InlineKeyboardButton {
 // Sample bot: @discussbot
 // 
 message LoginUrl {
-	string url                  = 1; //  An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data. You  always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization.
+	string url                  = 1; //  An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data.NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization.
 	string forward_text         = 2; //  Optional. New text of the button in forwarded messages.
 	string bot_username         = 3; //  Optional. Username of a bot, which will be used for user authorization. See Setting up a bot for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot for more details.
 	bool   request_write_access = 4; //  Optional. Pass True to request the permission for your bot to send messages to the user.
@@ -328,13 +360,15 @@ message ChatPermissions {
 }
 
 // Contains information about why a request was unsuccessful.
+// This object represents the content of a media message to be sent. It should be one of
+// InputMediaAnimation
+// InputMediaDocument
+// InputMediaAudio
+// InputMediaPhoto
+// InputMediaVideo
 message ResponseParameters {
 	int32 migrate_to_chat_id = 1; //  Optional. The group has been migrated to a supergroup with the specified identifier. This number may be greater than 32 bits and some programming languages may have difficulty/silent defects in interpreting it. But it is smaller than 52 bits, so a signed 64 bit integer or double-precision float type are safe for storing this identifier.
 	int32 retry_after        = 2; //  Optional. In case of exceeding flood control, the number of seconds left to wait before the request can be repeated
-}
-
-// This object represents the content of a media message to be sent. It should be one of
-message InputMedia {
 }
 
 // Represents a photo to be sent.
@@ -394,10 +428,14 @@ message InputMediaDocument {
 // This object represents the contents of a file to be uploaded. Must be posted using multipart/form-data in the usual way that files are uploaded via the browser.
 //  There are three ways to send files (photos, stickers, audio, media, etc.):
 // Sending by file_id
+// file_id
+// file_id
 // Sending by URL
 // Objects and methods used in the inline mode are described in the Inline mode section.
 message InputFile {
 }
+
+// All methods in the Bot API are case-insensitive. We support GET and POST HTTP methods. Use either URL query string or application/json or application/x-www-form-urlencoded or multipart/form-data for passing parameters in Bot API requests.On successful call, a JSON-object containing the result will be returned.
 
 // Use this method to send answers to callback queries sent from inline keyboards. The answer will be displayed to the user as a notification at the top of the chat screen or as an alert. On success, True is returned.
 // Alternatively, the user can be redirected to the specified Game URL. For this option to work, you must first create a game for your bot via @Botfather and accept the terms. Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
@@ -407,10 +445,13 @@ message answerCallbackQuery {
 	string callback_query_id = 1; //  Unique identifier for the query to be answered
 	string text              = 2; //  Text of the notification. If not specified, nothing will be shown to the user, 0-200 characters
 	bool   show_alert        = 3; //  If true, an alert will be shown by the client instead of a notification at the top of the chat screen. Defaults to false.
-	string url               = 4; //  URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game – note that this will only work if the query comes from a em button.Otherwise, you may use links like  that open your bot with a parameter.
+	string url               = 4; //  URL that will be opened by the user's client. If you have created a Game and accepted the conditions via @Botfather, specify the URL that opens your game – note that this will only work if the query comes from a em button.Otherwise, you may use links like t.me/your_bot?start=XXXX that open your bot with a parameter.
 	int32  cache_time        = 5; //  The maximum amount of time in seconds that the result of the callback query may be cached client-side. Telegram apps will support caching starting in version 3.14. Defaults to 0.
 }
 
+// The following methods allow you to change an existing message in the message history instead of sending a new one with a result of an action. This is most useful for messages with inline keyboards using callback queries, but can also help reduce clutter in conversations with regular chat bots.
+// Please note, that it is currently only possible to edit messages without reply_markup or with inline keyboards.
+// The following methods and objects allow your bot to handle stickers and sticker sets.
 // This object represents a sticker.
 message Sticker {
 	string       file_id       = 1; //  Identifier for this file
@@ -445,11 +486,396 @@ message MaskPosition {
 message addStickerToSet {
 	int32        user_id       = 1; //  User identifier of sticker set owner
 	string       name          = 2; //  Sticker set name
-	string       png_sticker   = 3; //   image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
+	string       png_sticker   = 3; //  Png image with the sticker, must be up to 512 kilobytes in size, dimensions must not exceed 512px, and either width or height must be exactly 512px. Pass a file_id as a String to send a file that already exists on the Telegram servers, pass an HTTP URL as a String for Telegram to get a file from the Internet, or upload a new one using multipart/form-data. More info on Sending Files »
 	string       emojis        = 4; //  One or more emoji corresponding to the sticker
 	MaskPosition mask_position = 5; //  A JSON-serialized object for position where the mask should be placed on faces
 }
 
+// The following methods and objects allow your bot to work in inline mode.Please see our Introduction to Inline bots for more details.
+// To enable this option, send the /setinline command to @BotFather and provide the placeholder text that the user will see in the input field after typing your bot’s name.
+// This object represents an incoming inline query. When the user sends an empty query, your bot could return some default or trending results.
+message InlineQuery {
+	string   id       = 1; //  Unique identifier for this query
+	User     from     = 2; //  Sender
+	Location location = 3; //  Optional. Sender location, only for bots that request user location
+	string   query    = 4; //  Text of the query (up to 512 characters)
+	string   offset   = 5; //  Offset of the results to be returned, can be controlled by the bot
+}
+
+// Use this method to send answers to an inline query. On success, True is returned.No more than 50 results per query are allowed.
+message answerInlineQuery {
+	string                     inline_query_id     = 1; //  Unique identifier for the answered query
+	repeated InlineQueryResult results             = 2; //  A JSON-serialized array of results for the inline query
+	int32                      cache_time          = 3; //  The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.
+	bool                       is_personal         = 4; //  Pass True, if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
+	string                     next_offset         = 5; //  Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don‘t support pagination. Offset length can’t exceed 64 bytes.
+	string                     switch_pm_text      = 6; //  If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with the parameter switch_pm_parameter
+	string                     switch_pm_parameter = 7; //  Deep-linking parameter for the /start message sent to the bot when user presses the switch button. 1-64 characters, only A-Z, a-z, 0-9, _ and - are allowed.Example: An inline bot that sends YouTube videos can ask the user to connect the bot to their YouTube account to adapt search results accordingly. To do this, it displays a ‘Connect your YouTube account’ button above the results, or even before showing any. The user presses the button, switches to a private chat with the bot and, in doing so, passes a start parameter that instructs the bot to return an oauth link. Once done, the bot can offer a em button so that the user can easily return to the chat where they wanted to use the bot's inline capabilities.
+}
+
+// This object represents one result of an inline query. Telegram clients currently support results of the following 20 types:
+// InlineQueryResultCachedAudio
+// InlineQueryResultCachedDocument
+// InlineQueryResultCachedGif
+// InlineQueryResultCachedMpeg4Gif
+// InlineQueryResultCachedPhoto
+// InlineQueryResultCachedSticker
+// InlineQueryResultCachedVideo
+// InlineQueryResultCachedVoice
+// InlineQueryResultArticle
+// InlineQueryResultAudio
+// InlineQueryResultContact
+// InlineQueryResultGame
+// InlineQueryResultDocument
+// InlineQueryResultGif
+// InlineQueryResultLocation
+// InlineQueryResultMpeg4Gif
+// InlineQueryResultPhoto
+// InlineQueryResultVenue
+// InlineQueryResultVideo
+// InlineQueryResultVoice
+message InlineQueryResult {
+}
+
+// Represents a link to an article or web page.
+message InlineQueryResultArticle {
+	string               type                  = 1; //  Type of the result, must be article
+	string               id                    = 2; //  Unique identifier for this result, 1-64 Bytes
+	string               title                 = 3; //  Title of the result
+	InputMessageContent  input_message_content = 4; //  Content of the message to be sent
+	InlineKeyboardMarkup reply_markup          = 5; //  Optional. Inline keyboard attached to the message
+	string               url                   = 6; //  Optional. URL of the result
+	bool                 hide_url              = 7; //  Optional. Pass True, if you don't want the URL to be shown in the message
+	string               description           = 8; //  Optional. Short description of the result
+	string               thumb_url             = 9; //  Optional. Url of the thumbnail for the result
+	int32                thumb_width           = 10; //  Optional. Thumbnail width
+	int32                thumb_height          = 11; //  Optional. Thumbnail height
+}
+
+// Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
+message InlineQueryResultPhoto {
+	string               type                  = 1; //  Type of the result, must be photo
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               photo_url             = 3; //  A valid URL of the photo. Photo must be in jpeg format. Photo size must not exceed 5MB
+	string               thumb_url             = 4; //  URL of the thumbnail for the photo
+	int32                photo_width           = 5; //  Optional. Width of the photo
+	int32                photo_height          = 6; //  Optional. Height of the photo
+	string               title                 = 7; //  Optional. Title for the result
+	string               description           = 8; //  Optional. Short description of the result
+	string               caption               = 9; //  Optional. Caption of the photo to be sent, 0-1024 characters
+	string               parse_mode            = 10; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 11; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 12; //  Optional. Content of the message to be sent instead of the photo
+}
+
+// Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
+message InlineQueryResultGif {
+	string               type                  = 1; //  Type of the result, must be gif
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               gif_url               = 3; //  A valid URL for the GIF file. File size must not exceed 1MB
+	int32                gif_width             = 4; //  Optional. Width of the GIF
+	int32                gif_height            = 5; //  Optional. Height of the GIF
+	int32                gif_duration          = 6; //  Optional. Duration of the GIF
+	string               thumb_url             = 7; //  URL of the static thumbnail for the result (jpeg or gif)
+	string               title                 = 8; //  Optional. Title for the result
+	string               caption               = 9; //  Optional. Caption of the GIF file to be sent, 0-1024 characters
+	string               parse_mode            = 10; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 11; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 12; //  Optional. Content of the message to be sent instead of the GIF animation
+}
+
+// Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
+message InlineQueryResultMpeg4Gif {
+	string               type                  = 1; //  Type of the result, must be mpeg4_gif
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               mpeg4_url             = 3; //  A valid URL for the MP4 file. File size must not exceed 1MB
+	int32                mpeg4_width           = 4; //  Optional. Video width
+	int32                mpeg4_height          = 5; //  Optional. Video height
+	int32                mpeg4_duration        = 6; //  Optional. Video duration
+	string               thumb_url             = 7; //  URL of the static thumbnail (jpeg or gif) for the result
+	string               title                 = 8; //  Optional. Title for the result
+	string               caption               = 9; //  Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters
+	string               parse_mode            = 10; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 11; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 12; //  Optional. Content of the message to be sent instead of the video animation
+}
+
+// Represents a link to a page containing an embedded video player or a video file. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.
+// If an InlineQueryResultVideo message contains an embedded video (e.g., YouTube), you must replace its content using input_message_content.
+// 
+message InlineQueryResultVideo {
+	string               type                  = 1; //  Type of the result, must be video
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               video_url             = 3; //  A valid URL for the embedded video player or video file
+	string               mime_type             = 4; //  Mime type of the content of video url, “text/html” or “video/mp4”
+	string               thumb_url             = 5; //  URL of the thumbnail (jpeg only) for the video
+	string               title                 = 6; //  Title for the result
+	string               caption               = 7; //  Optional. Caption of the video to be sent, 0-1024 characters
+	string               parse_mode            = 8; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	int32                video_width           = 9; //  Optional. Video width
+	int32                video_height          = 10; //  Optional. Video height
+	int32                video_duration        = 11; //  Optional. Video duration in seconds
+	string               description           = 12; //  Optional. Short description of the result
+	InlineKeyboardMarkup reply_markup          = 13; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 14; //  Optional. Content of the message to be sent instead of the video. This field is required if InlineQueryResultVideo is used to send an HTML-page as a result (e.g., a YouTube video).
+}
+
+// Represents a link to an mp3 audio file. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message InlineQueryResultAudio {
+	string               type                  = 1; //  Type of the result, must be audio
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               audio_url             = 3; //  A valid URL for the audio file
+	string               title                 = 4; //  Title
+	string               caption               = 5; //  Optional. Caption, 0-1024 characters
+	string               parse_mode            = 6; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	string               performer             = 7; //  Optional. Performer
+	int32                audio_duration        = 8; //  Optional. Audio duration in seconds
+	InlineKeyboardMarkup reply_markup          = 9; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 10; //  Optional. Content of the message to be sent instead of the audio
+}
+
+// Represents a link to a voice recording in an .ogg container encoded with OPUS. By default, this voice recording will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the the voice message.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message InlineQueryResultVoice {
+	string               type                  = 1; //  Type of the result, must be voice
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               voice_url             = 3; //  A valid URL for the voice recording
+	string               title                 = 4; //  Recording title
+	string               caption               = 5; //  Optional. Caption, 0-1024 characters
+	string               parse_mode            = 6; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	int32                voice_duration        = 7; //  Optional. Recording duration in seconds
+	InlineKeyboardMarkup reply_markup          = 8; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 9; //  Optional. Content of the message to be sent instead of the voice recording
+}
+
+// Represents a link to a file. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file. Currently, only .PDF and .ZIP files can be sent using this method.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message InlineQueryResultDocument {
+	string               type                  = 1; //  Type of the result, must be document
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               title                 = 3; //  Title for the result
+	string               caption               = 4; //  Optional. Caption of the document to be sent, 0-1024 characters
+	string               parse_mode            = 5; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	string               document_url          = 6; //  A valid URL for the file
+	string               mime_type             = 7; //  Mime type of the content of the file, either “application/pdf” or “application/zip”
+	string               description           = 8; //  Optional. Short description of the result
+	InlineKeyboardMarkup reply_markup          = 9; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 10; //  Optional. Content of the message to be sent instead of the file
+	string               thumb_url             = 11; //  Optional. URL of the thumbnail (jpeg only) for the file
+	int32                thumb_width           = 12; //  Optional. Thumbnail width
+	int32                thumb_height          = 13; //  Optional. Thumbnail height
+}
+
+// Represents a location on a map. By default, the location will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the location.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message InlineQueryResultLocation {
+	string               type                  = 1; //  Type of the result, must be location
+	string               id                    = 2; //  Unique identifier for this result, 1-64 Bytes
+	int64                latitude              = 3; //  Location latitude in degrees
+	int64                longitude             = 4; //  Location longitude in degrees
+	string               title                 = 5; //  Location title
+	int32                live_period           = 6; //  Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+	InlineKeyboardMarkup reply_markup          = 7; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 8; //  Optional. Content of the message to be sent instead of the location
+	string               thumb_url             = 9; //  Optional. Url of the thumbnail for the result
+	int32                thumb_width           = 10; //  Optional. Thumbnail width
+	int32                thumb_height          = 11; //  Optional. Thumbnail height
+}
+
+// Represents a venue. By default, the venue will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the venue.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message InlineQueryResultVenue {
+	string               type                  = 1; //  Type of the result, must be venue
+	string               id                    = 2; //  Unique identifier for this result, 1-64 Bytes
+	int64                latitude              = 3; //  Latitude of the venue location in degrees
+	int64                longitude             = 4; //  Longitude of the venue location in degrees
+	string               title                 = 5; //  Title of the venue
+	string               address               = 6; //  Address of the venue
+	string               foursquare_id         = 7; //  Optional. Foursquare identifier of the venue if known
+	string               foursquare_type       = 8; //  Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+	InlineKeyboardMarkup reply_markup          = 9; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 10; //  Optional. Content of the message to be sent instead of the venue
+	string               thumb_url             = 11; //  Optional. Url of the thumbnail for the result
+	int32                thumb_width           = 12; //  Optional. Thumbnail width
+	int32                thumb_height          = 13; //  Optional. Thumbnail height
+}
+
+// Represents a contact with a phone number. By default, this contact will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the contact.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message InlineQueryResultContact {
+	string               type                  = 1; //  Type of the result, must be contact
+	string               id                    = 2; //  Unique identifier for this result, 1-64 Bytes
+	string               phone_number          = 3; //  Contact's phone number
+	string               first_name            = 4; //  Contact's first name
+	string               last_name             = 5; //  Optional. Contact's last name
+	string               vcard                 = 6; //  Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes
+	InlineKeyboardMarkup reply_markup          = 7; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 8; //  Optional. Content of the message to be sent instead of the contact
+	string               thumb_url             = 9; //  Optional. Url of the thumbnail for the result
+	int32                thumb_width           = 10; //  Optional. Thumbnail width
+	int32                thumb_height          = 11; //  Optional. Thumbnail height
+}
+
+// Represents a Game.
+// Note: This will only work in Telegram versions released after October 1, 2016. Older clients will not display any inline results if a game result is among them.
+message InlineQueryResultGame {
+	string               type            = 1; //  Type of the result, must be game
+	string               id              = 2; //  Unique identifier for this result, 1-64 bytes
+	string               game_short_name = 3; //  Short name of the game
+	InlineKeyboardMarkup reply_markup    = 4; //  Optional. Inline keyboard attached to the message
+}
+
+// Represents a link to a photo stored on the Telegram servers. By default, this photo will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the photo.
+message InlineQueryResultCachedPhoto {
+	string               type                  = 1; //  Type of the result, must be photo
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               photo_file_id         = 3; //  A valid file identifier of the photo
+	string               title                 = 4; //  Optional. Title for the result
+	string               description           = 5; //  Optional. Short description of the result
+	string               caption               = 6; //  Optional. Caption of the photo to be sent, 0-1024 characters
+	string               parse_mode            = 7; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 8; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 9; //  Optional. Content of the message to be sent instead of the photo
+}
+
+// Represents a link to an animated GIF file stored on the Telegram servers. By default, this animated GIF file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with specified content instead of the animation.
+message InlineQueryResultCachedGif {
+	string               type                  = 1; //  Type of the result, must be gif
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               gif_file_id           = 3; //  A valid file identifier for the GIF file
+	string               title                 = 4; //  Optional. Title for the result
+	string               caption               = 5; //  Optional. Caption of the GIF file to be sent, 0-1024 characters
+	string               parse_mode            = 6; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 7; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 8; //  Optional. Content of the message to be sent instead of the GIF animation
+}
+
+// Represents a link to a video animation (H.264/MPEG-4 AVC video without sound) stored on the Telegram servers. By default, this animated MPEG-4 file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the animation.
+message InlineQueryResultCachedMpeg4Gif {
+	string               type                  = 1; //  Type of the result, must be mpeg4_gif
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               mpeg4_file_id         = 3; //  A valid file identifier for the MP4 file
+	string               title                 = 4; //  Optional. Title for the result
+	string               caption               = 5; //  Optional. Caption of the MPEG-4 file to be sent, 0-1024 characters
+	string               parse_mode            = 6; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 7; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 8; //  Optional. Content of the message to be sent instead of the video animation
+}
+
+// Represents a link to a sticker stored on the Telegram servers. By default, this sticker will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the sticker.
+// Note: This will only work in Telegram versions released after 9 April, 2016 for static stickers and after 06 July, 2019 for animated stickers. Older clients will ignore them.
+message InlineQueryResultCachedSticker {
+	string               type                  = 1; //  Type of the result, must be sticker
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               sticker_file_id       = 3; //  A valid file identifier of the sticker
+	InlineKeyboardMarkup reply_markup          = 4; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 5; //  Optional. Content of the message to be sent instead of the sticker
+}
+
+// Represents a link to a file stored on the Telegram servers. By default, this file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the file.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message InlineQueryResultCachedDocument {
+	string               type                  = 1; //  Type of the result, must be document
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               title                 = 3; //  Title for the result
+	string               document_file_id      = 4; //  A valid file identifier for the file
+	string               description           = 5; //  Optional. Short description of the result
+	string               caption               = 6; //  Optional. Caption of the document to be sent, 0-1024 characters
+	string               parse_mode            = 7; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 8; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 9; //  Optional. Content of the message to be sent instead of the file
+}
+
+// Represents a link to a video file stored on the Telegram servers. By default, this video file will be sent by the user with an optional caption. Alternatively, you can use input_message_content to send a message with the specified content instead of the video.
+message InlineQueryResultCachedVideo {
+	string               type                  = 1; //  Type of the result, must be video
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               video_file_id         = 3; //  A valid file identifier for the video file
+	string               title                 = 4; //  Title for the result
+	string               description           = 5; //  Optional. Short description of the result
+	string               caption               = 6; //  Optional. Caption of the video to be sent, 0-1024 characters
+	string               parse_mode            = 7; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 8; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 9; //  Optional. Content of the message to be sent instead of the video
+}
+
+// Represents a link to a voice message stored on the Telegram servers. By default, this voice message will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the voice message.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message InlineQueryResultCachedVoice {
+	string               type                  = 1; //  Type of the result, must be voice
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               voice_file_id         = 3; //  A valid file identifier for the voice message
+	string               title                 = 4; //  Voice message title
+	string               caption               = 5; //  Optional. Caption, 0-1024 characters
+	string               parse_mode            = 6; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 7; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 8; //  Optional. Content of the message to be sent instead of the voice message
+}
+
+// Represents a link to an mp3 audio file stored on the Telegram servers. By default, this audio file will be sent by the user. Alternatively, you can use input_message_content to send a message with the specified content instead of the audio.
+// Note: This will only work in Telegram versions released after 9 April, 2016. Older clients will ignore them.
+message InlineQueryResultCachedAudio {
+	string               type                  = 1; //  Type of the result, must be audio
+	string               id                    = 2; //  Unique identifier for this result, 1-64 bytes
+	string               audio_file_id         = 3; //  A valid file identifier for the audio file
+	string               caption               = 4; //  Optional. Caption, 0-1024 characters
+	string               parse_mode            = 5; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in the media caption.
+	InlineKeyboardMarkup reply_markup          = 6; //  Optional. Inline keyboard attached to the message
+	InputMessageContent  input_message_content = 7; //  Optional. Content of the message to be sent instead of the audio
+}
+
+// This object represents the content of a message to be sent as a result of an inline query. Telegram clients currently support the following 4 types:
+// InputTextMessageContent
+// InputLocationMessageContent
+// InputVenueMessageContent
+// InputContactMessageContent
+message InputMessageContent {
+}
+
+// Represents the content of a text message to be sent as the result of an inline query.
+message InputTextMessageContent {
+	string message_text             = 1; //  Text of the message to be sent, 1-4096 characters
+	string parse_mode               = 2; //  Optional. Send em or em, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message.
+	bool   disable_web_page_preview = 3; //  Optional. Disables link previews for links in the sent message
+}
+
+// Represents the content of a location message to be sent as the result of an inline query.
+message InputLocationMessageContent {
+	int64 latitude    = 1; //  Latitude of the location in degrees
+	int64 longitude   = 2; //  Longitude of the location in degrees
+	int32 live_period = 3; //  Optional. Period in seconds for which the location can be updated, should be between 60 and 86400.
+}
+
+// Represents the content of a venue message to be sent as the result of an inline query.
+message InputVenueMessageContent {
+	int64  latitude        = 1; //  Latitude of the venue in degrees
+	int64  longitude       = 2; //  Longitude of the venue in degrees
+	string title           = 3; //  Name of the venue
+	string address         = 4; //  Address of the venue
+	string foursquare_id   = 5; //  Optional. Foursquare identifier of the venue, if known
+	string foursquare_type = 6; //  Optional. Foursquare type of the venue, if known. (For example, “arts_entertainment/default”, “arts_entertainment/aquarium” or “food/icecream”.)
+}
+
+// Represents the content of a contact message to be sent as the result of an inline query.
+message InputContactMessageContent {
+	string phone_number = 1; //  Contact's phone number
+	string first_name   = 2; //  Contact's first name
+	string last_name    = 3; //  Optional. Contact's last name
+	string vcard        = 4; //  Optional. Additional data about the contact in the form of a vCard, 0-2048 bytes
+}
+
+// Represents a result of an inline query that was chosen by the user and sent to their chat partner.
+// Note: It is necessary to enable inline feedback via @Botfather in order to receive these objects in updates.
+message ChosenInlineResult {
+	string   result_id         = 1; //  The unique identifier for the result that was chosen
+	User     from              = 2; //  The user that chose the result
+	Location location          = 3; //  Optional. Sender location, only for bots that require user location
+	string   inline_message_id = 4; //  Optional. Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.
+	string   query             = 5; //  The query that was used to obtain the result
+}
+
+// Your bot can accept payments from Telegram users. Please see the introduction to payments for more details on the process and how to set up payments for your bot. Please note that users will need Telegram v.4.0 or higher to use payments (released on May 18, 2017).
 // If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the Bot API will send an Update with a shipping_query field to the bot. Use this method to reply to shipping queries. On success, True is returned.
 message answerShippingQuery {
 	string                  shipping_query_id = 1; //  Unique identifier for the query to be answered
@@ -468,7 +894,7 @@ message answerPreCheckoutQuery {
 // This object represents a portion of the price for goods or services.
 message LabeledPrice {
 	string label  = 1; //  Portion label
-	int32  amount = 2; //  Price of the product in the smallest units of the currency (integer,  float/double). For example, for a price of  pass . See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	int32  amount = 2; //  Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 }
 
 // This object contains basic information about an invoice.
@@ -477,7 +903,7 @@ message Invoice {
 	string description     = 2; //  Product description
 	string start_parameter = 3; //  Unique bot deep-linking parameter that can be used to generate this invoice
 	string currency        = 4; //  Three-letter ISO 4217 currency code
-	int32  total_amount    = 5; //  Total price in the smallest units of the currency (integer,  float/double). For example, for a price of  pass . See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	int32  total_amount    = 5; //  Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 }
 
 // This object represents a shipping address.
@@ -508,7 +934,7 @@ message ShippingOption {
 // This object contains basic information about a successful payment.
 message SuccessfulPayment {
 	string    currency                   = 1; //  Three-letter ISO 4217 currency code
-	int32     total_amount               = 2; //  Total price in the smallest units of the currency (integer,  float/double). For example, for a price of  pass . See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	int32     total_amount               = 2; //  Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	string    invoice_payload            = 3; //  Bot specified invoice payload
 	string    shipping_option_id         = 4; //  Optional. Identifier of the shipping option chosen by the user
 	OrderInfo order_info                 = 5; //  Optional. Order info provided by the user
@@ -529,12 +955,13 @@ message PreCheckoutQuery {
 	string    id                 = 1; //  Unique query identifier
 	User      from               = 2; //  User who sent the query
 	string    currency           = 3; //  Three-letter ISO 4217 currency code
-	int32     total_amount       = 4; //  Total price in the smallest units of the currency (integer,  float/double). For example, for a price of  pass . See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	int32     total_amount       = 4; //  Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	string    invoice_payload    = 5; //  Bot specified invoice payload
 	string    shipping_option_id = 6; //  Optional. Identifier of the shipping option chosen by the user
 	OrderInfo order_info         = 7; //  Optional. Order info provided by the user
 }
 
+// Telegram Passport is a unified authorization method for services that require personal identification. Users can upload their documents once, then instantly share their data with services that require real-world ID (finance, ICOs, etc.). Please see the manual for details.
 // Contains information about Telegram Passport data shared with the bot by the user.
 message PassportData {
 	repeated EncryptedPassportElement data        = 1; //  Array with information about documents and other Telegram Passport elements that was shared with the bot
@@ -570,6 +997,15 @@ message EncryptedCredentials {
 }
 
 // This object represents an error in the Telegram Passport element which was submitted that should be resolved by the user. It should be one of:
+// PassportElementErrorDataField
+// PassportElementErrorFrontSide
+// PassportElementErrorReverseSide
+// PassportElementErrorSelfie
+// PassportElementErrorFile
+// PassportElementErrorFiles
+// PassportElementErrorTranslationFile
+// PassportElementErrorTranslationFiles
+// PassportElementErrorUnspecified
 message PassportElementError {
 }
 
@@ -646,6 +1082,7 @@ message PassportElementErrorUnspecified {
 	string message      = 4; //  Error message
 }
 
+// Your bot can offer users HTML5 games to play solo or to compete against each other in groups and one-on-one chats. Create games via @BotFather using the /newgame command. Please note that this kind of power requires responsibility: you will need to accept the terms for each game that your bots will be offering.
 // This object represents a game. Use BotFather to create and edit games, their short names will act as unique identifiers.
 message Game {
 	string                 title         = 1; //  Title of the game
@@ -677,3 +1114,20 @@ message ReplyMarkup {
 		ForceReply			 ForceReply			  = 4;
 	}
 }
+
+// This object represents the content of a media message to be sent. It should be one of
+// InputMediaAnimation
+// InputMediaDocument
+// InputMediaAudio
+// InputMediaPhoto
+// InputMediaVideo
+message InputMedia {
+	oneof InputMedia {
+		InputMediaAnimation InputMediaAnimation = 1;
+		InputMediaDocument  InputMediaDocument  = 2;
+		InputMediaAudio     InputMediaAudio     = 3;
+		InputMediaPhoto     InputMediaPhoto     = 4;
+		InputMediaVideo     InputMediaVideo     = 5;
+	}
+}
+

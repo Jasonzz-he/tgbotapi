@@ -16,6 +16,7 @@ import (
 var ps = make([]*ProtoFile, 0)
 
 type ProtoFile struct {
+	Comment          []string
 	ModelName        string
 	ProtoMessageList []*ProtoMessage
 	ProtoRPCList     []*ProtoRPC
@@ -119,7 +120,7 @@ func getProtoType(protoType string) string {
 	case "InputFile or String":
 		return "string"
 	case "Integer or String":
-		return "int32"
+		return "string"
 	case "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply":
 		return "ReplyMarkup"
 	case "Array of InputMediaPhoto and InputMediaVideo":
@@ -150,7 +151,7 @@ func (p *ProtoField) GetProtoNameLen() int {
 
 func (p *ProtoFile) AddMessageComment(isMethod bool, comment ...string) {
 	if (isMethod && p.curRPC == nil) || (!isMethod && p.curMessage == nil) {
-		log.Println("// ", comment)
+		p.Comment = append(p.Comment, comment...)
 		return
 	}
 	if isMethod {
